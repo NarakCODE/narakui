@@ -4,13 +4,13 @@ import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   BufferingIndicator,
-  MuxVideo,
   Video,
   VideoPlayer,
   VideoSkin,
+  YouTubeVideo,
 } from '@/components/ui/video-player';
 
-const DEMO_PLAYBACK_ID = 'BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM';
+const DEMO_YOUTUBE_URL = 'https://youtu.be/hX9S94XsySk?si=Zv6Tdz3OiAAhGlnd';
 
 export function VideoPlayerLoadingExample() {
   return (
@@ -25,7 +25,7 @@ export function VideoPlayerBufferingExample() {
     <div inert className="w-96 max-w-full">
       <VideoPlayer>
         <VideoSkin className="aspect-video w-full">
-          <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline />
+          <YouTubeVideo src={DEMO_YOUTUBE_URL} />
           <BufferingIndicator className="grid" />
         </VideoSkin>
       </VideoPlayer>

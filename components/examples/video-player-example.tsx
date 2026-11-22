@@ -2,13 +2,13 @@
 
 import {
   ChaptersTrack,
-  MuxVideo,
   Title,
   VideoPlayer,
   VideoSkin,
+  YouTubeVideo,
 } from '@/components/ui/video-player';
 
-const DEMO_PLAYBACK_ID = 'BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM';
+const DEMO_YOUTUBE_URL = 'https://youtu.be/hX9S94XsySk?si=Zv6Tdz3OiAAhGlnd';
 
 const CHAPTERS = [
   { startTime: 0, title: 'Introduction' },
@@ -21,9 +21,9 @@ export function VideoPlayerExample() {
   return (
     <VideoPlayer title="Demo video">
       <VideoSkin className="aspect-video w-160 max-w-full">
-        <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline>
+        <YouTubeVideo src={DEMO_YOUTUBE_URL}>
           <ChaptersTrack chapters={CHAPTERS} />
-        </MuxVideo>
+        </YouTubeVideo>
         <Title description="Hover the timeline to inspect chapters or open settings." />
       </VideoSkin>
     </VideoPlayer>

@@ -3,13 +3,13 @@
 import { useState } from 'react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import {
-  MuxVideo,
   Title,
   VideoPlayer,
   VideoSkin,
+  YouTubeVideo,
 } from '@/components/ui/video-player';
 
-const DEMO_PLAYBACK_ID = 'BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM';
+const DEMO_YOUTUBE_URL = 'https://youtu.be/hX9S94XsySk?si=Zv6Tdz3OiAAhGlnd';
 
 const LOCALES = [
   {
@@ -65,7 +65,7 @@ export function VideoPlayerLocaleExample() {
       <div className="w-160 max-w-full">
         <VideoPlayer title={active.title}>
           <VideoSkin className="aspect-video w-full" locale={locale}>
-            <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline />
+            <YouTubeVideo src={DEMO_YOUTUBE_URL} />
             <Title description={active.description} />
           </VideoSkin>
         </VideoPlayer>

@@ -1,19 +1,19 @@
 'use client';
 
 import {
-  MuxVideo,
   Title,
   VideoPlayer,
   VideoSkin,
+  YouTubeVideo,
 } from '@/components/ui/video-player';
 
-const DEMO_PLAYBACK_ID = 'BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM';
+const DEMO_YOUTUBE_URL = 'https://youtu.be/hX9S94XsySk?si=Zv6Tdz3OiAAhGlnd';
 
 export function VideoPlayerTitleExample() {
   return (
     <VideoPlayer title="Demo video">
       <VideoSkin className="aspect-video w-120 max-w-full">
-        <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline />
+        <YouTubeVideo src={DEMO_YOUTUBE_URL} />
         <Title description="A second line under the title." />
       </VideoSkin>
     </VideoPlayer>
@@ -24,7 +24,7 @@ export function VideoPlayerFullscreenTitleExample() {
   return (
     <VideoPlayer title="Demo video">
       <VideoSkin className="aspect-video w-120 max-w-full">
-        <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline />
+        <YouTubeVideo src={DEMO_YOUTUBE_URL} />
         <Title
           description="This title shows only in fullscreen."
           visibility="fullscreen"

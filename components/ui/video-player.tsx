@@ -393,6 +393,137 @@ export interface VideoPlayerFeedback {
   label: string;
 }
 
+export interface VideoExternalBridge {
+  play: () => void;
+  pause: () => void;
+  seek: (time: number) => void;
+  setVolume: (volume: number) => void;
+  setMuted: (muted: boolean) => void;
+  setPlaybackRate: (rate: number) => void;
+}
+
+export interface VideoExternalStatePatch {
+  playing?: boolean;
+  started?: boolean;
+  ended?: boolean;
+  waiting?: boolean;
+  error?: string | null;
+  currentTime?: number;
+  duration?: number;
+  bufferedEnd?: number;
+  volume?: number;
+  muted?: boolean;
+  playbackRate?: number;
+}
+
+interface VideoYTPlayerInstance {
+  playVideo: () => void;
+  pauseVideo: () => void;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  setVolume: (volume: number) => void;
+  getVolume: () => number;
+  mute: () => void;
+  unMute: () => void;
+  isMuted: () => boolean;
+  setPlaybackRate: (suggestedRate: number) => void;
+  getPlaybackRate: () => number;
+  getCurrentTime: () => number;
+  getDuration: () => number;
+  getVideoLoadedFraction: () => number;
+  getPlayerState: () => number;
+  getIframe: () => HTMLIFrameElement | null;
+  destroy: () => void;
+}
+
+interface VideoYTNamespace {
+  Player: new (
+    element: HTMLElement,
+    options: {
+      videoId: string;
+      width?: number | string;
+      height?: number | string;
+      playerVars?: Record<string, number | string>;
+      events?: {
+        onReady?: (event: { target: VideoYTPlayerInstance }) => void;
+        onStateChange?: (event: { data: number; target: VideoYTPlayerInstance }) => void;
+        onPlaybackRateChange?: (event: { data: number; target: VideoYTPlayerInstance }) => void;
+        onError?: (event: { data: number; target: VideoYTPlayerInstance }) => void;
+      };
+    },
+  ) => VideoYTPlayerInstance;
+  PlayerState: {
+    UNSTARTED: -1;
+    ENDED: 0;
+    PLAYING: 1;
+    PAUSED: 2;
+    BUFFERING: 3;
+    CUED: 5;
+  };
+}
+
+let videoYtApiPromise: Promise<VideoYTNamespace> | null = null;
+
+function extractVideoYouTubeId(src?: string | null): string | null {
+  if (typeof src !== 'string' || !src) return null;
+  const trimmed = src.trim();
+  if (/^[A-Za-z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  const match = trimmed.match(
+    /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([A-Za-z0-9_-]{11})/,
+  );
+  return match ? match[1] : null;
+}
+
+function extractVideoStartTime(src?: string | null): number {
+  if (typeof src !== 'string' || !src) return 0;
+  const match = src.match(/[?&#](?:t|start)=(\d+)s?/i);
+  return match ? Number(match[1]) || 0 : 0;
+}
+
+function loadYouTubeVideoIframeApi(): Promise<VideoYTNamespace> {
+  if (typeof window === 'undefined') {
+    return Promise.reject(new Error('YouTube IFrame API requires a browser environment.'));
+  }
+  const win = window as unknown as {
+    YT?: VideoYTNamespace;
+    onYouTubeIframeAPIReady?: () => void;
+  };
+  if (win.YT && win.YT.Player) {
+    return Promise.resolve(win.YT);
+  }
+  if (videoYtApiPromise) {
+    return videoYtApiPromise;
+  }
+
+  videoYtApiPromise = new Promise<VideoYTNamespace>((resolve, reject) => {
+    const previousReady = win.onYouTubeIframeAPIReady;
+    win.onYouTubeIframeAPIReady = () => {
+      previousReady?.();
+      if (win.YT && win.YT.Player) {
+        resolve(win.YT);
+      } else {
+        videoYtApiPromise = null;
+        reject(new Error('YouTube IFrame API failed to initialize.'));
+      }
+    };
+
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      'script[src="https://www.youtube.com/iframe_api"]',
+    );
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.async = true;
+      script.onerror = () => {
+        videoYtApiPromise = null;
+        reject(new Error('Failed to load YouTube IFrame API script.'));
+      };
+      document.head.appendChild(script);
+    }
+  });
+
+  return videoYtApiPromise;
+}
+
 export interface VideoPlayerState {
   title: string | null;
   poster: string | null;
@@ -427,6 +558,7 @@ export interface VideoPlayerState {
   seek: (time: number) => void;
   skip: (deltaSeconds: number) => void;
   setVolume: (volume: number) => void;
+  setMuted: (muted: boolean) => void;
   toggleMute: () => void;
   setPlaybackRate: (rate: number) => void;
   cyclePlaybackRate: (direction?: 1 | -1) => void;
@@ -441,6 +573,8 @@ export interface VideoPlayerState {
   setChapters: (chapters: VideoChapter[]) => void;
   setMediaPoster: (poster: string | null) => void;
   bindVideoElement: (el: HTMLVideoElement | null) => void;
+  bindExternalBridge: (bridge: VideoExternalBridge | null) => void;
+  updateExternalState: (patch: VideoExternalStatePatch) => void;
   bindContainerElement: (el: HTMLDivElement | null) => void;
   showFeedback: (feedback: Omit<VideoPlayerFeedback, 'id'>) => void;
   notifyError: () => void;
@@ -563,6 +697,25 @@ export function VideoPlayer({
   currentTimeRef.current = currentTime;
   const bufferedEndRef = React.useRef(bufferedEnd);
   bufferedEndRef.current = bufferedEnd;
+  const externalBridgeRef = React.useRef<VideoExternalBridge | null>(null);
+
+  const bindExternalBridge = React.useCallback((bridge: VideoExternalBridge | null) => {
+    externalBridgeRef.current = bridge;
+  }, []);
+
+  const updateExternalState = React.useCallback((patch: VideoExternalStatePatch) => {
+    if (patch.playing !== undefined) setPlaying(patch.playing);
+    if (patch.started !== undefined) setStarted(patch.started);
+    if (patch.ended !== undefined) setEnded(patch.ended);
+    if (patch.waiting !== undefined) setWaiting(patch.waiting);
+    if (patch.error !== undefined) setError(patch.error);
+    if (patch.currentTime !== undefined) setCurrentTime(patch.currentTime);
+    if (patch.duration !== undefined) setDuration(patch.duration);
+    if (patch.bufferedEnd !== undefined) setBufferedEnd(patch.bufferedEnd);
+    if (patch.volume !== undefined) setVolumeState(patch.volume);
+    if (patch.muted !== undefined) setMutedState(patch.muted);
+    if (patch.playbackRate !== undefined) setPlaybackRateState(patch.playbackRate);
+  }, []);
 
   const feedbackTimerRef = React.useRef<number | null>(null);
   const feedbackIdRef = React.useRef(0);
@@ -718,7 +871,12 @@ export function VideoPlayer({
   }, [videoEl, t.error]);
 
   const play = React.useCallback(async () => {
-    if (error || !videoEl) return;
+    if (error) return;
+    if (externalBridgeRef.current) {
+      externalBridgeRef.current.play();
+      return;
+    }
+    if (!videoEl) return;
     try {
       await videoEl.play();
     } catch {
@@ -727,20 +885,40 @@ export function VideoPlayer({
   }, [videoEl, error, t.error]);
 
   const pause = React.useCallback(() => {
+    if (externalBridgeRef.current) {
+      externalBridgeRef.current.pause();
+      return;
+    }
     videoEl?.pause();
   }, [videoEl]);
 
   const togglePlay = React.useCallback(() => {
-    if (error || !videoEl) return;
+    if (error) return;
+    if (externalBridgeRef.current) {
+      if (playing) {
+        externalBridgeRef.current.pause();
+      } else {
+        externalBridgeRef.current.play();
+      }
+      return;
+    }
+    if (!videoEl) return;
     if (videoEl.paused) {
       void play();
     } else {
       pause();
     }
-  }, [videoEl, error, play, pause]);
+  }, [videoEl, error, play, pause, playing]);
 
   const seek = React.useCallback(
     (time: number) => {
+      if (externalBridgeRef.current) {
+        const clamped = Math.max(0, duration > 0 ? Math.min(time, duration) : time);
+        externalBridgeRef.current.seek(clamped);
+        setCurrentTime(clamped);
+        setEnded(false);
+        return;
+      }
       if (!videoEl) return;
       const max = Number.isFinite(videoEl.duration) ? videoEl.duration : duration;
       const clamped = Math.max(0, max > 0 ? Math.min(time, max) : time);
@@ -753,6 +931,15 @@ export function VideoPlayer({
 
   const skip = React.useCallback(
     (deltaSeconds: number) => {
+      if (externalBridgeRef.current) {
+        seek(currentTimeRef.current + deltaSeconds);
+        showFeedback({
+          kind: 'seek',
+          direction: deltaSeconds >= 0 ? 'forward' : 'backward',
+          label: `${Math.abs(deltaSeconds)}s`,
+        });
+        return;
+      }
       if (!videoEl) return;
       seek((videoEl.currentTime || 0) + deltaSeconds);
       showFeedback({
@@ -768,6 +955,14 @@ export function VideoPlayer({
     (nextVolume: number) => {
       const clamped = Math.max(0, Math.min(1, nextVolume));
       setVolumeState(clamped);
+      if (externalBridgeRef.current) {
+        externalBridgeRef.current.setVolume(clamped);
+        if (clamped > 0 && muted) {
+          externalBridgeRef.current.setMuted(false);
+          setMutedState(false);
+        }
+        return;
+      }
       if (videoEl) {
         videoEl.volume = clamped;
         if (clamped > 0 && videoEl.muted) {
@@ -776,10 +971,34 @@ export function VideoPlayer({
         }
       }
     },
+    [videoEl, muted],
+  );
+
+  const setMuted = React.useCallback(
+    (nextMuted: boolean) => {
+      setMutedState(nextMuted);
+      if (externalBridgeRef.current) {
+        externalBridgeRef.current.setMuted(nextMuted);
+        return;
+      }
+      if (videoEl) {
+        videoEl.muted = nextMuted;
+      }
+    },
     [videoEl],
   );
 
   const toggleMute = React.useCallback(() => {
+    if (externalBridgeRef.current) {
+      const nextMuted = !muted;
+      externalBridgeRef.current.setMuted(nextMuted);
+      setMutedState(nextMuted);
+      showFeedback({
+        kind: 'volume',
+        label: nextMuted ? '0%' : `${Math.round(volume * 100)}%`,
+      });
+      return;
+    }
     if (!videoEl) {
       setMutedState((prev) => !prev);
       return;
@@ -790,11 +1009,15 @@ export function VideoPlayer({
       kind: 'volume',
       label: videoEl.muted ? '0%' : `${Math.round(videoEl.volume * 100)}%`,
     });
-  }, [videoEl, showFeedback]);
+  }, [videoEl, muted, volume, showFeedback]);
 
   const setPlaybackRate = React.useCallback(
     (rate: number) => {
       setPlaybackRateState(rate);
+      if (externalBridgeRef.current) {
+        externalBridgeRef.current.setPlaybackRate(rate);
+        return;
+      }
       if (videoEl) {
         videoEl.playbackRate = rate;
       }
@@ -897,6 +1120,7 @@ export function VideoPlayer({
       seek,
       skip,
       setVolume,
+      setMuted,
       toggleMute,
       setPlaybackRate,
       cyclePlaybackRate,
@@ -911,6 +1135,8 @@ export function VideoPlayer({
       setChapters,
       setMediaPoster,
       bindVideoElement: setVideoEl,
+      bindExternalBridge,
+      updateExternalState,
       bindContainerElement: setContainerEl,
       showFeedback,
       notifyError,
@@ -946,12 +1172,15 @@ export function VideoPlayer({
       seek,
       skip,
       setVolume,
+      setMuted,
       toggleMute,
       setPlaybackRate,
       cyclePlaybackRate,
       toggleCaptions,
       toggleFullscreen,
       togglePiP,
+      bindExternalBridge,
+      updateExternalState,
       showFeedback,
       notifyError,
     ],
@@ -984,11 +1213,12 @@ export interface VideoProps extends React.ComponentProps<'video'> {
   mediaRef?: React.Ref<HTMLVideoElement>;
 }
 
-/** Renders the native `<video>` media source and binds it to `<VideoPlayer>`. */
+/** Renders the native `<video>` media source (or YouTube IFrame bridge for YouTube URLs) and binds it to `<VideoPlayer>`. */
 export function Video({
   ref,
   mediaRef,
   className,
+  src,
   preload = 'metadata',
   playsInline = true,
   onError,
@@ -996,10 +1226,12 @@ export function Video({
   ...props
 }: VideoProps) {
   const ctx = React.useContext(VideoPlayerContext);
+  const bindVideoElement = ctx?.bindVideoElement;
+  const youtubeId = typeof src === 'string' ? extractVideoYouTubeId(src) : null;
 
   const setRefs = React.useCallback(
     (node: HTMLVideoElement | null) => {
-      ctx?.bindVideoElement(node);
+      bindVideoElement?.(node);
       for (const target of [ref, mediaRef]) {
         if (typeof target === 'function') {
           target(node);
@@ -1008,13 +1240,22 @@ export function Video({
         }
       }
     },
-    [ctx, ref, mediaRef],
+    [bindVideoElement, ref, mediaRef],
   );
+
+  if (youtubeId && typeof src === 'string') {
+    return (
+      <YouTubeVideo src={src} className={className}>
+        {children}
+      </YouTubeVideo>
+    );
+  }
 
   return (
     <video
       data-slot="video-media"
       ref={setRefs}
+      src={src}
       preload={preload}
       playsInline={playsInline}
       onError={(event) => {
@@ -1026,6 +1267,291 @@ export function Video({
     >
       {children}
     </video>
+  );
+}
+
+export interface YouTubeVideoProps extends Omit<React.ComponentProps<'div'>, 'children'> {
+  /** YouTube URL (`youtu.be/...` or `youtube.com/watch?v=...`) or 11-character video ID. */
+  src?: string;
+  /** Direct 11-character YouTube video ID (alternative to `src`). */
+  videoId?: string;
+  /** Optional start time in seconds (also parsed from `?t=` / `&start=` in `src`). */
+  startTime?: number;
+  /** Optional child tracks such as `<ChaptersTrack />`. */
+  children?: React.ReactNode;
+}
+
+/** Embeds a YouTube video driven by Rakfound's custom `<VideoSkin>` controls via the YouTube IFrame API. */
+export function YouTubeVideo({
+  src,
+  videoId,
+  startTime,
+  className,
+  children,
+  ...props
+}: YouTubeVideoProps) {
+  const ctx = React.useContext(VideoPlayerContext);
+  const bindVideoElement = ctx?.bindVideoElement;
+  const bindExternalBridge = ctx?.bindExternalBridge;
+  const updateExternalState = ctx?.updateExternalState;
+  const setMediaPoster = ctx?.setMediaPoster;
+  const notifyError = ctx?.notifyError;
+
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const resolvedId = extractVideoYouTubeId(videoId ?? src);
+  const initialStartSeconds = startTime ?? extractVideoStartTime(src);
+  const resolvedPoster = resolvedId
+    ? `https://i.ytimg.com/vi/${resolvedId}/maxresdefault.jpg`
+    : null;
+
+  React.useEffect(() => {
+    setMediaPoster?.(resolvedPoster);
+    return () => setMediaPoster?.(null);
+  }, [setMediaPoster, resolvedPoster]);
+
+  React.useEffect(() => {
+    if (!resolvedId || !bindVideoElement || !bindExternalBridge || !updateExternalState) {
+      return;
+    }
+
+    bindVideoElement(null);
+    updateExternalState({
+      currentTime: initialStartSeconds,
+      playing: false,
+      started: false,
+      ended: false,
+      waiting: false,
+      error: null,
+    });
+
+    let cancelled = false;
+    let player: VideoYTPlayerInstance | null = null;
+    let ready = false;
+    let pendingPlay = false;
+    let hasPlayedOrSeeked = false;
+    let pollTimer: number | null = null;
+
+    const desiredState = {
+      volume: 1,
+      muted: false,
+      playbackRate: 1,
+    };
+
+    const stopPolling = () => {
+      if (pollTimer !== null) {
+        window.clearInterval(pollTimer);
+        pollTimer = null;
+      }
+    };
+
+    const syncMetrics = (target: VideoYTPlayerInstance) => {
+      try {
+        const rawCur = target.getCurrentTime?.() ?? 0;
+        const cur =
+          !hasPlayedOrSeeked && initialStartSeconds > 0 && rawCur < initialStartSeconds
+            ? initialStartSeconds
+            : rawCur;
+        const dur = target.getDuration?.() ?? 0;
+        const frac = target.getVideoLoadedFraction?.() ?? 0;
+        updateExternalState({
+          currentTime: cur,
+          ...(dur > 0 ? { duration: dur, bufferedEnd: frac * dur } : {}),
+        });
+      } catch {
+        // Ignore transient YouTube IFrame postMessage errors
+      }
+    };
+
+    const startPolling = (target: VideoYTPlayerInstance) => {
+      stopPolling();
+      syncMetrics(target);
+      pollTimer = window.setInterval(() => syncMetrics(target), 200);
+    };
+
+    const bridge: VideoExternalBridge = {
+      play: () => {
+        if (ready && player) {
+          updateExternalState({ waiting: true, error: null, started: true, ended: false });
+          if (!hasPlayedOrSeeked && initialStartSeconds > 0) {
+            player.seekTo(initialStartSeconds, true);
+          }
+          hasPlayedOrSeeked = true;
+          player.playVideo();
+        } else {
+          pendingPlay = true;
+          updateExternalState({ waiting: true, error: null, started: true, ended: false });
+        }
+      },
+      pause: () => {
+        pendingPlay = false;
+        if (ready && player) {
+          player.pauseVideo();
+        }
+        updateExternalState({ playing: false, waiting: false });
+      },
+      seek: (time: number) => {
+        hasPlayedOrSeeked = true;
+        if (ready && player) {
+          player.seekTo(time, true);
+          syncMetrics(player);
+        }
+      },
+      setVolume: (vol: number) => {
+        desiredState.volume = vol;
+        if (ready && player) {
+          player.setVolume(Math.round(vol * 100));
+        }
+      },
+      setMuted: (nextMuted: boolean) => {
+        desiredState.muted = nextMuted;
+        if (ready && player) {
+          if (nextMuted) {
+            player.mute();
+          } else {
+            player.unMute();
+          }
+        }
+      },
+      setPlaybackRate: (rate: number) => {
+        desiredState.playbackRate = rate;
+        if (ready && player) {
+          player.setPlaybackRate(rate);
+        }
+      },
+    };
+
+    bindExternalBridge(bridge);
+
+    loadYouTubeVideoIframeApi()
+      .then((YT) => {
+        if (cancelled || !containerRef.current) return;
+        const mountTarget = document.createElement('div');
+        containerRef.current.replaceChildren(mountTarget);
+
+        player = new YT.Player(mountTarget, {
+          videoId: resolvedId,
+          width: '100%',
+          height: '100%',
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            iv_load_policy: 3,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0,
+            ...(initialStartSeconds > 0 ? { start: Math.floor(initialStartSeconds) } : {}),
+          },
+          events: {
+            onReady: (event) => {
+              if (cancelled) return;
+              ready = true;
+              const iframe = event.target.getIframe?.();
+              if (iframe) {
+                iframe.setAttribute('tabindex', '-1');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.pointerEvents = 'none';
+                iframe.style.border = '0';
+              }
+              event.target.setVolume(Math.round(desiredState.volume * 100));
+              if (desiredState.muted) {
+                event.target.mute();
+              } else {
+                event.target.unMute();
+              }
+              if (desiredState.playbackRate !== 1) {
+                event.target.setPlaybackRate(desiredState.playbackRate);
+              }
+              syncMetrics(event.target);
+              if (pendingPlay) {
+                pendingPlay = false;
+                if (!hasPlayedOrSeeked && initialStartSeconds > 0) {
+                  event.target.seekTo(initialStartSeconds, true);
+                }
+                hasPlayedOrSeeked = true;
+                event.target.playVideo();
+              }
+            },
+            onStateChange: (event) => {
+              if (cancelled) return;
+              const state = event.data;
+              if (state === YT.PlayerState.PLAYING) {
+                hasPlayedOrSeeked = true;
+                updateExternalState({
+                  playing: true,
+                  started: true,
+                  ended: false,
+                  waiting: false,
+                  error: null,
+                });
+                startPolling(event.target);
+              } else if (state === YT.PlayerState.BUFFERING) {
+                updateExternalState({ waiting: true });
+                syncMetrics(event.target);
+              } else if (state === YT.PlayerState.PAUSED) {
+                stopPolling();
+                updateExternalState({ playing: false, waiting: false });
+                syncMetrics(event.target);
+              } else if (state === YT.PlayerState.ENDED) {
+                stopPolling();
+                syncMetrics(event.target);
+                updateExternalState({ playing: false, waiting: false, ended: true });
+              } else if (state === YT.PlayerState.CUED) {
+                syncMetrics(event.target);
+              }
+            },
+            onPlaybackRateChange: (event) => {
+              if (cancelled) return;
+              updateExternalState({ playbackRate: event.data });
+            },
+            onError: () => {
+              if (cancelled) return;
+              stopPolling();
+              notifyError?.();
+            },
+          },
+        });
+      })
+      .catch(() => {
+        if (!cancelled) {
+          notifyError?.();
+        }
+      });
+
+    return () => {
+      cancelled = true;
+      stopPolling();
+      bindExternalBridge(null);
+      try {
+        player?.destroy();
+      } catch {
+        // Ignore teardown errors
+      }
+    };
+  }, [
+    resolvedId,
+    initialStartSeconds,
+    bindVideoElement,
+    bindExternalBridge,
+    updateExternalState,
+    notifyError,
+  ]);
+
+  return (
+    <div
+      data-slot="video-media"
+      data-source="youtube"
+      className={cn('relative size-full overflow-hidden bg-black', className)}
+      {...props}
+    >
+      <div
+        ref={containerRef}
+        className="pointer-events-none size-full [&_iframe]:size-full"
+      />
+      {children}
+    </div>
   );
 }
 
@@ -1045,6 +1571,7 @@ export function MuxVideo({
   ...props
 }: MuxVideoProps) {
   const ctx = React.useContext(VideoPlayerContext);
+  const setMediaPoster = ctx?.setMediaPoster;
   const resolvedId = playbackId ?? source?.playbackId;
   const resolvedSrc =
     src ?? (resolvedId ? `https://stream.mux.com/${resolvedId}/highest.mp4` : undefined);
@@ -1053,29 +1580,33 @@ export function MuxVideo({
     : null;
 
   React.useEffect(() => {
-    ctx?.setMediaPoster(resolvedPoster);
-    return () => ctx?.setMediaPoster(null);
-  }, [ctx, resolvedPoster]);
+    setMediaPoster?.(resolvedPoster);
+    return () => setMediaPoster?.(null);
+  }, [setMediaPoster, resolvedPoster]);
 
   return <Video src={resolvedSrc} crossOrigin={crossOrigin} {...props} />;
 }
 
 /** Plays an HLS manifest URL (uses native HLS when supported, with Mux MP4 fallback for Mux URLs). */
 export function HlsJsVideo({ src, ...props }: VideoProps) {
+  const [supportsNativeHls, setSupportsNativeHls] = React.useState(false);
+
+  React.useEffect(() => {
+    const probe = document.createElement('video');
+    if (probe.canPlayType('application/vnd.apple.mpegurl')) {
+      setSupportsNativeHls(true);
+    }
+  }, []);
+
   const resolvedSrc = React.useMemo(() => {
     if (typeof src !== 'string' || !src) return src;
-    if (typeof document !== 'undefined') {
-      const probe = document.createElement('video');
-      if (probe.canPlayType('application/vnd.apple.mpegurl')) {
-        return src;
-      }
-    }
+    if (supportsNativeHls) return src;
     const muxMatch = src.match(/^https:\/\/stream\.mux\.com\/([^/.]+)\.m3u8/);
     if (muxMatch) {
       return `https://stream.mux.com/${muxMatch[1]}/highest.mp4`;
     }
     return src;
-  }, [src]);
+  }, [src, supportsNativeHls]);
 
   return <Video src={resolvedSrc} {...props} />;
 }
@@ -1107,13 +1638,14 @@ export interface ChaptersTrackProps {
 /** Registers chapter segments on the video timeline. Render as a child of the media component. */
 export function ChaptersTrack({ chapters }: ChaptersTrackProps) {
   const ctx = React.useContext(VideoPlayerContext);
+  const setChapters = ctx?.setChapters;
 
   React.useEffect(() => {
-    if (!ctx) return;
+    if (!setChapters) return;
     const sorted = [...chapters].sort((a, b) => a.startTime - b.startTime);
-    ctx.setChapters(sorted);
-    return () => ctx.setChapters([]);
-  }, [ctx, chapters]);
+    setChapters(sorted);
+    return () => setChapters([]);
+  }, [setChapters, chapters]);
 
   return null;
 }
@@ -1144,8 +1676,8 @@ export function UserPreferences({
     if (saved.volume !== undefined) {
       ctx.setVolume(saved.volume);
     }
-    if (saved.muted !== undefined && ctx.videoElement) {
-      ctx.videoElement.muted = saved.muted;
+    if (saved.muted !== undefined) {
+      ctx.setMuted(saved.muted);
     }
     if (saved.playbackRate !== undefined) {
       ctx.setPlaybackRate(saved.playbackRate);
@@ -1506,6 +2038,12 @@ export function Poster({ renderImage, className }: PosterProps) {
       src={poster}
       alt=""
       aria-hidden={!visible}
+      onError={(event) => {
+        const img = event.currentTarget;
+        if (img.src.endsWith('/maxresdefault.jpg')) {
+          img.src = img.src.replace('/maxresdefault.jpg', '/hqdefault.jpg');
+        }
+      }}
       className={imgClassName}
     />
   );
@@ -2363,42 +2901,43 @@ export function VideoSkin({
   ...props
 }: VideoSkinProps) {
   const ctx = usePlayerControls();
+  const { playing, setLocale, setControlsVisible } = ctx;
   const hideTimerRef = React.useRef<number | null>(null);
   const clickTimerRef = React.useRef<number | null>(null);
   const lastTapRef = React.useRef<number>(0);
 
   React.useEffect(() => {
-    ctx.setLocale(locale);
-  }, [ctx, locale]);
+    setLocale(locale);
+  }, [setLocale, locale]);
 
   const scheduleHideControls = React.useCallback(() => {
     if (hideTimerRef.current !== null) {
       window.clearTimeout(hideTimerRef.current);
       hideTimerRef.current = null;
     }
-    if (ctx.playing) {
+    if (playing) {
       hideTimerRef.current = window.setTimeout(() => {
-        ctx.setControlsVisible(false);
+        setControlsVisible(false);
       }, 2400);
     }
-  }, [ctx]);
+  }, [playing, setControlsVisible]);
 
   const revealControls = React.useCallback(() => {
-    ctx.setControlsVisible(true);
+    setControlsVisible(true);
     scheduleHideControls();
-  }, [ctx, scheduleHideControls]);
+  }, [setControlsVisible, scheduleHideControls]);
 
   React.useEffect(() => {
-    if (!ctx.playing) {
+    if (!playing) {
       if (hideTimerRef.current !== null) {
         window.clearTimeout(hideTimerRef.current);
         hideTimerRef.current = null;
       }
-      ctx.setControlsVisible(true);
+      setControlsVisible(true);
     } else {
       scheduleHideControls();
     }
-  }, [ctx, ctx.playing, scheduleHideControls]);
+  }, [playing, setControlsVisible, scheduleHideControls]);
 
   React.useEffect(() => {
     return () => {

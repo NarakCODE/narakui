@@ -48,7 +48,7 @@ import { Title, Video, VideoPlayer, VideoSkin } from '@/components/ui/video-play
 | --- | --- | --- |
 | Player | `VideoPlayer` | Playback state for everything inside it. Takes `title` and `poster`, renders no UI. |
 | Skin | `VideoSkin` | The interface: control bar, poster, loading and error states, shortcuts, gestures. |
-| Media | `Video`, `HlsJsVideo`, `MuxVideo` | The source. Renders the media element and nothing else. |
+| Media | `Video`, `YouTubeVideo`, `HlsJsVideo`, `MuxVideo` | The source. Renders the media element (or YouTube IFrame bridge) and nothing else. |
 | Tracks | `ChaptersTrack` | Extra data for the media. Render it as a child of the media. |
 | Additions | `Title`, `TimedSlot`, `UpNext`, `UserPreferences` | Optional overlays and behavior. Render them inside the skin. |
 

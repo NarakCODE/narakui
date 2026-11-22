@@ -3,18 +3,17 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
-  MuxVideo,
   TimedSlot,
   Title,
   UpNext,
   usePlayer,
   VideoPlayer,
   VideoSkin,
+  YouTubeVideo,
 } from '@/components/ui/video-player';
 
-const DEMO_PLAYBACK_ID = 'BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM';
-const UP_NEXT_THUMB =
-  'https://image.mux.com/BV3YZtogl89mg9VcNBhhnHm02Y34zI1nlMuMQfAbl3dM/animated.gif?width=320&start=4&end=8';
+const DEMO_YOUTUBE_URL = 'https://youtu.be/hX9S94XsySk?si=Zv6Tdz3OiAAhGlnd';
+const UP_NEXT_THUMB = 'https://i.ytimg.com/vi/hX9S94XsySk/hqdefault.jpg';
 
 function SkipIntroButton() {
   const player = usePlayer();
@@ -51,7 +50,7 @@ export function VideoPlayerPromptExample() {
     <div className="flex w-full flex-col items-center gap-4">
       <VideoPlayer key={videoNumber} title={`Video ${videoNumber}`}>
         <VideoSkin className="aspect-video w-160 max-w-full">
-          <MuxVideo playbackId={DEMO_PLAYBACK_ID} playsInline />
+          <YouTubeVideo src={DEMO_YOUTUBE_URL} />
           <Title description="A badge and skip button show between 0:05 and 0:35. Up next appears 10 seconds before the end." />
           <TimedSlot start={5} end={35} placement="top-end" transitionIn="fade">
             <span className="rounded-md bg-bg-tooltip px-2.5 py-1 text-body-small-medium text-text-tooltip">
