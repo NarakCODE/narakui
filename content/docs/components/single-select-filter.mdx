@@ -1,0 +1,72 @@
+---
+title: Single-select Filter
+description: A filter chip for toolbars where exactly one option is always chosen.
+---
+
+import { SingleSelectFilterBasicExample } from '@/components/examples/single-select-filter-basic';
+import { SingleSelectFilterDefaultValueExample } from '@/components/examples/single-select-filter-default-value';
+import { SingleSelectFilterIconsExample } from '@/components/examples/single-select-filter-icons';
+
+## Basic usage
+
+Pass `label`, `items`, the controlled `value`, and `onChange`. The chip shows the label and the chosen option, and the menu marks it with a check. Picking a row closes the menu. There is no search, empty state, or select all; use Multi-select Filter when people can pick several values or clear the filter.
+
+<ComponentPreview file="components/examples/single-select-filter-basic.tsx">
+  <SingleSelectFilterBasicExample />
+</ComponentPreview>
+
+## Default value
+
+Pass `defaultValue` for the option that means no filter, such as all stages or the default sort. At that value the chip is a dashed button with `label` and `iconStart`. Any other value shows the label, the chosen option, and an X that returns to `defaultValue`.
+
+<ComponentPreview file="components/examples/single-select-filter-default-value.tsx">
+  <SingleSelectFilterDefaultValueExample />
+</ComponentPreview>
+
+## Icons and size
+
+`renderItemStart` adds an icon to each row. Use `size="small"` in compact toolbars and tables.
+
+<ComponentPreview file="components/examples/single-select-filter-icons.tsx">
+  <SingleSelectFilterIconsExample />
+</ComponentPreview>
+
+## Usage
+
+`items` needs at least one entry, and `value`, `defaultValue`, and `onChange` are typed to its ids. A `value` that matches no item shows the first item. Use `align="end"` when the chip sits at the trailing edge of a toolbar.
+
+```tsx
+import { SingleSelectFilter } from '@/components/ui/single-select-filter';
+```
+
+```tsx
+<SingleSelectFilter
+  label="Sort"
+  items={[
+    { id: 'newest', name: 'Newest first' },
+    { id: 'name', name: 'Name' },
+  ]}
+  value={sort}
+  defaultValue="newest"
+  onChange={setSort}
+/>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` (Required) | `string` | `—` | Name of the filter, shown on the chip. |
+| `items` (Required) | `readonly [SingleSelectFilterItem, ...SingleSelectFilterItem[]]` | `—` | Options, each `{ id, name }`. Needs at least one. |
+| `value` (Required) | `Items[number]['id']` | `—` | Id of the chosen option. |
+| `onChange` (Required) | `(id: Items[number]['id']) => void` | `—` | Called with the id of the picked option. |
+| `defaultValue` | `Items[number]['id']` | `—` | Option that means no filter. At this value the chip is dashed; otherwise it shows an X that returns here. |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the menu opens or closes. |
+| `iconStart` | `SingleSelectFilterIconValue` | `—` | Icon on the dashed chip at `defaultValue`. |
+| `renderItemStart` | `(item: Items[number]) => SingleSelectFilterIconValue` | `—` | Icon or avatar before each row's label. |
+| `renderItemLabel` | `(item: Items[number]) => ReactNode` | `—` | Replaces each row's label in the menu. |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Chip size. Use `small` in compact toolbars and tables. |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Alignment of the menu relative to the chip. |
+| `disabled` | `boolean` | `false` | Disables the chip. |
+| `withRadixPortal` | `boolean` | `true` | Renders the menu in a portal. Set to `false` inside a dialog. |
+| `className` | `string` | `—` | Classes for the outer wrapper. |

@@ -1,0 +1,162 @@
+---
+title: Dropdown Menu
+description: A dropdown menu component for displaying a list of actions or options.
+---
+
+import { DropdownBasic } from '@/components/examples/dropdown-basic';
+import { DropdownWithButtonTrigger } from '@/components/examples/dropdown-button-trigger';
+import { DropdownGroups } from '@/components/examples/dropdown-groups';
+
+## Actions
+
+A row or card menu behind an icon button. Give an icon-only trigger an `aria-label`, and use `start` for item icons.
+
+<ComponentPreview file="components/examples/dropdown-basic.tsx">
+  <DropdownBasic />
+</ComponentPreview>
+
+## Groups, options, and submenus
+
+`Label` titles a group. `RadioGroup` picks one value; `CheckboxItem` toggles several and shows an `"only"` shortcut on hover. Call `event.preventDefault()` in `onSelect` to keep the menu open while toggling. `Sub` nests a menu.
+
+<ComponentPreview file="components/examples/dropdown-groups.tsx">
+  <DropdownGroups />
+</ComponentPreview>
+
+## Button trigger
+
+`buttonWithChevron` renders a small button with a chevron that flips while the menu is open. Pass the label as `children` and `iconStart` for an icon.
+
+<ComponentPreview file="components/examples/dropdown-button-trigger.tsx">
+  <DropdownWithButtonTrigger />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Dropdown } from '@/components/ui/dropdown-menu';
+
+<Dropdown.Root>
+  <Dropdown.Trigger asChild>
+    <Button>Open menu</Button>
+  </Dropdown.Trigger>
+  <Dropdown.Content>
+    <Dropdown.Item>Item 1</Dropdown.Item>
+    <Dropdown.Item>Item 2</Dropdown.Item>
+  </Dropdown.Content>
+</Dropdown.Root>
+```
+
+`Dropdown.Root` is non-modal by default. Inside a drawer or a modal dialog it is always modal, so a long menu can still scroll.
+
+Use `Dropdown.RadioGroup` and `Dropdown.RadioItem` when the rows are alternatives and exactly one is chosen. The chosen row shows a check.
+
+```tsx
+<Dropdown.RadioGroup value={sort} onValueChange={setSort}>
+  <Dropdown.RadioItem value="newest">Newest</Dropdown.RadioItem>
+  <Dropdown.RadioItem value="oldest">Oldest</Dropdown.RadioItem>
+</Dropdown.RadioGroup>
+```
+
+Nest a submenu with `Dropdown.Sub`, `Dropdown.SubTrigger` and `Dropdown.SubContent`.
+
+```tsx
+<Dropdown.Sub>
+  <Dropdown.SubTrigger startIcon="share">Share</Dropdown.SubTrigger>
+  <Dropdown.SubContent>
+    <Dropdown.Item start="link">Copy link</Dropdown.Item>
+  </Dropdown.SubContent>
+</Dropdown.Sub>
+```
+
+## Dropdown.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Controlled open state of the dropdown |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the open state changes |
+| `modal` | `boolean` | `false` | Traps focus and blocks the page behind the menu. Always true inside a drawer or a modal dialog |
+
+## Dropdown.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Merges the trigger behavior into its child element |
+| `buttonWithChevron` | `boolean` | `false` | Renders the trigger as a `Button` with a chevron that flips while the menu is open |
+| `fullSizeAndButtonWithChevronToTheRight` | `boolean` | `false` | Renders a `Button` with a truncated label on the left and the chevron on the right |
+| `iconStart` | `IconValue` | `—` | Icon before the label in the two `Button` variants |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `—` | Button size in the two `Button` variants. `buttonWithChevron` defaults to `small` |
+
+## Dropdown.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred side of the trigger to render against |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment of the content relative to the trigger |
+| `sideOffset` | `number` | `10` | Distance in pixels from the trigger |
+| `alignOffset` | `number` | `0` | Offset in pixels along the alignment axis |
+| `size` | `number` | `249` | Minimum width of the menu in pixels |
+| `fullWidth` | `boolean` | `false` | Uses the trigger's width as the minimum width instead of `size` |
+| `withPortal` | `boolean` | `true` | Whether to render content in a portal |
+| `portalContainer` | `HTMLElement` | `—` | Container element for the portal |
+| `pinnedBottom` | `ReactNode` | `—` | Content pinned to the bottom of the menu, with the rows above it scrolling |
+| `restoreTriggerFocus` | `boolean` | `false` | Return focus to the trigger when the menu closes, except after an outside click |
+| `submenusGrowUpward` | `boolean` | `false` | Opens every nested submenu upward, so its last row lines up with the row that opened it |
+
+## Dropdown.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `start` | `IconValue` | `—` | Icon name, descriptor, or node shown before the label |
+| `end` | `IconValue` | `—` | Icon name, descriptor, or node shown at the end of the row |
+| `onSelect` | `(event: Event) => void` | `—` | Called when the item is chosen. Call `event.preventDefault()` to keep the menu open |
+| `href` | `string` | `—` | Renders the item as a link |
+| `target` | `string` | `—` | Target attribute for link items |
+| `rel` | `string` | `—` | Rel attribute for link items |
+| `disabled` | `boolean` | `false` | Whether the item is disabled |
+| `disabledReason` | `string` | `—` | Tooltip on a disabled item that explains why it is disabled |
+| `disableTooltip` | `boolean` | `false` | Turns off the tooltip that shows a truncated label in full |
+| `tooltipSide` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` | Side of the truncated-label tooltip |
+
+## Dropdown.CheckboxItem Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean \| 'indeterminate'` | `false` | Whether the row is checked |
+| `onCheckedChange` | `(checked: boolean) => void` | `—` | Called when the row is toggled |
+| `showOnlyButton` | `boolean` | `true` | Shows an `'only'` button on hover |
+| `onOnlyClick` | `() => void` | `—` | Called when the `'only'` button is clicked |
+| `childrenClassName` | `string` | `—` | Classes for the label wrapper. Replaces the default `truncate` |
+
+## Dropdown.RadioGroup and Dropdown.RadioItem Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `—` | On `RadioGroup`, the chosen value. On `RadioItem`, the value this row stands for (required) |
+| `onValueChange` | `(value: string) => void` | `—` | `RadioGroup` only. Called with the value of the chosen row |
+| `start` | `IconValue` | `—` | `RadioItem` only. Icon name, descriptor, or node shown before the label |
+| `disableTooltip` | `boolean` | `false` | `RadioItem` only. Turns off the tooltip that shows a truncated label in full |
+| `tooltipSide` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` | `RadioItem` only. Side of the truncated-label tooltip |
+| `childrenClassName` | `string` | `—` | `RadioItem` only. Classes for the label |
+
+## Submenu Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `Dropdown.Sub` | `{ open?: boolean; defaultOpen?: boolean; onOpenChange?: (open: boolean) => void }` | `—` | Container for a nested submenu |
+| `startIcon` | `IconValue` | `—` | `SubTrigger` only. Icon shown before the label |
+| `hideChevron` | `boolean` | `false` | `SubTrigger` only. Hides the trailing chevron |
+| `pinnedBottom` | `ReactNode` | `—` | `SubContent` only. Content pinned to the bottom of the submenu, with the rows above it scrolling |
+| `sideOffset` | `number` | `0` | `SubContent` only. Distance in pixels from the sub-trigger |
+| `alignOffset` | `number` | `-4` | `SubContent` only. Offset in pixels along the alignment axis |
+
+## Other Parts
+
+| Part | Type | Description |
+| --- | --- | --- |
+| `Dropdown.Label` | `ComponentPropsWithoutRef<typeof Label>` | Heading for a group of rows. Takes `size`: `'small'` or `'medium'` (default) |
+| `Dropdown.Group` | `ComponentPropsWithoutRef<typeof Group>` | Groups related rows |
+| `Dropdown.Separator` | `ComponentPropsWithoutRef<typeof Separator>` | Line between rows |
+| `Dropdown.Shortcut` | `KbdProps` | Keyboard shortcut badge pinned to the end of a row |
+| `Dropdown.Portal` | `ComponentPropsWithoutRef<typeof Portal>` | The portal `Content` renders into unless `withPortal` is `false` |

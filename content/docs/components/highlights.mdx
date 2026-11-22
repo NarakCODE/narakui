@@ -1,0 +1,68 @@
+---
+title: Highlights
+description: Display key metrics with a title, a large value, and an optional statistic.
+---
+
+import { HighlightsBasic } from '@/components/examples/highlights-basic';
+import { HighlightsGridExample } from '@/components/examples/highlights-grid';
+import { HighlightsLoading } from '@/components/examples/highlights-loading';
+
+## Basic usage
+
+Place highlights in a `HighlightsGrid`. The grid draws the card surface and the dividers between cells, so a `Highlights` is not meant to be used on its own. Pass a `Statistic` as `statisticProps` to show the change next to the value.
+
+<ComponentPreview file="components/examples/highlights-basic.tsx">
+  <HighlightsBasic />
+</ComponentPreview>
+
+## Multiple rows
+
+Children wrap onto new rows after `columns` items. The grid draws dividers between cells, with none after the last column or row. `tooltipContent` adds an info tooltip next to the title.
+
+<ComponentPreview file="components/examples/highlights-grid.tsx">
+  <HighlightsGridExample />
+</ComponentPreview>
+
+## Loading
+
+Set `isLoading` on the grid to show skeletons in every cell, or on a single `Highlights`. The statistic skeleton only renders when `statisticProps` is set. Size the skeletons with `bigValueSkeletonWidth` and the related props.
+
+<ComponentPreview file="components/examples/highlights-loading.tsx">
+  <HighlightsLoading />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Highlights, HighlightsGrid } from '@/components/ui/highlights';
+
+<HighlightsGrid columns={2}>
+  <Highlights title="Visibility score" bigValue="42.8%" endIcon="eye" />
+  <Highlights title="Citations" bigValue={12480} endIcon="link" />
+</HighlightsGrid>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` (Required) | `string` | `—` | The title of the highlights box |
+| `bigValue` | `string \| number` | `—` | The primary value. Numbers are formatted with `toLocaleString` |
+| `endIcon` | `IconValue` | `—` | An icon name, a `{ name, variant?, className?, label? }` descriptor, or a node |
+| `statisticProps` | `ReactNode` | `—` | The statistic to show below the big value |
+| `isLoading` | `boolean` | `false` | Whether the component is in a loading state |
+| `tooltipContent` | `ReactNode` | `—` | Content for an info tooltip next to the title. No tooltip icon renders without it |
+| `bigValueSkeletonWidth` | `string` | `'60px'` | Width of the big value skeleton when loading |
+| `bigValueSkeletonHeight` | `string` | `'24px'` | Height of the big value skeleton when loading |
+| `statisticSkeletonWidth` | `string` | `'32px'` | Width of the statistic skeleton when loading |
+| `statisticSkeletonHeight` | `string` | `'16px'` | Height of the statistic skeleton when loading |
+| `className` | `string` | `—` | Additional CSS classes to apply to the highlights container |
+
+## HighlightsGrid Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` (Required) | `ReactNode` | `—` | `Highlights` components to display in the grid |
+| `columns` | `number` | `4` | Number of columns in the grid layout, from `1` to `6` |
+| `isLoading` | `boolean` | `—` | When set, overrides `isLoading` on every child |
+| `className` | `string` | `—` | Additional CSS classes to apply to the grid container |

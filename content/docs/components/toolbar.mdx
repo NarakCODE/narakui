@@ -1,0 +1,81 @@
+---
+title: Toolbar
+description: A row of related controls that the keyboard reaches as one stop and moves through with the arrow keys.
+---
+
+import { ToolbarFormatting } from '@/components/examples/toolbar-formatting';
+import { ToolbarBulkActions } from '@/components/examples/toolbar-bulk-actions';
+import { ToolbarWithField } from '@/components/examples/toolbar-with-field';
+
+## Formatting toolbar
+
+Wrap each control in `Toolbar.Item`. Tab moves focus into the toolbar once, and the left and right arrow keys move between items, wrapping at the ends. `Toolbar.Separator` divides groups of actions.
+
+Pass `disabled` to `Toolbar.Item` rather than to the button inside it, so the arrow keys skip the item. For on and off controls, set `aria-pressed` on the button.
+
+<ComponentPreview file="components/examples/toolbar-formatting.tsx">
+  <ToolbarFormatting />
+</ComponentPreview>
+
+## Bulk actions
+
+`Toolbar.Root` is unstyled apart from a small gap, so it can sit on any surface. Here it fills a [Card](/docs/components/card) that appears while table rows are selected. Plain text, such as the selection count, can sit between items without joining the arrow-key sequence.
+
+<ComponentPreview file="components/examples/toolbar-bulk-actions.tsx">
+  <ToolbarBulkActions />
+</ComponentPreview>
+
+## With a text field
+
+`Toolbar.Field` adds an [Input](/docs/components/input) to the arrow-key sequence. While the field has focus, the left and right arrow keys move the caret first and only leave the field from its start or end.
+
+<ComponentPreview file="components/examples/toolbar-with-field.tsx">
+  <ToolbarWithField />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Toolbar } from '@/components/ui/toolbar';
+
+<Toolbar.Root aria-label="Slide editing">
+  <Toolbar.Item>
+    <Button mode="ghost" iconStart="arrow-left" aria-label="Undo" onClick={undo} />
+  </Toolbar.Item>
+  <Toolbar.Separator />
+  <Toolbar.Item disabled={!canRedo}>
+    <Button mode="ghost" iconStart="arrow-right" aria-label="Redo" onClick={redo} />
+  </Toolbar.Item>
+</Toolbar.Root>;
+```
+
+## Toolbar.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `—` | Accessible name of the toolbar, such as `Text formatting` |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Which arrow keys move focus. It does not change the layout |
+| `loop` | `boolean` | `true` | Whether arrow-key focus wraps from the last item to the first |
+| `dir` | `'ltr' \| 'rtl'` | `—` | Reading direction used for left and right arrow keys |
+| `className` | `string` | `—` | Additional classes for the toolbar. Other div props are passed through |
+
+## Toolbar.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactElement` | Required | A single button-like element, usually a `Button`. It receives the toolbar's focus handling |
+| `disabled` | `boolean` | `false` | Disables the child and removes it from the arrow-key sequence |
+
+## Toolbar.Field Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactElement<InputProps>` | Required | A single `Input`. Its own focus, blur and key handlers still run |
+| `disabled` | `boolean` | `false` | Removes the field from the arrow-key sequence |
+
+## Toolbar.Separator Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | `—` | Additional classes for the vertical divider, such as a taller `h-6` next to regular buttons |

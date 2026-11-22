@@ -1,0 +1,77 @@
+---
+title: Radio Group
+description: A set of mutually exclusive options where only one can be selected at a time.
+---
+
+import { RadioGroupDefault } from '@/components/examples/radio-group-default';
+import { RadioGroupHorizontal } from '@/components/examples/radio-group-horizontal';
+import { RadioGroupDisabled } from '@/components/examples/radio-group-disabled';
+import { RadioGroupReadOnly } from '@/components/examples/radio-group-read-only';
+
+## Default
+
+Vertical by default. Control it with `value` and `onValueChange`, or let it manage itself with `defaultValue`. Name the group with `aria-label` or `aria-labelledby` so screen readers announce what the choice is for.
+
+<ComponentPreview file="components/examples/radio-group-default.tsx">
+  <RadioGroupDefault />
+</ComponentPreview>
+
+## Horizontal
+
+<ComponentPreview file="components/examples/radio-group-horizontal.tsx">
+  <RadioGroupHorizontal />
+</ComponentPreview>
+
+## Disabled
+
+Disable a single item, or the whole group with `disabled` on `RadioGroup`.
+
+<ComponentPreview file="components/examples/radio-group-disabled.tsx">
+  <RadioGroupDisabled />
+</ComponentPreview>
+
+## Read only
+
+Keeps the selected appearance but ignores clicks and keyboard focus.
+
+<ComponentPreview file="components/examples/radio-group-read-only.tsx">
+  <RadioGroupReadOnly />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+
+<RadioGroup aria-label="Report frequency" defaultValue="weekly">
+  <RadioGroupItem value="daily">Daily</RadioGroupItem>
+  <RadioGroupItem value="weekly">Weekly</RadioGroupItem>
+  <RadioGroupItem value="monthly">Monthly</RadioGroupItem>
+</RadioGroup>
+```
+
+## RadioGroup Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `—` | Controlled selected value. |
+| `defaultValue` | `string` | `—` | Initial selected value when uncontrolled. |
+| `onValueChange` | `(value: string) => void` | `—` | Called when the selected value changes. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout direction of the items. |
+| `disabled` | `boolean` | `false` | Disables every item. |
+| `className` | `string` | `—` | Additional classes for the group. |
+
+## RadioGroupItem Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` (required) | `—` | Value submitted when this item is selected. |
+| `children` | `ReactNode` | `—` | Label rendered next to the radio control. |
+| `disabled` | `boolean` | `false` | Disables this item. |
+| `readOnly` | `boolean` | `false` | Prevents interaction while keeping the current appearance. |
+| `selectedIcon` | `ReactNode` | `—` | Replaces the default dot shown in the selected state. |
+| `disableHover` | `boolean` | `false` | Removes all hover feedback. |
+| `disablePadding` | `boolean` | `false` | Removes the row padding. Hover then darkens the empty radio's border instead of filling a background. |
+| `className` | `string` | `—` | Additional classes for the row. |
+| `radioClassName` | `string` | `—` | Additional classes for the radio control. |
+| `childrenWrapperClassName` | `string` | `—` | Additional classes for the element that wraps the label. |

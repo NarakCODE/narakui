@@ -1,0 +1,90 @@
+---
+title: Pill & Tag
+description: Small label components for displaying status, tags, or labels.
+---
+
+import { PillBasic } from '@/components/examples/pill-tag-pill-basic';
+import { TagBasic } from '@/components/examples/pill-tag-tag-basic';
+import { TagColors } from '@/components/examples/pill-tag-tag-colors';
+import { TagSizes } from '@/components/examples/pill-tag-tag-sizes';
+import { TagWithIcons } from '@/components/examples/pill-tag-tag-with-icons';
+
+## Pill
+
+A single line of text with a predefined text color. It has no background and a fixed height.
+
+### Basic
+
+Leave `color` unset to inherit the surrounding text color.
+
+<ComponentPreview file="components/examples/pill-tag-pill-basic.tsx">
+  <PillBasic />
+</ComponentPreview>
+
+## Tag
+
+A rounded container for categorizing, labeling, or highlighting content. It has no color of its own; set background and text colors with `className`.
+
+### Basic
+
+A neutral fill and an outline. Product tags use `text-body-mini-regular`.
+
+<ComponentPreview file="components/examples/pill-tag-tag-basic.tsx">
+  <TagBasic />
+</ComponentPreview>
+
+### Colors
+
+Pair a muted `bg-bg-*` fill with the matching `text-text-*` color.
+
+<ComponentPreview file="components/examples/pill-tag-tag-colors.tsx">
+  <TagColors />
+</ComponentPreview>
+
+### Sizes
+
+`Tag` has no `size` prop. Set the type token and padding with `className`.
+
+<ComponentPreview file="components/examples/pill-tag-tag-sizes.tsx">
+  <TagSizes />
+</ComponentPreview>
+
+### With icons
+
+Pass an icon as a child. `Tag` lays out its children in a row.
+
+<ComponentPreview file="components/examples/pill-tag-tag-with-icons.tsx">
+  <TagWithIcons />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Pill, Tag } from '@/components/ui/pill-tag';
+
+// Pill usage
+<Pill value="Cited" color="green" />
+<Pill value="Draft" withPadding={false} />
+
+// Tag usage
+<Tag className="bg-bg-orange text-body-mini-regular text-text-orange">Disabled</Tag>
+<Tag className="border border-fill-quaternary text-body-mini-regular text-text-primary">
+  Product page
+</Tag>
+```
+
+## Pill Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | The text content to display in the pill. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the pill container. |
+| `color` | `'green' \| 'blue' \| 'purple' \| 'orange' \| 'red' \| 'gray'` | `—` | Text color of the pill. Inherits the surrounding text color when unset. |
+| `withPadding` | `boolean` | `true` | Whether to include horizontal padding in the pill. |
+
+## Tag Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | The content to display inside the tag. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the tag, including its colors. |

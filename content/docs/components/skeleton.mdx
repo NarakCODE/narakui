@@ -1,0 +1,103 @@
+---
+title: Skeleton
+description: A loading placeholder component that mimics the structure of content while it loads.
+---
+
+import { SkeletonBasic } from '@/components/examples/skeleton-basic';
+import { SkeletonCard } from '@/components/examples/skeleton-card';
+import { SkeletonComplex } from '@/components/examples/skeleton-complex';
+import { SkeletonNoAnimation } from '@/components/examples/skeleton-no-animation';
+import { SkeletonTextLines } from '@/components/examples/skeleton-text-lines';
+
+## Basic
+
+A skeleton is a block: it fills its container's width and is 24px tall. Set `width` and `height`, or size it with classes. For a line of text, use `SkeletonText`.
+
+<ComponentPreview file="components/examples/skeleton-basic.tsx">
+  <SkeletonBasic />
+</ComponentPreview>
+
+## Text lines
+
+`SkeletonText` stands in for one line of text. It takes the font size and line height of the text around it. Set `width` to about the length of the text it replaces. For a paragraph, use one `SkeletonText` for each line and vary the widths.
+
+<ComponentPreview file="components/examples/skeleton-text-lines.tsx">
+  <SkeletonTextLines />
+</ComponentPreview>
+
+## List row
+
+Match the shape of the row that will load: an avatar, two lines of text, and an action. When the parent does not set the typography of a line, set `variant` to the typography class of the text it replaces.
+
+<ComponentPreview file="components/examples/skeleton-card.tsx">
+  <SkeletonCard />
+</ComponentPreview>
+
+## Metric cards
+
+Keep the final layout in place while the data loads. The metric names are known, so they show as text; only the values are placeholders. `SkeletonGroup` tells screen readers that the content is loading.
+
+<ComponentPreview file="components/examples/skeleton-complex.tsx">
+  <SkeletonComplex />
+</ComponentPreview>
+
+## Animation
+
+Skeletons pulse by default and stop automatically when `prefers-reduced-motion` is enabled. Set `animate={false}` for a static placeholder.
+
+<ComponentPreview file="components/examples/skeleton-no-animation.tsx">
+  <SkeletonNoAnimation />
+</ComponentPreview>
+
+## Guidelines
+
+**Do:**
+- Show the structure of the content that loads: its blocks, rows, and lines. The placeholder does not have to match the final layout exactly.
+- Vary the widths of text lines so that they look like text.
+- Make a paragraph or a card from several skeletons.
+- Show headings, labels, and other text that you know before the data loads as text.
+- Put the skeletons in a `SkeletonGroup` with a `label`, so that screen readers announce that the content is loading.
+
+**Don't:**
+- Change the size of a skeleton while it loads.
+
+## Usage
+
+Skeletons render with `aria-hidden`, so they are not announced individually. `SkeletonGroup` announces its `label` instead.
+
+```tsx
+import { Skeleton, SkeletonGroup, SkeletonText } from '@/components/ui/skeleton';
+
+<SkeletonGroup label="Loading members…">
+  <Skeleton className="size-8 rounded-full" />
+  <SkeletonText width="60%" />
+  <SkeletonText variant="text-body-mini-regular" width="40%" />
+</SkeletonGroup>
+```
+
+## Skeleton Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `width` | `string` | `'100%'` | Width of the skeleton |
+| `height` | `string` | `'24px'` | Height of the skeleton |
+| `className` | `string` | `—` | Additional CSS classes to apply to the skeleton |
+| `animate` | `boolean` | `true` | Whether to show the pulse animation |
+| `style` | `CSSProperties` | `—` | Additional inline styles to apply to the skeleton |
+
+## SkeletonText Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `TypographyClass` | `—` | Typography class of the text that the line stands in for. Omit it to use the font size and line height of the parent |
+| `width` | `string` | `'100%'` | Approximate length of the text, as a CSS width |
+| `animate` | `boolean` | `true` | Whether to show the pulse animation |
+| `className` | `string` | `—` | Layout classes, such as margin or alignment |
+
+## SkeletonGroup Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` (Required) | `string` | `—` | Screen-reader loading announcement for the grouped skeletons |
+| `children` (Required) | `ReactNode` | `—` | Skeleton content rendered inside the group |
+| `className` | `string` | `—` | Additional CSS classes to apply to the group container |

@@ -1,0 +1,194 @@
+---
+title: Combobox
+description: A popover with a searchable list, for picking one value or several.
+---
+
+import { ComboboxGroups } from '@/components/examples/combobox-groups';
+import { ComboboxMultiple } from '@/components/examples/combobox-multiple';
+import { ComboboxSingle } from '@/components/examples/combobox-single';
+import { ComboboxTriggers } from '@/components/examples/combobox-triggers';
+
+## Single selection
+
+Compose `Combobox.Root`, a trigger, and `Combobox.Content` holding a `Combobox.Command`. `Combobox.Input` filters the rows of `Combobox.List` as you type, and `Combobox.Empty` shows when nothing matches. Mark the chosen row with a check in `end` and close the popover in `onSelect`.
+
+Inside a form, use `fullSizeAndButtonWithChevronToTheRight` with `w-full` for a field-sized trigger, and `fullWidth` on the content so the list matches the trigger's width.
+
+<ComponentPreview file="components/examples/combobox-single.tsx">
+  <ComboboxSingle />
+</ComponentPreview>
+
+## Multiple selection
+
+`Combobox.ItemCheckbox` adds a checkbox to the row and keeps the popover open while you toggle. Hovering a row shows an only button; handle it with `onOnlyClick` to select that row alone, or pass `showOnlyButton={false}` to hide it.
+
+A controlled `Combobox.Input` with `onClear` and `clearLabel` shows a clear button once there is a query. Put footer actions after the list behind a `Combobox.Separator` `alwaysRender`, so the divider stays while the list is filtered.
+
+<ComponentPreview file="components/examples/combobox-multiple.tsx">
+  <ComboboxMultiple />
+</ComponentPreview>
+
+## Groups
+
+`Combobox.Group` takes a `heading`. Search hides a group once none of its rows match. Add the group name to each row's `keywords` so searching for the group finds its rows.
+
+<ComponentPreview file="components/examples/combobox-groups.tsx">
+  <ComboboxGroups />
+</ComponentPreview>
+
+## Trigger variants
+
+`buttonWithChevron` renders a compact button with a chevron that flips while the list is open; pass `mode="ghost"` for an inline switcher in a header. Short lists can skip the input; pass `shouldFilter={false}` to `Combobox.Command` when there is nothing to filter. With `asChild`, any button opens the list, which suits actions such as adding a person.
+
+<ComponentPreview file="components/examples/combobox-triggers.tsx">
+  <ComboboxTriggers />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Combobox } from '@/components/ui/combobox';
+
+<Combobox.Root open={open} onOpenChange={setOpen}>
+  <Combobox.Trigger buttonWithChevron>{selectedLabel}</Combobox.Trigger>
+  <Combobox.Content align="start">
+    <Combobox.Command>
+      <Combobox.Input placeholder="Search" autoFocus />
+      <Combobox.List>
+        <Combobox.Empty>No results found</Combobox.Empty>
+        <Combobox.Group>
+          <Combobox.Item value="chatgpt" onSelect={() => setOpen(false)}>
+            ChatGPT
+          </Combobox.Item>
+        </Combobox.Group>
+      </Combobox.List>
+    </Combobox.Command>
+  </Combobox.Content>
+</Combobox.Root>
+```
+
+Search matches each row's `value` and `keywords`. When results come from the server, pass `shouldFilter={false}` to `Combobox.Command`, control the input with `value` and `onValueChange`, and render only the rows you get back. While they load, set `loading` on `Combobox.Input` to swap the search icon for a spinner, or render `Combobox.Loading` inside the list.
+
+`Combobox.Root` is non-modal by default. Inside a drawer or a modal dialog it switches to modal automatically, so a long list can still scroll.
+
+`Combobox.Item` with `href` renders a link row; Enter and click both navigate.
+
+## Combobox.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Controlled open state of the popover |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the open state changes |
+| `modal` | `boolean` | `false` | Traps focus and blocks the page behind the list. Always true inside a drawer or a modal dialog |
+
+## Combobox.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Merges the trigger behavior into its child element, such as a `Button` |
+| `buttonWithChevron` | `boolean` | `false` | Renders a `Button` with a chevron that flips while the list is open |
+| `fullSizeAndButtonWithChevronToTheRight` | `boolean` | `false` | Renders a field-style `Button` with a truncated label on the left and the chevron on the right |
+| `iconStart` | `IconValue` | `—` | Button variants only. Icon name, descriptor, or node before the label |
+| `customIconEnd` | `IconValue` | `—` | Button variants only. Replaces the chevron |
+| `hideChevron` | `boolean` | `false` | Button variants only. Hides the chevron |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `—` | Button variants only. `buttonWithChevron` defaults to `small`, the full-size variant to `regular` |
+| `mode` | `ButtonMode` | `'secondary'` | Button variants only. Button style, such as `ghost` or `dashed` |
+| `loading` | `{ isLoading: boolean }` | `—` | Button variants only. The full-size variant shows a spinner in place of the chevron and is disabled |
+| `disabled` | `boolean` | `false` | Whether the trigger is disabled |
+| `childrenClassName` | `string` | `—` | Full-size variant only. Classes for the label wrapper |
+| `contentClassName` | `string` | `—` | Button variants only. Classes for the Button's inner content |
+
+## Combobox.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `number` | `249` | Minimum width of the popover in pixels |
+| `fullWidth` | `boolean` | `false` | Uses the trigger's width as the minimum width instead of `size` |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment of the popover relative to the trigger |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred side of the trigger to render against |
+| `sideOffset` | `number` | `10` | Distance in pixels from the trigger |
+| `alignOffset` | `number` | `0` | Offset in pixels along the alignment axis |
+| `withRadixPortal` | `boolean` | `true` | Renders the popover in a portal. Set to `false` to render it in place |
+| `portalProps` | `PopoverPortalProps` | `—` | Props for the portal, such as `container` |
+| `animateClose` | `boolean` | `true` | Fades the popover out on close. Turn off when picking an option shifts the layout underneath |
+
+## Combobox.Command Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `shouldFilter` | `boolean` | `true` | Filters and sorts rows by the input's query. Set to `false` when you filter the rows yourself |
+| `filter` | `(value: string, search: string, keywords?: string[]) => number` | `—` | Custom ranking. Return `0` to hide a row, higher numbers to rank it first |
+| `loop` | `boolean` | `true` | Arrow keys wrap from the last row to the first |
+| `value` | `string` | `—` | Controlled value of the highlighted row |
+| `onValueChange` | `(value: string) => void` | `—` | Called when the highlighted row changes |
+| `label` | `string` | `—` | Accessible label for the command menu |
+
+## Combobox.Input Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `placeholder` | `string` | `—` | Placeholder text |
+| `value` | `string` | `—` | Controlled query |
+| `onValueChange` | `(search: string) => void` | `—` | Called when the query changes |
+| `loading` | `boolean` | `false` | Shows a spinner in place of the search icon |
+| `onClear` | `() => void` | `—` | Shows a clear button while `value` is not empty. Requires `clearLabel` |
+| `clearLabel` | `string` | `—` | Accessible label for the clear button. Required with `onClear` |
+| `classNameWrapper` | `string` | `—` | Classes for the row that holds the icon and the input |
+
+## Combobox.List Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `height` | `number \| string` | `300` | Maximum height before the list scrolls. Numbers are pixels; strings are any CSS length |
+
+## Combobox.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `—` | Unique value used for search and highlighting. Defaults to the row's text |
+| `keywords` | `string[]` | `—` | Extra terms that match the row in search |
+| `onSelect` | `(value: string) => void` | `—` | Called when the row is clicked or chosen with Enter |
+| `disabled` | `boolean` | `false` | Whether the row is disabled |
+| `start` | `IconValue` | `—` | Icon name, descriptor, or node before the label |
+| `end` | `IconValue` | `—` | Icon name, descriptor, or node at the end of the row, such as a check for the chosen row |
+| `href` | `string` | `—` | Renders the row as a link. Enter and click both navigate |
+| `prefetch` | `boolean` | `true` | With `href`. Forwarded to Next.js Link |
+| `onNavigate` | `() => void` | `—` | With `href`. Called as the row starts navigating in this tab |
+| `disableTooltip` | `boolean` | `false` | Turns off the tooltip that shows a truncated label in full |
+| `tooltipSide` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'right'` | Side of the truncated-label tooltip |
+| `childrenClassName` | `string` | `—` | Classes for the label wrapper |
+
+## Combobox.ItemCheckbox Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` (Required) | `boolean` | `—` | Whether the row is checked |
+| `onSelect` | `(value: string) => void` | `—` | Called when the row is toggled |
+| `showOnlyButton` | `boolean` | `true` | Shows an only button on hover |
+| `onOnlyClick` | `() => void` | `—` | Called when the only button is clicked |
+| `checkboxDisabledReason` | `string` | `—` | Locks the checkbox and explains why in a tooltip. The row stays interactive |
+| `value` | `string` | `—` | Unique value used for search and highlighting |
+| `keywords` | `string[]` | `—` | Extra terms that match the row in search |
+| `disabled` | `boolean` | `false` | Whether the row is disabled |
+| `start` | `IconValue` | `—` | Icon name, descriptor, or node between the checkbox and the label |
+| `end` | `IconValue` | `—` | Icon name, descriptor, or node after the label |
+| `disableTooltip` | `boolean` | `false` | Renders the label without truncation, for labels that own their own layout |
+
+## Combobox.Group and Combobox.Separator Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `heading` | `ReactNode` | `—` | Group only. Heading shown above the group's rows |
+| `forceMount` | `boolean` | `false` | Group only. Keeps the group rendered when search matches none of its rows |
+| `alwaysRender` | `boolean` | `false` | Separator only. Keeps the separator while there is a query. Without it, separators hide during search |
+
+## Other Parts
+
+| Part | Type | Description |
+| --- | --- | --- |
+| `Combobox.Empty` | `ComponentPropsWithoutRef<typeof Command.Empty>` | Shown when search matches no row |
+| `Combobox.Loading` | `ComponentPropsWithoutRef<typeof Command.Loading>` | Loading row for async results. Takes `label` and `progress` |
+| `Combobox.Label` | `ComponentPropsWithoutRef<'span'> & { size?: 'small' \| 'medium' }` | Standalone heading outside a group. `size` defaults to `small` |
+| `Combobox.StandaloneButton` | `ComponentPropsWithoutRef<'button'> & { start?: IconValue; end?: IconValue }` | Button styled like a row, for actions below the list |
+| `Combobox.StandaloneLink` | `LinkProps & { start?: IconValue; end?: IconValue }` | Link styled like a row, for navigation below the list |

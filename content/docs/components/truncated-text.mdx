@@ -1,0 +1,65 @@
+---
+title: Truncated Text
+description: Text that ends with an ellipsis when it doesn't fit, and shows the full text in a tooltip only while it is cut off.
+---
+
+import { TruncatedTextCustomTooltip } from '@/components/examples/truncated-text-custom-tooltip';
+import { TruncatedTextInFlexRow } from '@/components/examples/truncated-text-in-flex-row';
+import { TruncatedTextMultiLine } from '@/components/examples/truncated-text-multi-line';
+import { TruncatedTextSingleLine } from '@/components/examples/truncated-text-single-line';
+
+## Single line
+
+By default the text stays on one line. Hover or focus a prompt that is cut off to read all of it; prompts that fit show no tooltip. Overflow is measured when the pointer enters or the text gets focus, so there is no layout work until someone wants to read it.
+
+Set typography and color with `className`. `TruncatedText` needs a `TooltipProvider` above it, which apps already render at the root.
+
+<ComponentPreview file="components/examples/truncated-text-single-line.tsx">
+  <TruncatedTextSingleLine />
+</ComponentPreview>
+
+## In a flex row
+
+In a flex row, give the text `min-w-0 flex-1` so it can shrink, and `shrink-0` to the icons and metadata that should keep their size. Any flex parent between the row and the text also needs `min-w-0`.
+
+<ComponentPreview file="components/examples/truncated-text-in-flex-row.tsx">
+  <TruncatedTextInFlexRow />
+</ComponentPreview>
+
+## Multiple lines
+
+`lines` clamps the text to that many lines before the ellipsis. The tooltip still appears only when text is hidden.
+
+<ComponentPreview file="components/examples/truncated-text-multi-line.tsx">
+  <TruncatedTextMultiLine />
+</ComponentPreview>
+
+## Custom tooltip
+
+The tooltip shows the children by default. Pass `tooltip` when the children are rich content and the tooltip should be plain text, and `tooltipSide` or `tooltipSideOffset` to move it. When a parent owns the tooltip, `disableTooltip` turns it off; the ref still points at the truncating element so the parent can measure it.
+
+<ComponentPreview file="components/examples/truncated-text-custom-tooltip.tsx">
+  <TruncatedTextCustomTooltip />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { TruncatedText } from '@/components/ui/truncated-text';
+
+<TruncatedText className="text-body-small-regular">{prompt.text}</TruncatedText>
+<TruncatedText lines={2} className="text-body-regular">{headline}</TruncatedText>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | The text to show. Also the tooltip content unless `tooltip` is set. |
+| `tooltip` | `ReactNode` | `—` | Tooltip content to show instead of `children`. |
+| `lines` | `number` | `1` | Lines to show before the ellipsis. |
+| `disableTooltip` | `boolean` | `false` | Turns off the tooltip when a parent owns it. |
+| `tooltipSide` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | Side the tooltip opens toward. |
+| `tooltipSideOffset` | `number` | `—` | Distance in pixels between the tooltip and the text. Defaults to the tooltip's own offset. |
+| `className` | `string` | `—` | Additional CSS classes for the truncating element, such as typography and color. |
+| `ref` | `Ref<HTMLDivElement>` | `—` | Ref to the truncating element. |

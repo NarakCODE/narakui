@@ -1,0 +1,109 @@
+---
+title: Code Block
+description: A syntax-highlighted block of code with a copy button, used for code in chat answers, tool calls and documents.
+---
+
+import { CodeBlockBasic } from '@/components/examples/code-block-basic';
+import { CodeBlockCopyButtonStandalone } from '@/components/examples/code-block-copy-button-standalone';
+import { CodeBlockLanguagePicker } from '@/components/examples/code-block-language-picker';
+import { CodeBlockLanguages } from '@/components/examples/code-block-languages';
+import { CodeBlockMaxHeight } from '@/components/examples/code-block-max-height';
+
+## Basic
+
+Pass the source as `children` and a `language`. The copy button appears in the top-right corner while the pointer is over the block or focus is inside it. It copies plain text and highlighted HTML, so pasting into a document keeps the colors. If the clipboard rejects the copy, a warning toast appears.
+
+<ComponentPreview file="components/examples/code-block-basic.tsx">
+  <CodeBlockBasic />
+</ComponentPreview>
+
+## Languages
+
+`language` accepts Shiki language names and common aliases, such as `ts`, `py` or `sh`. Grammars load on demand, so a block shows plain text for a moment before its colors arrive. Without `language`, the block guesses from the code. It recognizes HTML, JSX, TypeScript, JavaScript, JSON, CSS and shell commands, like the `curl` command below.
+
+<ComponentPreview file="components/examples/code-block-languages.tsx">
+  <CodeBlockLanguages />
+</ComponentPreview>
+
+## Limited height
+
+Long lines scroll sideways. To cap the height of long output, such as a tool call result, pass a class like `max-h-60` to `preClassName`, and the block scrolls vertically too.
+
+<ComponentPreview file="components/examples/code-block-max-height.tsx">
+  <CodeBlockMaxHeight />
+</ComponentPreview>
+
+## Language picker
+
+`languagePicker` adds a searchable language menu next to the copy button. The block does not store the choice: update `language` from `onLanguageChange`.
+
+<ComponentPreview file="components/examples/code-block-language-picker.tsx">
+  <CodeBlockLanguagePicker />
+</ComponentPreview>
+
+## Copy button on its own
+
+`CodeBlockCopyButton` is the same button, exported separately for text that is not a code block, such as a prompt to paste into another assistant. Unlike inside a code block, it is always visible. It shows a check and the copied label for a moment after a successful copy.
+
+<ComponentPreview file="components/examples/code-block-copy-button-standalone.tsx">
+  <CodeBlockCopyButtonStandalone />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { CodeBlock } from '@/components/ui/code-block';
+
+<CodeBlock language="python">{code}</CodeBlock>
+```
+
+`CodeBlockFrame`, from the same module, is the block's shell without a code renderer. Use it when another component renders the code, as the document editor does with its editable code blocks, and pass the copy button and language picker as `actions`.
+
+## CodeBlock Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | Source code. Strings and numbers are joined; other nodes are ignored. |
+| `language` | `string` | `—` | Language name or alias, such as `typescript`, `ts`, `python` or `py`. Detected from the code when omitted. |
+| `languagePicker` | `Omit<CodeBlockLanguagePickerProps, 'language'>` | `—` | Shows a language menu next to the copy button. Requires `onLanguageChange`. |
+| `copyLabel` | `string` | `'Copy code'` | Accessible label and tooltip of the copy button before copying. |
+| `copiedLabel` | `string` | `'Copied'` | Accessible label and tooltip after a successful copy. |
+| `copyFailureMessage` | `string` | `'Failed to copy code. Please try again.'` | Toast message shown when the clipboard rejects the copy. |
+| `className` | `string` | `—` | Additional classes for the outer wrapper. |
+| `preClassName` | `string` | `—` | Additional classes for the scrolling `pre` panel, such as `max-h-60`. |
+| `codeClassName` | `string` | `—` | Additional classes for the `code` element. |
+
+## languagePicker Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onLanguageChange` | `(language: string) => void` | Required | Called with the selected language. |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the menu opens or closes, for example to start loading grammars. |
+| `languages` | `readonly CodeBlockLanguage[]` | Shared 18 languages | Languages offered, each with a `value`, a `label` and optional `aliases`. |
+| `ariaLabel` | `string` | `'Code language'` | Accessible label of the menu button. |
+| `searchPlaceholder` | `string` | `'Search languages'` | Placeholder of the search field. |
+| `noResultsLabel` | `string` | `'No languages found'` | Message shown when no language matches the search. |
+| `className` | `string` | `—` | Additional classes for the menu button. |
+
+## CodeBlockCopyButton Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `text` | `string \| (() => string)` | Required | Text to copy, or a function that returns it when clicked. |
+| `language` | `string` | `—` | Language used to highlight the HTML copy. |
+| `copyLabel` | `string` | `'Copy code'` | Accessible label and tooltip before copying. |
+| `copiedLabel` | `string` | `'Copied'` | Accessible label and tooltip after a successful copy. |
+| `failureMessage` | `string` | `'Failed to copy code. Please try again.'` | Toast message shown when the clipboard rejects the copy. |
+| `className` | `string` | `—` | Additional classes for the button. |
+
+## CodeBlockFrame Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | Code content rendered inside the `pre` panel. |
+| `actions` | `ReactNode` | Required | Controls shown in the top-right corner on hover and focus. |
+| `className` | `string` | `—` | Additional classes for the outer wrapper. |
+| `preClassName` | `string` | `—` | Additional classes for the `pre` panel. |
+| `actionsProps` | `HTMLAttributes<HTMLDivElement>` | `—` | Props for the element around the actions. |
+| `preProps` | `HTMLAttributes<HTMLPreElement>` | `—` | Props for the `pre` panel. |
+| `renderWrapper` | `(props: { className: string; children: ReactNode }) => ReactNode` | `—` | Renders a custom wrapper element instead of the default `div`, for editor integrations. |

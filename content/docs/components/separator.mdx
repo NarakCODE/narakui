@@ -1,0 +1,58 @@
+---
+title: Separator
+description: A visual separator component for dividing content into distinct sections.
+---
+
+import { SeparatorHorizontal } from '@/components/examples/separator-horizontal';
+import { SeparatorInContent } from '@/components/examples/separator-in-content';
+import { SeparatorInList } from '@/components/examples/separator-in-list';
+import { SeparatorVertical } from '@/components/examples/separator-vertical';
+
+## Horizontal
+
+The default orientation. It fills the width of its container.
+
+<ComponentPreview file="components/examples/separator-horizontal.tsx">
+  <SeparatorHorizontal />
+</ComponentPreview>
+
+## Vertical
+
+Divide inline items such as toolbar filters or metadata. Give the row a height so the separator has something to fill.
+
+<ComponentPreview file="components/examples/separator-vertical.tsx">
+  <SeparatorVertical />
+</ComponentPreview>
+
+## In content
+
+Separate sections of a report or panel.
+
+<ComponentPreview file="components/examples/separator-in-content.tsx">
+  <SeparatorInContent />
+</ComponentPreview>
+
+## In list
+
+Divide rows in a short list. Render the separator between rows, not after the last one.
+
+<ComponentPreview file="components/examples/separator-in-list.tsx">
+  <SeparatorInList />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Separator } from '@/components/ui/separator';
+
+<Separator />
+<Separator orientation="vertical" />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | The orientation of the separator |
+| `decorative` | `boolean` | `false` | When true, renders as purely visual with no ARIA semantics |
+| `className` | `string` | `—` | Additional CSS classes to apply to the separator |

@@ -1,0 +1,75 @@
+---
+title: Kbd
+description: A keycap that shows a keyboard shortcut, with the right modifier keys for the person's platform.
+---
+
+import { KbdInButton } from '@/components/examples/kbd-in-button';
+import { KbdInMenu } from '@/components/examples/kbd-in-menu';
+import { KbdKeys } from '@/components/examples/kbd-keys';
+import { KbdShortcutList } from '@/components/examples/kbd-shortcut-list';
+import { KbdVariants } from '@/components/examples/kbd-variants';
+
+## Keys
+
+`keys` takes the keys of a shortcut in order. Modifier tokens become symbols: `mod` (or `meta`, `cmd`) shows `⌘` on Mac and `Ctrl` elsewhere, `alt` (or `option`) shows `⌥` or `Alt`, `shift` shows `⇧`, and `enter` shows `↵`. Any other token is shown as written. The server always renders the `Ctrl` and `Alt` labels, and Mac browsers switch to symbols after hydration.
+
+Without `keys`, the keycap shows its `children`.
+
+<ComponentPreview file="components/examples/kbd-keys.tsx">
+  <KbdKeys />
+</ComponentPreview>
+
+## Variants
+
+`light` sits on page surfaces and secondary buttons. `dark` is for primary buttons. `disabled` dims either variant and sets `aria-disabled`.
+
+<ComponentPreview file="components/examples/kbd-variants.tsx">
+  <KbdVariants />
+</ComponentPreview>
+
+## In a button
+
+Put the keycap after the label with `ml-1`, and match `disabled` to the button. Add `aria-hidden` so screen readers don't read the shortcut as part of the button's name.
+
+<ComponentPreview file="components/examples/kbd-in-button.tsx">
+  <KbdInButton />
+</ComponentPreview>
+
+## In a menu
+
+In a Dropdown Menu, pass `Dropdown.Shortcut` to an item's `end`. It is a `Kbd` pinned to the end of the row and takes the same props. Open the menu to see it.
+
+<ComponentPreview file="components/examples/kbd-in-menu.tsx">
+  <KbdInMenu />
+</ComponentPreview>
+
+## Shortcut list
+
+<ComponentPreview file="components/examples/kbd-shortcut-list.tsx">
+  <KbdShortcutList />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Kbd } from '@/components/ui/kbd';
+
+<Kbd keys={['mod', 'K']} />
+
+<Button mode="primary" disabled={!canSave}>
+  Save
+  <Kbd aria-hidden className="ml-1" keys={['mod', 'enter']} variant="dark" disabled={!canSave} />
+</Button>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `keys` | `string[]` | `—` | Key tokens in order, such as `['mod', 'K']`. Takes precedence over `children`. |
+| `children` | `ReactNode` | `—` | Content to show when `keys` is not set. |
+| `variant` | `'light' \| 'dark'` | `'light'` | Keycap style: `light` for surfaces and secondary buttons, `dark` for primary buttons. |
+| `disabled` | `boolean` | `false` | Dims the keycap and sets `aria-disabled`. |
+| `className` | `string` | `—` | Additional CSS classes, such as `ml-1` for spacing after a label. |
+| `...props` | `ComponentProps<'kbd'>` | `—` | Other attributes, such as `aria-hidden`, are passed to the `kbd` element. |

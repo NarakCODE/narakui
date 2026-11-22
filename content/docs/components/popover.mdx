@@ -1,0 +1,78 @@
+---
+title: Popover
+description: A floating panel that appears on demand, containing supplementary content or actions.
+---
+
+import { PopoverBasic } from '@/components/examples/popover-basic';
+import { PopoverForm } from '@/components/examples/popover-form';
+import { PopoverInfo } from '@/components/examples/popover-info';
+
+## Basic usage
+
+A controlled popover with a title, a description, and actions. Pass `open` and `onOpenChange` when an action inside should close it.
+
+<ComponentPreview file="components/examples/popover-basic.tsx">
+  <PopoverBasic />
+</ComponentPreview>
+
+## Explanation
+
+An uncontrolled popover that explains a metric. It closes on Escape or a click outside. Widen it with `className`.
+
+<ComponentPreview file="components/examples/popover-info.tsx">
+  <PopoverInfo />
+</ComponentPreview>
+
+## Form
+
+A short form for a quick edit. Focus moves into the popover when it opens and returns to the trigger when it closes. `align="start"` lines it up with the trigger's left edge.
+
+<ComponentPreview file="components/examples/popover-form.tsx">
+  <PopoverForm />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Popover } from '@/components/ui/popover';
+
+<Popover.Root>
+  <Popover.Trigger asChild>
+    <Button>Open</Button>
+  </Popover.Trigger>
+  <Popover.Content className="p-3">
+    <p className="text-body-small-regular text-text-secondary">
+      Supplementary content or quick actions.
+    </p>
+  </Popover.Content>
+</Popover.Root>;
+```
+
+`Popover.Content` is 256px wide (`w-64`) with no horizontal padding. It aligns to the end of the trigger unless you pass `align`. Use `Popover.Anchor` to position the content against an element other than the trigger.
+
+## Popover.Root
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Whether the popover is open |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Callback when the open state changes |
+| `defaultOpen` | `boolean` | `false` | Default open state |
+| `modal` | `boolean` | `false` | Whether the popover should be modal |
+
+## Popover.Content
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred side of the trigger to render against |
+| `sideOffset` | `number` | `10` | Distance in pixels from the trigger |
+| `align` | `'start' \| 'center' \| 'end'` | `'end'` | Alignment of the popover content |
+| `alignOffset` | `number` | `-5` | Additional offset in pixels for the alignment |
+| `avoidCollisions` | `boolean` | `true` | Whether the popover should avoid collisions with viewport edges |
+| `collisionBoundary` | `Element \| null \| Array<Element \| null>` | `—` | Elements to use as collision boundaries |
+| `collisionPadding` | `number \| Partial<Record<Side, number>>` | `12` | Padding to add to collision boundaries |
+| `arrowPadding` | `number` | `0` | Padding between the arrow and the edges of the popover |
+| `sticky` | `'partial' \| 'always'` | `'partial'` | Whether the popover should stick to the trigger |
+| `hideWhenDetached` | `boolean` | `false` | Whether to hide the popover when the trigger becomes detached |
+| `withRadixPortal` | `boolean` | `true` | Render the content through a Radix Portal |
+| `className` | `string` | `—` | Additional CSS classes to apply to the popover content |

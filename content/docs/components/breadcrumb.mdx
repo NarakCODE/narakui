@@ -1,0 +1,101 @@
+---
+title: Breadcrumb
+description: A trail of links that shows where a page sits and leads back to the pages above it.
+---
+
+import { BreadcrumbAccessories } from '@/components/examples/breadcrumb-accessories';
+import { BreadcrumbBasic } from '@/components/examples/breadcrumb-basic';
+import { BreadcrumbCustomSlot } from '@/components/examples/breadcrumb-custom-slot';
+import { BreadcrumbTruncation } from '@/components/examples/breadcrumb-truncation';
+import { BreadcrumbWithIcons } from '@/components/examples/breadcrumb-with-icons';
+
+## Basic
+
+Each `BreadcrumbItem` with an `href` renders as a ghost link. Leave `href` off the last crumb to render the current page as plain text with `aria-current="page"`. A chevron separates the crumbs.
+
+`Breadcrumb` grows to fill its row by default. Add `flex-initial` when the trail should only take the width it needs, as in most page headers.
+
+<ComponentPreview file="components/examples/breadcrumb-basic.tsx">
+  <BreadcrumbBasic />
+</ComponentPreview>
+
+## With icons
+
+`startIcon` adds a glyph before the label.
+
+<ComponentPreview file="components/examples/breadcrumb-with-icons.tsx">
+  <BreadcrumbWithIcons />
+</ComponentPreview>
+
+## Long labels
+
+Crumbs keep their natural width until the trail runs out of room. Then they share the remaining width, so every crumb keeps a readable part of its label instead of one crumb disappearing. A truncated crumb shows its full label in a tooltip on hover.
+
+<ComponentPreview file="components/examples/breadcrumb-truncation.tsx">
+  <BreadcrumbTruncation />
+</ComponentPreview>
+
+## Accessories
+
+Each direct child of `Breadcrumb` becomes one list item, and every item after the first starts with a chevron. To place controls beside a crumb without a chevron between them, group the crumb and a `BreadcrumbAccessory` in one fragment.
+
+<ComponentPreview file="components/examples/breadcrumb-accessories.tsx">
+  <BreadcrumbAccessories />
+</ComponentPreview>
+
+## Custom crumb
+
+`BreadcrumbSlot` gives custom content, such as a switcher menu or a loading skeleton, the same sizing as a `BreadcrumbItem`, so it shrinks and truncates with the rest of the trail.
+
+<ComponentPreview file="components/examples/breadcrumb-custom-slot.tsx">
+  <BreadcrumbCustomSlot />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Breadcrumb, BreadcrumbItem } from '@/components/ui/breadcrumb';
+
+<Breadcrumb className="flex-initial">
+  <BreadcrumbItem href="/projects" label="Projects" />
+  <BreadcrumbItem label={project.title} />
+</Breadcrumb>
+```
+
+## Breadcrumb Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | Crumbs. Each direct child becomes one list item, preceded by a chevron after the first. |
+| `aria-label` | `string` | `'Breadcrumb'` | Accessible name of the navigation landmark. Ignored when `aria-labelledby` is set. |
+| `aria-labelledby` | `string` | `—` | Id of the element that names the navigation landmark. |
+| `separatorClassName` | `string` | `—` | Additional classes for every chevron separator. |
+| `className` | `string` | `—` | Additional classes for the `nav` element. Other `nav` props are passed through. |
+
+## BreadcrumbItem Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `string` | Required | Full label. Truncates with a tooltip when the trail runs out of room. |
+| `href` | `string` | `—` | Destination of the crumb. Omit it for the current page, which renders as plain text. |
+| `startIcon` | `BreadcrumbIconValue` | `—` | Icon name, icon descriptor, or node shown before the label. |
+| `isActive` | `boolean` | `false` | Sets `aria-current="page"` on a crumb that still has an `href`. |
+| `isDisabled` | `boolean` | `false` | Disables the link. |
+| `onLinkClick` | `MouseEventHandler<HTMLAnchorElement>` | `—` | Click handler for the link, for example to intercept navigation. Other handlers go to the outer element. |
+| `ref` | `Ref<HTMLDivElement>` | `—` | Ref to the outer element, so the crumb can anchor a popover or context menu. |
+| `setNodeRef` | `(element: HTMLElement \| null) => void` | `—` | Registers the crumb as a drop target. The consumer owns the drag-and-drop context. |
+| `isOver` | `boolean` | `false` | Highlights the crumb while a dragged item hovers over it. |
+| `isDragging` | `boolean` | `false` | Turns off pointer events while a drag is in progress. |
+| `className` | `string` | `—` | Additional classes for the outer element. Other `div` props are passed through. |
+
+## BreadcrumbSlot Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | Custom crumb content, sized to fill the slot. |
+
+## BreadcrumbAccessory Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | Buttons or menus shown beside a crumb, without a chevron before them. |

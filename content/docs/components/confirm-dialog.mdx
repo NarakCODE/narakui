@@ -1,0 +1,80 @@
+---
+title: Confirm Dialog
+description: A small dialog that asks people to confirm an action before it runs.
+---
+
+import { ConfirmDialogAcknowledge } from '@/components/examples/confirm-dialog-acknowledge';
+import { ConfirmDialogBasic } from '@/components/examples/confirm-dialog-basic';
+import { ConfirmDialogDestructive } from '@/components/examples/confirm-dialog-destructive';
+
+## Basic usage
+
+`ConfirmDialog` is always controlled: pass `open` and `onOpenChange`, a `title`, and a `description`. It renders a structured [Dialog](/docs/components/dialog) with a close button, Cancel, and a primary confirm button. Cancel, the close button, Escape, and a click outside close it; confirming only calls `onConfirm`, so close the dialog there yourself.
+
+Name the action in `confirmText`. Without it the buttons read Confirm and Cancel.
+
+<ComponentPreview file="components/examples/confirm-dialog-basic.tsx">
+  <ConfirmDialogBasic />
+</ComponentPreview>
+
+## Destructive confirmation
+
+Use `variant="destructive"` for actions that cannot be undone; the confirm button turns red. While the action runs, pass `isLoading`: the confirm button shows a spinner and Cancel and the close button are disabled. Keep the dialog open until the work settles, and ignore `onOpenChange` meanwhile so Escape can't close it.
+
+<ComponentPreview file="components/examples/confirm-dialog-destructive.tsx">
+  <ConfirmDialogDestructive />
+</ComponentPreview>
+
+## Acknowledgement
+
+`children` render in the body between dividers, for acknowledgements or form fields. Pair them with `confirmDisabled` until they are complete. `titleIcon` adds an icon before the title. Keep interactive controls out of `description`, which screen readers announce as plain text.
+
+<ComponentPreview file="components/examples/confirm-dialog-acknowledge.tsx">
+  <ConfirmDialogAcknowledge />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+
+<ConfirmDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="Delete this prompt?"
+  description="Its answer history will be permanently deleted."
+  confirmText="Delete prompt"
+  variant="destructive"
+  onConfirm={handleDelete}
+/>
+```
+
+When the body holds a form whose submit handler does the work, pass that form's id as `form`: the confirm button becomes its submit button and `onConfirm` is not called on click. To give Cancel the initial focus, pass `cancelButtonRef` and focus it from `onOpenAutoFocus`.
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` (Required) | `boolean` | `—` | Whether the dialog is open |
+| `onOpenChange` (Required) | `(open: boolean) => void` | `—` | Called when Cancel, the close button, Escape, or a click outside closes the dialog |
+| `title` (Required) | `ReactNode` | `—` | Dialog title |
+| `description` (Required) | `ReactNode` | `—` | Explains what confirming does. Announced as the dialog's description |
+| `onConfirm` (Required) | `() => void` | `—` | Called when the confirm button is clicked. Does not close the dialog |
+| `confirmText` | `string` | `'Confirm'` | Label of the confirm button |
+| `cancelText` | `string` | `'Cancel'` | Label of the cancel button |
+| `closeText` | `string` | `'Close dialog'` | Accessible label of the close button |
+| `variant` | `'default' \| 'destructive'` | `'default'` | Use `destructive` for actions that cannot be undone |
+| `isLoading` | `boolean` | `false` | Shows a spinner on the confirm button and disables every button |
+| `confirmDisabled` | `boolean` | `false` | Disables the confirm button |
+| `titleIcon` | `ReactNode` | `—` | Icon before the title |
+| `children` | `ReactNode` | `—` | Body content between dividers, such as acknowledgements or form fields |
+| `form` | `string` | `—` | Id of a form. The confirm button submits it instead of calling `onConfirm` |
+| `confirmMode` | `ButtonMode` | `—` | Overrides the confirm button style. Defaults to `primary`, or `destructive` with `variant="destructive"` |
+| `cancelMode` | `ButtonMode` | `'secondary'` | Style of the cancel button |
+| `confirmClassName` | `string` | `—` | Classes for the confirm button |
+| `cancelButtonRef` | `Ref<HTMLButtonElement>` | `—` | Ref to the cancel button, for example to focus it when the dialog opens |
+| `onOpenAutoFocus` | `(event: Event) => void` | `—` | Called when the dialog opens. Nothing is focused automatically, so focus the element that should start focused here |
+| `onCloseAutoFocus` | `(event: Event) => void` | `—` | Called when focus returns after the dialog closes |
+| `size` | `'md' \| 'lg' \| 'xl'` | `'md'` | Panel width: `440`, `640`, or `800` pixels. `lg` and `xl` also set a minimum height |
+| `contentClassName` | `string` | `—` | Classes for the dialog panel |
+| `overlayZIndex` | `'dialog' \| 'drawer'` | `'dialog'` | Stacking layer. Use `drawer` to show the dialog above a drawer |

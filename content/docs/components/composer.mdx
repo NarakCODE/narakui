@@ -1,0 +1,128 @@
+---
+title: Composer
+description: The assistant input card. Pin activity chrome, mix layout slots, and compare send/stop states.
+---
+
+import { ComposerAccents } from '@/components/examples/composer-accents';
+import { ComposerActivityStates } from '@/components/examples/composer-activity-states';
+import { ComposerPlayground } from '@/components/examples/composer-playground';
+import { ComposerQuestionTool } from '@/components/examples/composer-question-tool';
+import { ComposerSendStates } from '@/components/examples/composer-send-states';
+import { ComposerSlots } from '@/components/examples/composer-slots';
+
+## Playground
+
+Set each activity state with a button. Mix slots and accents on the same card. `success` remounts via `pulseKey` so the halo replays.
+
+<ComponentPreview file="components/examples/composer-playground.tsx">
+  <ComposerPlayground />
+</ComponentPreview>
+
+## Activity states
+
+`working` paints the rotating spectrum ring. `success` is a one-shot halo. `disabled` dims the card.
+
+<ComponentPreview file="components/examples/composer-activity-states.tsx">
+  <ComposerActivityStates />
+</ComponentPreview>
+
+## Slots
+
+Surfaces the card can attach around the editor: `footerStart` and `footerEnd`, the one-row `layout="compact"`, an `attachments` strip inside the card, `validationMessage` and `disclaimer` copy, a tucked `bottomElement`, an attached `topElement` (also used for queued actions), a floating `topSlot`, and an `activeSlot` takeover such as the question tool.
+
+`disclaimer` has no background, so it sits cleanly on whatever surface hosts the composer.
+
+When `topElement` stacks several strips, such as a usage notice and a message queue, render one `ComposerAttachedWash` first and keep the strips transparent. The wash paints a single surface from the top strip down past the card, so it doesn't break around the queue.
+
+<ComponentPreview file="components/examples/composer-slots.tsx">
+  <ComposerSlots />
+</ComponentPreview>
+
+## Question tool
+
+The ask-user prompt takes over the card through `activeSlot`. Single choice, multi choice, free text, and multi-step prompts share the same chrome. With `layout="compact"`, pass a compact question tool to `promptSlot` instead, so it sits above the one-row editor.
+
+<ComponentPreview file="components/examples/composer-question-tool.tsx">
+  <ComposerQuestionTool />
+</ComponentPreview>
+
+## Send button
+
+`idle` dims send. `typing` enables it. `streaming` swaps the control for stop. `Composer` renders this button for you; `ComposerSendButton` is exported for custom footers.
+
+<ComponentPreview file="components/examples/composer-send-states.tsx">
+  <ComposerSendStates />
+</ComponentPreview>
+
+## Accents
+
+Working chrome can be tinted with any design-system color token or CSS custom property.
+
+<ComponentPreview file="components/examples/composer-accents.tsx">
+  <ComposerAccents />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Composer } from '@/components/ui/composer';
+
+<Composer activityState="working" onSubmit={handleSubmit}>
+  <Editor />
+</Composer>
+```
+
+`Composer` is presentational. Product chats derive `activityState` from streaming and submit flags, then pass the result in.
+
+## Composer Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `activityState` | `'idle' \| 'working' \| 'success' \| 'disabled'` | `'idle'` | Visual chrome on the card. `working` paints the spectrum ring. `success` is a one-shot halo. `disabled` dims the card and also disables send and design-system Buttons in the footer slots. |
+| `activityAccent` | `'blue' \| 'red' \| 'orange' \| 'green' \| 'purple' \| 'gray' \| string` | `'var(--color-fill-blue)'` | Built-in accent preset or CSS color for the working spectrum and success pulse. Defaults to `fill-blue`. |
+| `pulseKey` | `number` | `0` | Increments so the success halo remounts and replays |
+| `sendState` | `'idle' \| 'typing' \| 'streaming'` | `—` | Send/stop visual role. Derived from activity and `sendDisabled` when omitted. |
+| `sendDisabled` | `boolean` | `false` | Blocks submitting a new message. Stopping an in-flight response stays available. |
+| `onSubmit` | `() => void` | `—` | Called when the user submits from the send button |
+| `onStop` | `() => void` | `—` | Called when the user clicks stop during streaming |
+| `sendLabel` | `string` | `'Send message'` | Tooltip and aria label for send |
+| `stopLabel` | `string` | `'Stop response'` | Tooltip and aria label for stop |
+| `sendText` | `string` | `—` | Visible send text, shown in place of the arrow while not streaming |
+| `sendTextIcon` | `IconValue` | `—` | Leading icon beside `sendText`. Takes an icon name or descriptor. |
+| `sendLoading` | `boolean` | `false` | Shows a spinner on send while a submission is pending |
+| `layout` | `'default' \| 'compact'` | `'default'` | Compact puts the footer slots, editor, and send on one row and hides attachments |
+| `onCompactOverflow` | `() => void` | `—` | Called once per compact session when the editor grows past one line. Switch `layout` back to default here. |
+| `footerStart` | `ReactNode` | `—` | Slot on the leading edge of the composer footer |
+| `footerEnd` | `ReactNode` | `—` | Slot on the trailing edge of the footer, before send/stop |
+| `disclaimer` | `ReactNode` | `—` | Helper text rendered below the visible composer card |
+| `topSlot` | `ReactNode` | `—` | Floating slot rendered above the card |
+| `promptSlot` | `ReactNode` | `—` | Interactive clarification rendered above the editor card, such as a compact question tool |
+| `promptSlotKey` | `string` | `—` | Identity used to remount the prompt content when it changes |
+| `topElement` | `ReactNode` | `—` | Surface rendered immediately above and behind the composer card. Product queues sit here, not as an activity state. |
+| `bottomElement` | `ReactNode` | `—` | Surface tucked under the floating card. Paints its own background and rounding. |
+| `activeSlot` | `ReactNode` | `—` | Replaces the editor and footer when a product flow takes over the card |
+| `isSlotExiting` | `boolean` | `false` | Keeps the outgoing `activeSlot` content mounted out of flow while the editor returns |
+| `hasInteractiveSlot` | `boolean` | `false` | Keeps an interactive slot's footer in place while the card height animates |
+| `slotFooterStart` | `ReactNode` | `—` | Leading control in the interactive slot's footer rail |
+| `attachments` | `ReactNode` | `—` | Attachment strip above the editor. Stays interactive when the card is disabled. |
+| `validationMessage` | `ReactNode` | `—` | Validation copy rendered beneath the card |
+| `scrollControl` | `ReactNode` | `—` | Viewport control above every composer surface. Left unset, the frame reserves its height. Pass `null` when the surface owns spacing. |
+| `children` | `ReactNode` | `—` | Editor surface supplied by the consumer |
+| `className` | `string` | `—` | Extra classes on the outer frame |
+| `cardProps` | `HTMLAttributes<HTMLDivElement>` | `—` | Attributes spread onto the visible card |
+| `wrapperRef` | `Ref<HTMLDivElement>` | `—` | Ref to the outer frame |
+| `cardRef` | `Ref<HTMLDivElement>` | `—` | Ref to the visible card |
+| `inert` | `boolean` | `false` | Marks the whole frame as non-interactive |
+
+## ComposerSendButton Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `state` (Required) | `'idle' \| 'typing' \| 'streaming'` | `—` | `idle` is dimmed, `typing` is enabled, `streaming` shows stop |
+| `disabled` | `boolean` | `false` | Disables send. Ignored while streaming. |
+| `onClick` | `() => void` | `—` | Send or stop action |
+| `ariaLabel` | `string` | `—` | Accessible name. Defaults to Send or Stop from `state`. |
+| `text` | `string` | `—` | Visible send text. Turns the circle into a labeled pill. Stop stays circular. |
+| `textIcon` | `IconValue` | `—` | Leading icon beside `text`. Ignored without `text` or while streaming. |
+| `loading` | `boolean` | `false` | Shows a spinner and disables send. Ignored while streaming. |
+| `className` | `string` | `—` | Extra classes on the button |

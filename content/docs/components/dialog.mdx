@@ -1,0 +1,124 @@
+---
+title: Dialog
+description: A modal dialog component for displaying content in an overlay.
+---
+
+import { DialogBasic } from '@/components/examples/dialog-basic';
+import { DialogControlled } from '@/components/examples/dialog-controlled';
+import { DialogDefaultVariant } from '@/components/examples/dialog-default-variant';
+
+## Structured
+
+Use `variant="structured"` with `contentPadding="regions"` for new dialogs. `Dialog.Header` holds the title row and `Dialog.CloseButton`. `Dialog.Body` scrolls. `Dialog.Footer` holds the actions; wrap dismiss actions in `Dialog.Close` `asChild`. Pass `divider` on the header and footer to separate them from a form body.
+
+When you render `Dialog.Title` and `Dialog.Description`, pass `hasAccessibleTitle` and `hasAccessibleDescription` on `Dialog.Content`.
+
+<ComponentPreview file="components/examples/dialog-basic.tsx">
+  <DialogBasic />
+</ComponentPreview>
+
+## Controlled
+
+Pass `open` and `onOpenChange` to open the dialog from your own state, for example a confirmation before a destructive action.
+
+<ComponentPreview file="components/examples/dialog-controlled.tsx">
+  <DialogControlled />
+</ComponentPreview>
+
+## Default Variant
+
+Omitting `variant` gives the legacy shell. Use it only to match an existing one-off layout. It has no regions and shows a close button in the top-right corner; pass `showCloseButton={false}` to hide it. Its panel has a `520px` minimum width, so give it `w-130 min-w-0` to let it shrink on small screens.
+
+<ComponentPreview file="components/examples/dialog-default-variant.tsx">
+  <DialogDefaultVariant />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Dialog } from '@/components/ui/dialog';
+
+<Dialog.Root>
+  <Dialog.Trigger asChild>
+    <Button>Open Dialog</Button>
+  </Dialog.Trigger>
+  <Dialog.Content variant="structured" contentPadding="regions" hasAccessibleTitle>
+    <Dialog.Header>
+      <Dialog.Title>Dialog title</Dialog.Title>
+    </Dialog.Header>
+    <Dialog.Body>Dialog content</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Close asChild>
+        <Button>Cancel</Button>
+      </Dialog.Close>
+    </Dialog.Footer>
+  </Dialog.Content>
+</Dialog.Root>
+```
+
+Without a visible `Dialog.Title`, pass `aria-label` on `Dialog.Content`. It renders a screen-reader-only title.
+
+## Parts
+
+| Part | Type | Description |
+| --- | --- | --- |
+| `Dialog.Root` (Required) | `DialogRootProps` | Manages open state and modal behavior |
+| `Dialog.Trigger` | `DialogTriggerProps` | Opens the dialog. Use `asChild` with a `Button`. |
+| `Dialog.Content` (Required) | `DialogContentProps` | Portal, overlay, and panel |
+| `Dialog.Header` | `DialogHeaderProps` | Title row, close button, and description |
+| `Dialog.Body` | `DialogBodyProps` | Scrollable main region |
+| `Dialog.Footer` | `DialogFooterProps` | Right-aligned action row |
+| `Dialog.Title` | `DialogTitleProps` | Accessible dialog title |
+| `Dialog.Description` | `DialogDescriptionProps` | Accessible dialog description |
+| `Dialog.CloseButton` | `DialogCloseButtonProps` | Ghost icon button that closes the dialog. `aria-label` defaults to `Close dialog`. |
+| `Dialog.Close` | `ComponentPropsWithoutRef<typeof Close>` | Radix close primitive. Use `asChild` to make a footer button close the dialog. |
+| `Dialog.Overlay` | `DialogOverlayProps` | Backdrop. `Dialog.Content` renders it for you. |
+
+## Dialog.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Controlled open state of the dialog |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Callback fired when the open state changes |
+| `defaultOpen` | `boolean` | `false` | Default open state of the dialog |
+| `modal` | `boolean` | `true` | Blocks interaction with content outside the dialog |
+
+## Dialog.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'structured'` | `'default'` | Structured lays out Header, Body, and Footer. Default is the legacy shell. |
+| `size` | `'md' \| 'lg' \| 'xl'` | `'md'` | Structured only. `md` is `440px` wide, `lg` is `640px` with a `40vh` minimum height, `xl` is `800px` with a `60vh` minimum height. |
+| `contentPadding` | `'content' \| 'regions'` | `'content'` | Structured only. `regions` moves the padding onto Header, Body, and Footer so dividers run full width. Prefer `regions`; don't combine with `className="p-0"`. |
+| `contentGap` | `'default' \| 'none'` | `'default'` | Structured only. Gap between Header, Body, and Footer. |
+| `showCloseButton` | `boolean` | `—` | Renders the top-right close icon. Defaults to `true` for the default variant and `false` for structured. |
+| `hasAccessibleTitle` | `boolean` | `false` | Set when children include `Dialog.Title` so no hidden title is added |
+| `hasAccessibleDescription` | `boolean` | `false` | Set when children include `Dialog.Description` so no hidden description is added |
+| `disablePortal` | `boolean` | `false` | Render in the current context instead of a portal |
+| `hideOverlay` | `boolean` | `false` | Do not render the dialog's own overlay |
+| `overlayZIndex` | `'dialog' \| 'drawer'` | `'dialog'` | Stacking layer. Use `drawer` to show the dialog above a drawer. |
+| `overlayDarkerBackground` | `boolean` | `false` | Use a darker overlay background |
+| `overlayClassName` | `string` | `—` | Additional CSS classes for the overlay |
+| `className` | `string` | `—` | Additional CSS classes for the panel |
+| `onOpenAutoFocus` | `(event: Event) => void` | `—` | Called when the dialog opens. Default focus is already prevented, so focus the element you want. |
+| `onCloseAutoFocus` | `(event: Event) => void` | `—` | Called when focus returns to the trigger after the dialog closes |
+| `onEscapeKeyDown` | `(event: KeyboardEvent) => void` | `—` | Called when Escape is pressed. Call `event.preventDefault()` to keep the dialog open. |
+| `onPointerDownOutside` | `(event: PointerDownOutsideEvent) => void` | `—` | Callback fired when clicking outside the dialog |
+| `onInteractOutside` | `(event: CustomEvent) => void` | `—` | Callback fired for any pointer or focus interaction outside the dialog. The event is a `PointerDownOutsideEvent` or a `FocusOutsideEvent`. |
+
+## Region Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `divider` | `boolean` | `false` | `Dialog.Header` and `Dialog.Footer`: draws a border between the region and the body |
+| `scrollShadow` | `boolean` | `false` | `Dialog.Body`: fades the top and bottom edges while there is more to scroll. Structured only. |
+| `viewportClassName` | `string` | `—` | `Dialog.Body`: classes for the scrolling viewport when `scrollShadow` is set |
+| `focusRingInset` | `boolean` | `true` | `Dialog.Body`: adds vertical padding so focus rings are not clipped under `contentPadding="regions"`. Turn off when the body sets its own vertical padding. |
+
+## Dialog.Overlay Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `zIndex` (Required) | `'dialog' \| 'drawer'` | `—` | Stacking layer relative to other modal surfaces |
+| `withBackdropBlur` | `boolean` | `true` | Blurs the content behind the dialog |
+| `darkerBackground` | `boolean` | `false` | Uses a darker scrim |

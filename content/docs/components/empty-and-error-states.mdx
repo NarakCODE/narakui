@@ -1,0 +1,94 @@
+---
+title: Empty & Error States
+description: One shape for "there is nothing here" and "we couldn't load this", so both read the same across pages, cards and table bodies.
+---
+
+import { EmptyStateWithActionExample } from '@/components/examples/empty-state-action';
+import { BasicEmptyStateExample } from '@/components/examples/empty-state-basic';
+import { EmptyStateSizesExample } from '@/components/examples/empty-state-sizes';
+import { EmptyStateWithoutTitleExample } from '@/components/examples/empty-state-without-title';
+import { BasicErrorStateExample } from '@/components/examples/error-state-basic';
+import { ErrorStateWithoutRetryExample } from '@/components/examples/error-state-without-retry';
+
+Reach for `EmptyState` when a list is genuinely empty, and `ErrorState` when a request failed. They are separate components on purpose: telling someone they have no items when the fetch merely broke is the one answer that is actually wrong, and it is the easiest mistake to make when both states share a branch.
+
+Resolve the error case before the empty case:
+
+```tsx
+if (query.isError) return <ErrorState onRetry={() => void query.refetch()} />;
+if (query.isPending) return <ListSkeleton />;
+if (items.length === 0) return <EmptyState title="No items yet" />;
+```
+
+## Basic
+
+<ComponentPreview file="components/examples/empty-state-basic.tsx">
+  <BasicEmptyStateExample />
+</ComponentPreview>
+
+## With an action
+
+Only offer one when creating the missing thing is actually possible here. A "New report" button on a "nothing shared with you" state is a dead end — nothing the user does on this screen changes that list.
+
+<ComponentPreview file="components/examples/empty-state-action.tsx">
+  <EmptyStateWithActionExample />
+</ComponentPreview>
+
+## Without a title
+
+`title` is optional. On a subdued surface — one tab of a card, a small section — a headline plus a sentence usually says the same thing twice, and the sentence alone carries it. Keep the headline for page-level states, where the empty view has to stand on its own.
+
+`ErrorState` is the exception: it always renders a headline, falling back to its own copy, because a failure the reader has to infer from one line of tertiary text is a failure they will read as an empty list.
+
+<ComponentPreview file="components/examples/empty-state-without-title.tsx">
+  <EmptyStateWithoutTitleExample />
+</ComponentPreview>
+
+## Sizes
+
+`page` stands in for a whole list view, `section` for a card or one tab of a list, and `inline` for small containers where reserving height would look wrong.
+
+<ComponentPreview file="components/examples/empty-state-sizes.tsx">
+  <EmptyStateSizesExample />
+</ComponentPreview>
+
+## Error state
+
+Point `onRetry` at the query that failed rather than a page reload — reloading discards everything else that loaded fine.
+
+`ErrorState` renders with `role="alert"`, so screen readers announce the failure. Pass `role` to override it.
+
+<ComponentPreview file="components/examples/error-state-basic.tsx">
+  <BasicErrorStateExample />
+</ComponentPreview>
+
+## Without a retry
+
+Omit `onRetry` when there is nothing useful to retry — a crashed section, or a failure the user can only resolve by navigating away.
+
+<ComponentPreview file="components/examples/error-state-without-retry.tsx">
+  <ErrorStateWithoutRetryExample />
+</ComponentPreview>
+
+## EmptyState Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `IconValue` | `—` | Icon name, descriptor, or node above the title. Size it to match the surface |
+| `title` | `ReactNode` | `—` | Headline for the state |
+| `description` | `ReactNode` | `—` | One sentence on what would appear here, or what to do about it |
+| `action` | `ReactNode` | `—` | Primary action, such as creating the missing thing |
+| `size` | `'page' \| 'section' \| 'inline'` | `'section'` | Vertical room the state takes |
+| `className` | `string` | `—` | Additional classes for the container |
+
+## ErrorState Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onRetry` | `() => void` | `—` | Retries the failed work. Omit to render the message without a button |
+| `retryLabel` | `ReactNode` | `'Try again'` | Label for the retry button |
+| `title` | `ReactNode` | `"We couldn't load this"` | Headline for the failure |
+| `icon` | `IconValue` | `'warning'` | Icon above the title |
+| `description` | `ReactNode` | `—` | One sentence on what failed |
+| `size` | `'page' \| 'section' \| 'inline'` | `'section'` | Vertical room the state takes |
+| `className` | `string` | `—` | Additional classes for the container |

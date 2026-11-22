@@ -5,18 +5,30 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "lint:design": "node -e 'const fs=require(\"fs\"),path=require(\"path\");let errs=[];const walk=(d,fn)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);e.isDirectory()?walk(p,fn):fn(p)}};for(const dir of [\"app\",\"components\"])walk(dir,p=>{if(!/\\.(ts|tsx)$/.test(p))return;const c=fs.readFileSync(p,\"utf8\");if(/from\\s+[\"\\x27]cn[\"\\x27]/.test(c))errs.push(p+\": import cn from @/lib/utils instead of \\\"cn\\\"\")});walk(\"components/ui\",p=>{if(!p.endsWith(\".tsx\"))return;const c=fs.readFileSync(p,\"utf8\");if(/animate-in/.test(c)&&/motion-reduce:animate-none/.test(c))errs.push(p+\": keep opacity fade under motion-reduce instead of motion-reduce:animate-none\");if(/animate-in/.test(c)&&/animate-out/.test(c)&&!/data-\\[state=closed\\]:duration-/.test(c))errs.push(p+\": triggered overlays must specify asymmetric open/closed durations (e.g. data-[state=open]:duration-250 data-[state=closed]:duration-180)\")});walk(\"content/docs/components\",p=>{if(!p.endsWith(\".mdx\"))return;const c=fs.readFileSync(p,\"utf8\");if(/^##+\\s*Install/m.test(c)||/shadcn@latest\\s+add/.test(c))errs.push(p+\": do not include public install sections or commands\")});if(errs.length){console.error(errs.join(\"\\n\"));process.exit(1)}console.log(\"✓ Design system checks passed\")'",
     "start": "next start",
     "types:check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "cn": "^0.5.2",
     "fumadocs-core": "16.19.6",
     "fumadocs-mdx": "15.6.4",
     "fumadocs-ui": "npm:@fumadocs/base-ui@16.19.6",
     "lucide-react": "^1.71.0",
     "next": "16.4.6",
+    "radix-ui": "^1.8.1",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "react-fast-marquee": "^1.6.5",
+    "shadcn": "^4.23.0",
+    "shiki": "^4.6.0",
+    "tailwind-merge": "^3.7.1",
+    "tw-animate-css": "^1.4.0",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.5",

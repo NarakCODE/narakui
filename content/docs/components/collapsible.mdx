@@ -1,0 +1,83 @@
+---
+title: Collapsible
+description: Show and hide a section of content with a height animation.
+---
+
+import { AccordionExample } from '@/components/examples/collapsible-accordion';
+import { BasicCollapsible } from '@/components/examples/collapsible-basic';
+import { CardCollapsible } from '@/components/examples/collapsible-card';
+import { FormCollapsible } from '@/components/examples/collapsible-form';
+
+## Basic
+
+Without `asChild`, the trigger renders its own ghost button. The trigger carries `data-state`, so a `group-data-[state=open]` class can rotate the chevron.
+
+<ComponentPreview file="components/examples/collapsible-basic.tsx">
+  <BasicCollapsible />
+</ComponentPreview>
+
+## Card section
+
+A titled section inside a `Card`, open by default. The trigger is the full header row.
+
+<ComponentPreview file="components/examples/collapsible-card.tsx">
+  <CardCollapsible />
+</ComponentPreview>
+
+## Advanced settings
+
+With `asChild`, any `Button` can be the trigger. Use it to tuck rarely used form fields away.
+
+<ComponentPreview file="components/examples/collapsible-form.tsx">
+  <FormCollapsible />
+</ComponentPreview>
+
+## Accordion
+
+There is no separate accordion primitive. Control several collapsibles from one piece of state so only one stays open.
+
+<ComponentPreview file="components/examples/collapsible-accordion.tsx">
+  <AccordionExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Collapsible } from '@/components/ui/collapsible';
+
+<Collapsible.Root>
+  <Collapsible.Trigger asChild>
+    <Button iconEnd="chevron-down">Toggle content</Button>
+  </Collapsible.Trigger>
+  <Collapsible.Content>Content to collapse/expand</Collapsible.Content>
+</Collapsible.Root>
+```
+
+Without `asChild`, `Collapsible.Trigger` renders its own ghost text button and wraps the children in a `span`.
+
+## Collapsible.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `defaultOpen` | `boolean` | `false` | Whether the collapsible is open by default |
+| `open` | `boolean` | `—` | Controlled open state |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Callback when open state changes |
+| `disabled` | `boolean` | `false` | Whether the collapsible is disabled |
+| `className` | `string` | `—` | Additional CSS classes for the root element |
+
+## Collapsible.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Merges trigger behavior into the single child, usually a `Button`, instead of rendering the default ghost trigger |
+| `showHoverBackground` | `boolean` | `true` | Shows the hover background on the default trigger. Ignored with `asChild`. |
+| `spanClassName` | `string` | `—` | Additional classes for the inner span of the default trigger. Ignored with `asChild`. |
+| `className` | `string` | `—` | Additional CSS classes for the trigger |
+
+## Collapsible.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `forceMount` | `true` | `—` | Keeps the content mounted while closed |
+| `className` | `string` | `—` | Additional CSS classes for the content |

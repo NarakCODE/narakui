@@ -1,0 +1,65 @@
+---
+title: Avatar
+description: Display user profile images, initials or fallback icons.
+---
+
+import { AvatarSizes } from '@/components/examples/avatar-sizes';
+import { AvatarTypes } from '@/components/examples/avatar-types';
+import { UserAvatars } from '@/components/examples/user-avatars';
+
+## Sizes
+
+`size` is in pixels. The default is `40`.
+
+<ComponentPreview file="components/examples/avatar-sizes.tsx">
+  <AvatarSizes />
+</ComponentPreview>
+
+## Types
+
+The avatar shows the image from `src`. Without one, or when it fails to load, it shows up to two initials from `fallbackText` on a gradient. `showInitials={false}` keeps only the gradient, and `fallback` replaces it with your own node.
+
+<ComponentPreview file="components/examples/avatar-types.tsx">
+  <AvatarTypes />
+</ComponentPreview>
+
+## User avatar
+
+`UserAvatar` is the avatar for a person: round, `20` px by default, with a user icon when there is no image. `alt` is both the accessible label and the fallback text.
+
+<ComponentPreview file="components/examples/user-avatars.tsx">
+  <UserAvatars />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Avatar } from '@/components/ui/avatar';
+
+<Avatar fallbackText="John Doe" />
+```
+
+## Avatar Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | `—` | Additional CSS classes to apply to the avatar container |
+| `src` | `string \| { src: string }` | `—` | URL or static-import object of the image to display |
+| `fallbackText` | `string` | Required | Accessible label for the avatar, and the source of the initials shown when there is no image or it fails to load |
+| `showInitials` | `boolean` | `true` | Show letter initials in the fallback |
+| `fallback` | `ReactNode` | `—` | Custom node rendered when the image is missing or fails |
+| `imageAlt` | `string` | `'Avatar'` | Alt text for the avatar image |
+| `imageRole` | `'presentation' \| 'none'` | `—` | ARIA role applied to the avatar image |
+| `size` | `number` | `40` | Size of the avatar in pixels |
+| `isLoading` | `boolean` | `false` | Show loading skeleton state |
+| `textSize` | `'small' \| 'large'` | `'large'` | Size of the fallback text |
+| `imagePriority` | `boolean` | `false` | Load the image eagerly with high fetch priority |
+
+## UserAvatar Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `alt` | `string` | Required | Accessible label and fallback text |
+| `src` | `string \| { src: string }` | `—` | URL or static-import object of the profile image |
+| `size` | `number` | `20` | Size of the avatar in pixels |
+| `className` | `string` | `—` | Additional CSS classes to apply to the avatar |

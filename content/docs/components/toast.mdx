@@ -1,0 +1,125 @@
+---
+title: Toast
+description: A notification component that displays temporary messages to users, typically for feedback on actions or system status.
+---
+
+import { ToastWithActions } from '@/components/examples/toast-actions';
+import { ToastBasic } from '@/components/examples/toast-basic';
+import { ToastDismiss } from '@/components/examples/toast-dismiss';
+import { ToastWithDuration } from '@/components/examples/toast-duration';
+import { ToastWithProgress } from '@/components/examples/toast-progress';
+import { ToastTypes } from '@/components/examples/toast-types';
+import { ToastRenderer } from '@/components/ui/toast';
+
+<ToastRenderer />
+
+## Basic
+
+Call a method from `useToast` to show a toast. Toasts appear in `ToastRenderer`, so render it once near the root of the app.
+
+<ComponentPreview file="components/examples/toast-basic.tsx">
+  <ToastBasic />
+</ComponentPreview>
+
+## Types
+
+`success` and `warning` toasts show an icon. `progress` and `loading` toasts stay open until they are dismissed; see [Progress and loading](#progress-and-loading).
+
+<ComponentPreview file="components/examples/toast-types.tsx">
+  <ToastTypes />
+</ComponentPreview>
+
+## Duration
+
+`duration` sets how long a toast stays open, in milliseconds. The default is `3500`. The timer pauses while the pointer is over the toasts.
+
+<ComponentPreview file="components/examples/toast-duration.tsx">
+  <ToastWithDuration />
+</ComponentPreview>
+
+## With actions
+
+`actionLabel` and `onAction` add a button to the toast. The toast closes after the action runs. With a description, the button sits under it by default; set `actionPlacement: 'inline'` to keep it beside the text.
+
+<ComponentPreview file="components/examples/toast-actions.tsx">
+  <ToastWithActions />
+</ComponentPreview>
+
+## Progress and loading
+
+`toast.progress()` shows a progress bar under the description and has no close button. Update it with `toast.updateProgress(id, progress)` and close it with `toast.dismiss(id)`. `toast.loading()` shows a spinner and stays open until it is closed.
+
+<ComponentPreview file="components/examples/toast-progress.tsx">
+  <ToastWithProgress />
+</ComponentPreview>
+
+## Dismiss
+
+Set `duration: 0` to keep a toast open until it is closed. `toast.dismiss(id)` closes a toast from code, using the id the method returned. `onDismiss` runs only when the person closes the toast with the close button or a swipe.
+
+<ComponentPreview file="components/examples/toast-dismiss.tsx">
+  <ToastDismiss />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ToastRenderer, useToast } from '@/components/ui/toast';
+
+function App() {
+  return (
+    <>
+      <Page />
+      <ToastRenderer />
+    </>
+  );
+}
+
+function SaveButton() {
+  const toast = useToast();
+
+  return (
+    <button
+      onClick={() =>
+        toast.success({
+          heading: 'Report saved',
+          description: 'Your visibility report is ready to share.',
+        })
+      }
+    >
+      Save report
+    </button>
+  );
+}
+```
+
+## Toast Options
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | `—` | Custom identifier for the toast (auto-generated if omitted) |
+| `heading` | `string` | `—` | The main title of the toast. Without it, the description becomes the title, or a default title for the type is used |
+| `description` | `string` | `—` | The description text of the toast notification |
+| `duration` | `number` | `3500` | Duration in milliseconds before the toast auto-dismisses (`0` = persistent). Ignored for `progress` and `loading` toasts |
+| `type` | `'success' \| 'warning' \| 'default' \| 'progress' \| 'loading'` | `'default'` | The type of toast notification. The toast methods set it for you |
+| `actionLabel` | `string` | `—` | Label for the action button. Shown only together with `onAction` |
+| `onAction` | `() => void` | `—` | Callback fired when the action button is clicked. The toast closes after it runs |
+| `actionPlacement` | `'stacked' \| 'inline'` | `'stacked'` | Where the action button sits when there is a description: under it, or beside the text |
+| `onDismiss` | `() => void` | `—` | Callback fired when the person closes the toast with the close button or a swipe. Not called when the timer ends, the action runs, or code dismisses it |
+| `progress` | `number` | `0` | Progress value (`0`–`100`) for progress toasts. The bar shows only with a description |
+| `icon` | `React.ReactNode` | `—` | Custom icon to display in the toast. Pass `null` to hide the icon of the type |
+| `descriptionLineClamp` | `2 \| 5 \| 'none'` | `2` | How many lines of description copy to show |
+| `data-dd-privacy` | `'mask'` | `—` | Masks the toast's text in session replay. Screen readers then hear only the heading, so keep names in the description |
+
+## Toast Methods
+
+| Method | Type | Description |
+| --- | --- | --- |
+| `toast()` | `(options: ToastOptions) => string` | Shows a default toast and returns its id |
+| `toast.success()` | `(options: ToastOptions) => string` | Shows a success toast and returns its id |
+| `toast.warning()` | `(options: ToastOptions) => string` | Shows a warning toast and returns its id |
+| `toast.default()` | `(options: ToastOptions) => string` | Shows a default toast and returns its id |
+| `toast.progress()` | `(options: ToastOptions) => string` | Shows a progress toast that stays open until dismissed. It has no close button |
+| `toast.loading()` | `(options: ToastOptions) => string` | Shows a loading toast that stays open until it is closed |
+| `toast.dismiss()` | `(toastId: string) => void` | Dismisses a toast by id |
+| `toast.updateProgress()` | `(toastId: string, progress: number, message?: string) => void` | Updates a progress toast's value and, optionally, its description |

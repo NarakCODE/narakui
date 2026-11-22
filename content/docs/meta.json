@@ -1,0 +1,9 @@
+{
+  "pages": [
+    "---Foundation---",
+    "index",
+    "...foundation",
+    "---Components---",
+    "...components"
+  ]
+}

@@ -1,0 +1,132 @@
+---
+title: Button
+description: Trigger an action or event, such as submitting a form or displaying a dialog.
+---
+
+import { ButtonLoading } from '@/components/examples/button-loading';
+import { ButtonLoadingFixedWidth } from '@/components/examples/button-loading-fixed-width';
+import { ButtonLoadingIconToggle } from '@/components/examples/button-loading-icon-toggle';
+import { ButtonLoadingIcons } from '@/components/examples/button-loading-icons';
+import { ButtonLoadingInteractive } from '@/components/examples/button-loading-interactive';
+import { ButtonLoadingSizes } from '@/components/examples/button-loading-sizes';
+import { ButtonLoadingVariants } from '@/components/examples/button-loading-variants';
+import { ButtonPrefixSuffix } from '@/components/examples/button-prefix-suffix';
+import { ButtonSizes } from '@/components/examples/button-sizes';
+import { ButtonToggleState } from '@/components/examples/button-toggle-state';
+import { ButtonVariants } from '@/components/examples/button-variants';
+
+## Sizes
+
+The default size is `regular`.
+
+<ComponentPreview file="components/examples/button-sizes.tsx">
+  <ButtonSizes />
+</ComponentPreview>
+
+## Variants
+
+The default mode is `secondary`.
+
+<ComponentPreview file="components/examples/button-variants.tsx">
+  <ButtonVariants />
+</ComponentPreview>
+
+## Toggle state
+
+Pair `subtle` and `tertiary` for a view switcher. `subtle` is the off state: transparent background and secondary text, changing to a tertiary background and primary text on hover. `tertiary` is the selected state: tertiary background and primary text, with no hover change. Both modes use a quaternary background while pressed. Set `aria-pressed` to expose which view is selected.
+
+<ComponentPreview file="components/examples/button-toggle-state.tsx">
+  <ButtonToggleState />
+</ComponentPreview>
+
+## Start and end icons
+
+`iconStart` and `iconEnd` take an icon name, or `{ name, variant }` for an icon variant. Pass a custom node only for artwork outside the icon set. A button with an icon and no label is an icon-only button, so give it an `aria-label`.
+
+<ComponentPreview file="components/examples/button-prefix-suffix.tsx">
+  <ButtonPrefixSuffix />
+</ComponentPreview>
+
+## Loading
+
+Loading disables the button, which switches it to the secondary background, so these examples sit on a card like they do in the product. Text-only buttons keep the centered spinner overlay so the control does not reflow. Use a fixed width such as `w-40` when you want to lock the size during that transition.
+
+<ComponentPreview file="components/examples/button-loading.tsx">
+  <ButtonLoading />
+</ComponentPreview>
+
+## Loading interactive
+
+See the loading state transition as the button enters and exits loading.
+
+<ComponentPreview file="components/examples/button-loading-interactive.tsx">
+  <ButtonLoadingInteractive />
+</ComponentPreview>
+
+## Loading variants
+
+Compare loading states across the `primary`, `secondary`, `ghost`, `destructive`, and `dashed` modes.
+
+<ComponentPreview file="components/examples/button-loading-variants.tsx">
+  <ButtonLoadingVariants />
+</ComponentPreview>
+
+## Loading sizes
+
+Compare the loading overlay at each supported button size.
+
+<ComponentPreview file="components/examples/button-loading-sizes.tsx">
+  <ButtonLoadingSizes />
+</ComponentPreview>
+
+## Loading fixed width
+
+A fixed width keeps the button size consistent while its loading overlay is visible.
+
+<ComponentPreview file="components/examples/button-loading-fixed-width.tsx">
+  <ButtonLoadingFixedWidth />
+</ComponentPreview>
+
+## Loading icon toggle
+
+When the button has an icon, the spinner replaces that icon and the label stays visible.
+
+<ComponentPreview file="components/examples/button-loading-icon-toggle.tsx">
+  <ButtonLoadingIconToggle />
+</ComponentPreview>
+
+## Loading with icons
+
+The spinner replaces the start icon when one exists, the end icon when that is the only icon, and only the start icon when both are present. Icon-only buttons swap the icon for the spinner. `ghost` and `subtle` use a tertiary background while loading.
+
+<ComponentPreview file="components/examples/button-loading-icons.tsx">
+  <ButtonLoadingIcons />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+
+<Button>Click me</Button>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost' \| 'subtle' \| 'destructive' \| 'dashed'` | `'secondary'` | Visual style of the button |
+| `secondarySurface` | `'control' \| 'page'` | `'control'` | Use `'page'` to give a secondary button the page background when it sits on a tinted surface |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Size of the button on desktop |
+| `iconStart` | `ButtonIconValue` | `—` | Icon name or `{ name, variant }` shown at the start of the button. Pass a node only for artwork that isn't in the icon set |
+| `iconEnd` | `ButtonIconValue` | `—` | Icon shown at the end of the button. Same values as `iconStart` |
+| `loading` | `{ isLoading?: boolean; className?: string }` | `—` | Loading state configuration. Disables the control while loading. Text-only buttons show a centered spinner overlay. When an icon is present the spinner replaces that icon and the label stays visible. |
+| `contentClassName` | `string` | `—` | Custom class name for the button content wrapper |
+| `allowScaleOnClick` | `boolean` | `true` | Shrinks the button while it is pressed. A button that opens a popup (`aria-haspopup`, such as a menu or popover trigger) stays still unless this is set |
+| `error` | `boolean` | `false` | Whether to display the button in error state |
+| `className` | `string` | `—` | Additional CSS classes to apply to the button |
+| `children` | `ReactNode` | `—` | Button content |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type attribute |
+| `href` | `string` | `—` | Renders a Next.js Link instead of a button. While disabled or loading it renders a non-interactive span with `aria-disabled` |
+| `prefetch` | `LinkProps['prefetch']` | `—` | Next.js Link prefetch behavior. Only applies with `href` |

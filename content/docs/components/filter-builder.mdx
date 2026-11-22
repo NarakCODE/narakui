@@ -1,0 +1,82 @@
+---
+title: Filter Builder
+description: Build one filter condition from a field, operator, and typed value in a joined control.
+---
+
+import { FilterBuilderCompatibilityExample } from '@/components/examples/filter-builder-compatibility';
+import { FilterBuilderControlledExample } from '@/components/examples/filter-builder-controlled';
+import { FilterBuilderInteractiveExample } from '@/components/examples/filter-builder-interactive';
+import { FilterBuilderValueTypesExample } from '@/components/examples/filter-builder-value-types';
+
+## Interactive example
+
+Pick a field, choose an operator, and enter a typed value in a single joined control. Pass `showFieldSearch` to filter long field lists from the keyboard.
+
+<ComponentPreview file="components/examples/filter-builder-interactive.tsx">
+  <FilterBuilderInteractiveExample />
+</ComponentPreview>
+
+## Value types
+
+Each field defines the input shown in the value segment:
+
+- `select` — Opens a selection menu of options, with optional search via `searchable`.
+- `number` — Renders an inline number input that commits on blur or `Enter`, and validates `min`, `max`, and `step` (with step alignment starting at `min` when provided, or `0` otherwise).
+- `text` — Renders an inline text input. Empty strings clear the value to `null` unless `allowEmpty` is enabled.
+- `multi` — Stores a `string[]` and displays each value as a removable pill. Pass `options` for a checkable list (with optional `searchable` and `onSearchChange` for server-side filtering), or enable `allowCustom` without options to add values on `Enter` or comma.
+
+<ComponentPreview file="components/examples/filter-builder-value-types.tsx">
+  <FilterBuilderValueTypesExample />
+</ComponentPreview>
+
+## Compatible field changes
+
+Switching fields keeps the current operator when the new field supports the same operator ID; otherwise it falls back to the new field's `defaultOperatorId`, or `null` if none is defined.
+
+The value resets to `null` by default so incompatible data does not carry over. Set the same `compatibilityKey` on value configs that share a domain — such as `Assignee` and `Reviewer` — to keep the current value whenever it remains valid for the new field.
+
+<ComponentPreview file="components/examples/filter-builder-compatibility.tsx">
+  <FilterBuilderCompatibilityExample />
+</ComponentPreview>
+
+## Controlled state
+
+`FilterBuilder` is fully controlled through `condition` and `onConditionChange`. Start from an empty condition (`fieldId: null`, `operatorId: null`, `value: null`) to let the user build a rule from scratch, or update it programmatically from presets and reset actions.
+
+```tsx
+const [condition, setCondition] = useState<FilterCondition>({
+  fieldId: null,
+  operatorId: null,
+  value: null,
+});
+
+<FilterBuilder
+  fields={fields}
+  condition={condition}
+  onConditionChange={setCondition}
+/>
+```
+
+<ComponentPreview file="components/examples/filter-builder-controlled.tsx">
+  <FilterBuilderControlledExample />
+</ComponentPreview>
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `fields` (Required) | `readonly FilterBuilderField[]` | `—` | Field definitions with their operators, default operator, and typed value configuration |
+| `condition` (Required) | `FilterCondition` | `—` | Controlled condition object (`fieldId`, `operatorId`, `value`) |
+| `onConditionChange` (Required) | `(condition: FilterCondition) => void` | `—` | Called whenever the selected field, operator, or value changes |
+| `fieldPlaceholder` | `string` | `'Select field'` | Placeholder shown in the field segment before a field is chosen |
+| `operatorPlaceholder` | `string` | `'Select operator'` | Placeholder shown in the operator segment before an operator is chosen |
+| `valuePlaceholder` | `string` | `'Select value'` | Default placeholder for the value segment when the field config does not provide one |
+| `showFieldSearch` | `boolean` | `false` | Shows a search input inside the field selection popover |
+| `fieldSearchPlaceholder` | `string` | `'Search fields'` | Placeholder text for the field search input |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Size scale shared across all three segments |
+| `disabled` | `boolean` | `false` | Disables all segments of the control |
+| `withRadixPortal` | `boolean` | `true` | Renders segment popovers inside a portal. Set to `false` to render them inline |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Alignment of segment popovers relative to their triggers |
+| `ariaLabel` | `string` | `'Filter condition'` | Accessible label applied to the joined group container |
+| `className` | `string` | `—` | Additional classes for the outer container |
+| `segmentClassNames` | `{ field?: string; operator?: string; value?: string }` | `—` | Class overrides for individual `field`, `operator`, and `value` segments |

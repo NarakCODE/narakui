@@ -1,0 +1,132 @@
+---
+title: Toggle Group
+description: A set of two-state buttons that can be toggled on or off, typically used for filtering or switching between different views or options.
+---
+
+import { ToggleGroupBasic } from '@/components/examples/toggle-group-basic';
+import { ToggleGroupMultiple } from '@/components/examples/toggle-group-multiple';
+import { ToggleGroupSizes } from '@/components/examples/toggle-group-sizes';
+import { ToggleGroupWithIcons } from '@/components/examples/toggle-group-with-icons';
+import { ToggleGroupControlled } from '@/components/examples/toggle-group-controlled';
+import { ToggleGroupDisabled } from '@/components/examples/toggle-group-disabled';
+
+## Basic
+
+With `type="single"`, one item is on at a time and a sliding indicator marks it.
+
+<ComponentPreview file="components/examples/toggle-group-basic.tsx">
+  <ToggleGroupBasic />
+</ComponentPreview>
+
+## Multiple selection
+
+With `type="multiple"`, several items can be on at once. The sliding indicator only shows in single mode, so selected items are marked by their text color.
+
+<ComponentPreview file="components/examples/toggle-group-multiple.tsx">
+  <ToggleGroupMultiple />
+</ComponentPreview>
+
+## Sizes
+
+Set `size` on the root: `regular` (the default) or `small`. The heights match the [Button](/docs/components/button) scale.
+
+<ComponentPreview file="components/examples/toggle-group-sizes.tsx">
+  <ToggleGroupSizes />
+</ComponentPreview>
+
+## With icons
+
+Use `iconStart` or `iconEnd` for icons. Keep `children` reserved for the item label; icon-only items must provide an accessible label.
+
+<ComponentPreview file="components/examples/toggle-group-with-icons.tsx">
+  <ToggleGroupWithIcons />
+</ComponentPreview>
+
+## Controlled
+
+Pass `value` and `onValueChange` to control the selection. In single mode, clicking the selected item passes an empty string; ignore it to keep one item selected.
+
+<ComponentPreview file="components/examples/toggle-group-controlled.tsx">
+  <ToggleGroupControlled />
+</ComponentPreview>
+
+## Disabled
+
+Set `disabled` on an item to make it unavailable. Arrow-key navigation skips it.
+
+<ComponentPreview file="components/examples/toggle-group-disabled.tsx">
+  <ToggleGroupDisabled />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ToggleGroup } from '@/components/ui/toggle-group';
+
+// Basic usage
+<ToggleGroup.Root defaultValue="option1" aria-label="Toggle group" type="single">
+  <ToggleGroup.Item value="option1" aria-label="Option 1">
+    Option 1
+  </ToggleGroup.Item>
+  <ToggleGroup.Item value="option2" aria-label="Option 2">
+    Option 2
+  </ToggleGroup.Item>
+</ToggleGroup.Root>
+
+// Multiple selection
+<ToggleGroup.Root defaultValue={['option1']} aria-label="Multiple toggle group" type="multiple">
+  <ToggleGroup.Item value="option1" aria-label="Option 1">
+    Option 1
+  </ToggleGroup.Item>
+  <ToggleGroup.Item value="option2" aria-label="Option 2">
+    Option 2
+  </ToggleGroup.Item>
+</ToggleGroup.Root>
+
+// Controlled state
+const [value, setValue] = useState('option1');
+
+<ToggleGroup.Root
+  value={value}
+  onValueChange={setValue}
+  aria-label="Controlled toggle group"
+  type="single"
+>
+  <ToggleGroup.Item value="option1" aria-label="Option 1">
+    Option 1
+  </ToggleGroup.Item>
+  <ToggleGroup.Item value="option2" aria-label="Option 2">
+    Option 2
+  </ToggleGroup.Item>
+</ToggleGroup.Root>
+```
+
+## ToggleGroup.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `type` | `'single' \| 'multiple'` | Required | The type of toggle group — single or multiple selection |
+| `value` | `string \| string[]` | `—` | The current value(s) of the toggle group (controlled) |
+| `defaultValue` | `string \| string[]` | `—` | The default value(s) of the toggle group (uncontrolled) |
+| `onValueChange` | `(value: string \| string[]) => void` | `—` | Callback fired when the value changes |
+| `size` | `'regular' \| 'small'` | `'regular'` | Control height and item typography. Matches the Button scale |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Lays the items out in a row or a column |
+| `disabled` | `boolean` | `false` | Whether the toggle group is disabled |
+| `aria-label` | `string` | `—` | Accessible label for the toggle group |
+| `className` | `string` | `—` | Additional CSS classes to apply to the toggle group |
+| `indicatorClassName` | `string` | `—` | Additional CSS classes for the sliding active indicator |
+
+## ToggleGroup.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | The value of the toggle item |
+| `children` | `ReactNode` | `—` | Label displayed by the toggle item |
+| `aria-label` | `string` | `—` | Accessible label for the toggle item. Required when the item has no children |
+| `iconStart` | `ToggleGroupIconValue` | `—` | Icon displayed before the label |
+| `iconEnd` | `ToggleGroupIconValue` | `—` | Icon displayed after the label |
+| `disabled` | `boolean` | `false` | Whether the toggle item is disabled |
+| `className` | `string` | `—` | Additional CSS classes to apply to the toggle item |
+| `labelClassName` | `string` | `—` | Additional CSS classes for the label slot |
+| `iconStartClassName` | `string` | `—` | Additional CSS classes for the start icon slot |
+| `iconEndClassName` | `string` | `—` | Additional CSS classes for the end icon slot |

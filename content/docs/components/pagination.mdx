@@ -1,0 +1,94 @@
+---
+title: Pagination
+description: A navigation component for splitting content across multiple pages.
+---
+
+import { PaginationArrowsOnlyExample } from '@/components/examples/pagination-arrows-only';
+import { PaginationCursorExample } from '@/components/examples/pagination-cursor';
+import { PaginationDefaultExample } from '@/components/examples/pagination-default';
+import { PaginationEmptyExample } from '@/components/examples/pagination-empty';
+import { PaginationLoadingExample } from '@/components/examples/pagination-loading';
+import { PaginationWithIndicatorExample } from '@/components/examples/pagination-with-indicator';
+
+## Default
+
+Shows the visible item range and the previous and next arrows. It fills its container, so it usually sits in a table footer.
+
+<ComponentPreview file="components/examples/pagination-default.tsx">
+  <PaginationDefaultExample />
+</ComponentPreview>
+
+## With page indicator
+
+Shows the current page and the page count between the arrows.
+
+<ComponentPreview file="components/examples/pagination-with-indicator.tsx">
+  <PaginationWithIndicatorExample />
+</ComponentPreview>
+
+## Arrows only
+
+Hides the item count and keeps only the arrows.
+
+<ComponentPreview file="components/examples/pagination-arrows-only.tsx">
+  <PaginationArrowsOnlyExample />
+</ComponentPreview>
+
+## Cursor mode
+
+Use `mode="cursor"` when the API returns a next-page cursor instead of a total. Pass `hasNextPage` instead of `limit`, `offset`, and `totalItems`. The count reads `Page N`, and `showPageIndicatorBetweenArrows` has no effect.
+
+<ComponentPreview file="components/examples/pagination-cursor.tsx">
+  <PaginationCursorExample />
+</ComponentPreview>
+
+## Loading state
+
+`isLoading` disables both arrows while data is fetching.
+
+<ComponentPreview file="components/examples/pagination-loading.tsx">
+  <PaginationLoadingExample />
+</ComponentPreview>
+
+## Empty state
+
+With zero items, the count is hidden and both arrows are disabled.
+
+<ComponentPreview file="components/examples/pagination-empty.tsx">
+  <PaginationEmptyExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Pagination } from '@/components/ui/pagination';
+```
+
+```tsx
+<Pagination
+  page={1}
+  limit={10}
+  offset={0}
+  totalItems={100}
+  onPageChange={setPage}
+/>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `page` (Required) | `number` | `—` | The current page number (1-based). |
+| `onPageChange` (Required) | `(page: number) => void` | `—` | Called with the new page when an arrow is clicked. |
+| `mode` | `'counted' \| 'cursor'` | `'counted'` | `counted` takes a total and shows the item range; `cursor` only knows whether a next page exists. |
+| `limit` | `number` | `—` | Number of items per page. Required in counted mode. |
+| `offset` | `number` | `—` | Number of items to skip, usually `(page - 1) * limit`. Required in counted mode. |
+| `totalItems` | `number` | `—` | Total number of items across all pages. Required in counted mode. |
+| `hasNextPage` | `boolean` | `—` | Whether a next page exists. Required in cursor mode. |
+| `isLoading` | `boolean` | `false` | Disables both arrows. |
+| `showOnlyArrows` | `boolean` | `false` | Show only navigation arrows without item count. |
+| `showPageIndicatorBetweenArrows` | `boolean` | `false` | Show the current page and page count between the arrows. Counted mode only. |
+| `leftContent` | `ReactNode` | `—` | Content shown before the item count. |
+| `alignText` | `string` | `—` | Set to `'end'` to align the item count to the right. |
+| `aria-label` | `string` | `'Pagination'` | Accessible name for the navigation landmark. Change it when a view has more than one. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the pagination container. |

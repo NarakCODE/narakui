@@ -1,0 +1,106 @@
+---
+title: Table
+description: A type-safe data table with custom cells, sortable headers, and expandable rows.
+---
+
+import { TableActionsExample } from '@/components/examples/table-actions';
+import { TableBasicExample } from '@/components/examples/table-basic';
+import { TableExpandableExample } from '@/components/examples/table-expandable';
+import { TableSortableExample } from '@/components/examples/table-sortable';
+
+## Basic table
+
+`createTable<Row>()` returns a table bound to one row type, so every column callback is typed. Call it once at module scope, not during render.
+
+`getValue` returns the content of a default cell. `renderCell` returns the whole `<td>`, so its classes are up to you.
+
+<ComponentPreview file="components/examples/table-basic.tsx">
+  <TableBasicExample />
+</ComponentPreview>
+
+## Sortable columns
+
+The consumer owns the sort. Set `sortDirection` on the sorted column so the header gets `aria-sort`.
+
+<ComponentPreview file="components/examples/table-sortable.tsx">
+  <TableSortableExample />
+</ComponentPreview>
+
+## Expandable rows
+
+Clicking a row, or pressing `Enter` or `Space` while it has focus, calls `onToggleExpand`. Keep the expanded keys in state and pass them to `expandedRows`. Use `isRowExpandable` to turn expansion off for some rows. Setting `onRowClick` replaces the expand toggle.
+
+<ComponentPreview file="components/examples/table-expandable.tsx">
+  <TableExpandableExample />
+</ComponentPreview>
+
+## Action cells
+
+`align` applies to the header cell and to cells rendered from `getValue`. A cell from `renderCell` sets its own alignment. `Button` is a block-level flex container, so wrap it in a `flex justify-end` container to line it up with a right-aligned header.
+
+<ComponentPreview file="components/examples/table-actions.tsx">
+  <TableActionsExample />
+</ComponentPreview>
+
+## Properties
+
+### Table
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `data` (Required) | `T[]` | `—` | Rows to render. |
+| `rowKey` | `keyof T \| ((row: T, index: number) => React.Key)` | `index` | Property or function that returns a stable row key. |
+| `aria-label` | `string` | `—` | Accessible name for the table. |
+| `aria-labelledby` | `string` | `—` | Id of the element that names the table. |
+| `expandedRows` | `React.Key[]` | `[]` | Keys of the rows that are expanded. |
+| `onToggleExpand` | `(rowKey: React.Key, isExpanded: boolean) => void` | `—` | Called when a row is expanded or collapsed. |
+| `isRowExpandable` | `(row: T) => boolean` | `—` | Returns false for rows that should not expand. |
+| `onRowClick` | `(row: T) => void` | `—` | Called when a row is clicked. Replaces the expand toggle. |
+| `isLoading` | `boolean` | `false` | Shows `loadingState`, or skeleton rows when `loadingState` is not set. |
+| `loadingState` | `ReactNode` | `—` | Content shown while loading. |
+| `placeholderRows` | `number` | `5` | Number of skeleton rows while loading, and of rows the empty state fills. |
+| `emptyState` | `ReactNode` | `—` | Content shown when data is empty. Defaults to No data found. |
+| `centeredEmptyState` | `boolean` | `false` | Centers `emptyState` in the space below the header instead of in the first row. |
+| `density` | `'default' \| 'comfortable'` | `'default'` | `comfortable` fixes a 40px header row and 56px body rows. |
+| `headerWeight` | `'medium' \| 'regular' \| 'mini'` | `'medium'` | Typography of the header cells. Defaults to `mini` when `density` is `comfortable`. |
+| `hideHead` | `boolean` | `false` | Hides the header row. |
+| `fixed` | `boolean` | `false` | Uses a fixed table layout, so column widths do not follow content. |
+| `fixedHeader` | `boolean` | `false` | Keeps the header pinned while the body scrolls. |
+| `fixedFooter` | `boolean` | `false` | Keeps `Table.Footer` pinned to the bottom while the body scrolls. |
+| `disableCardStyles` | `boolean` | `false` | Removes the card border and background around the table. |
+| `renderRows` | `(data: T[]) => ReactNode[]` | `—` | Renders the body rows yourself instead of from the columns. |
+| `className` | `string` | `—` | Additional classes for the table element. |
+| `wrapperClassName` | `string` | `—` | Additional classes for the wrapper. |
+| `headClassName` | `string` | `—` | Additional classes for the `thead` element. |
+| `rowClassName` | `string` | `—` | Additional classes for every body row. |
+
+### Table.Column
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` (Required) | `string` | `—` | Unique column identifier. Without `getValue` or `renderCell`, the cell shows `row[id]`. |
+| `label` | `ReactNode` | `—` | Header content. |
+| `getValue` | `(row: T, index: number, id: string) => ReactNode` | `—` | Returns the cell content inside the default cell. |
+| `renderCell` | `(row: T, index: number, id: string) => ReactNode` | `—` | Renders the whole `<td>` for full control. |
+| `renderHeader` | `(column: TableColumnProps<T>) => ReactNode` | `—` | Renders the whole `<th>` for full control. |
+| `loadingCell` | `ReactNode` | `—` | Cell content while `isLoading`. Defaults to a full-width skeleton. |
+| `sortDirection` | `'asc' \| 'desc'` | `—` | Active sort direction. Sets `aria-sort` on the header cell so screen readers announce the sort. Set it only on the sorted column. |
+| `align` | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment of the header cell and of cells rendered from `getValue`. |
+| `className` | `string` | `—` | Additional classes for the header cell and the body cells. |
+| `cellClassName` | `string` | `—` | Additional classes for the body cells. |
+| `headerClassName` | `string` | `—` | Additional classes for the header cell. |
+| `headerColSpan` | `number` | `—` | Number of columns the header cell spans. |
+
+### Table.ExpandableRow
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `render` | `(row: T, index: number) => ReactNode` | `—` | Content shown in one full-width row below an expanded row. |
+| `renderRows` | `(row: T, index: number) => ReactNode` | `—` | Returns one or more `<tr>` elements shown below an expanded row. Use instead of `render`. |
+
+### Table.Footer
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | `—` | Footer content, such as pagination. |
+| `className` | `string` | `—` | Additional classes for the footer. |

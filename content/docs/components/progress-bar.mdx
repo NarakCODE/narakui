@@ -1,0 +1,118 @@
+---
+title: Progress Bar
+description: Progress indicators for showing completion status of tasks or processes.
+---
+
+import { CircularProgressAnimated } from '@/components/examples/progress-bar-circular-animated';
+import { CircularProgressCustom } from '@/components/examples/progress-bar-circular-custom';
+import { CircularProgressSizes } from '@/components/examples/progress-bar-circular-sizes';
+import { CircularProgressValues } from '@/components/examples/progress-bar-circular-values';
+import { LinearProgressCustom } from '@/components/examples/progress-bar-linear-custom';
+import { LinearProgressIndeterminate } from '@/components/examples/progress-bar-linear-indeterminate';
+import { LinearProgressSizes } from '@/components/examples/progress-bar-linear-sizes';
+import { LinearProgressValues } from '@/components/examples/progress-bar-linear-values';
+
+## Linear Progress
+
+Linear progress bars are ideal for showing progress through a process or task completion.
+
+### Sizes
+
+`sm`, `md` (the default), and `lg`.
+
+<ComponentPreview file="components/examples/progress-bar-linear-sizes.tsx">
+  <LinearProgressSizes />
+</ComponentPreview>
+
+### Values
+
+<ComponentPreview file="components/examples/progress-bar-linear-values.tsx">
+  <LinearProgressValues />
+</ComponentPreview>
+
+### Indeterminate
+
+Set `indeterminate` instead of `value` when progress is unknown. A short segment slides across the track, and fades gently in place when reduced motion is enabled.
+
+<ComponentPreview file="components/examples/progress-bar-linear-indeterminate.tsx">
+  <LinearProgressIndeterminate />
+</ComponentPreview>
+
+### Custom colors
+
+`fill` takes a background utility class such as `bg-fill-blue` or `bg-fill-green`.
+
+<ComponentPreview file="components/examples/progress-bar-linear-custom.tsx">
+  <LinearProgressCustom />
+</ComponentPreview>
+
+## Circular Progress
+
+Circular progress indicators are suited for compact spaces and percentage completion.
+
+### Sizes
+
+`sm` (14px), `md` (20px, the default), and `lg` (60px), or pass any explicit pixel number.
+
+<ComponentPreview file="components/examples/progress-bar-circular-sizes.tsx">
+  <CircularProgressSizes />
+</ComponentPreview>
+
+### Values
+
+<ComponentPreview file="components/examples/progress-bar-circular-values.tsx">
+  <CircularProgressValues />
+</ComponentPreview>
+
+### Animated
+
+Pass `animated` to draw the arc from empty to its value when it first appears. Later value changes keep the regular transition. People who prefer reduced motion see the final value right away.
+
+<ComponentPreview file="components/examples/progress-bar-circular-animated.tsx">
+  <CircularProgressAnimated />
+</ComponentPreview>
+
+### Custom colors
+
+`trackColor` and `progressColor` take a CSS color. Use theme variables such as `var(--color-fill-blue)` so the colors follow light and dark mode.
+
+<ComponentPreview file="components/examples/progress-bar-circular-custom.tsx">
+  <CircularProgressCustom />
+</ComponentPreview>
+
+## Usage
+
+Both components clamp the value to `0`–`100`. `LinearProgress` is always exposed as a progress bar and is named `"Progress"` unless you pass `label`. `CircularProgress` is hidden from assistive technology unless you pass `label`.
+
+```tsx
+import { CircularProgress, LinearProgress } from '@/components/ui/progress-bar';
+
+<LinearProgress value={50} />
+<CircularProgress progress={50} size="lg" />
+```
+
+## LinearProgress Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` (Required unless `indeterminate`) | `number` | `—` | Progress value from 0 to 100. Required unless `indeterminate` is set |
+| `indeterminate` | `boolean` | `false` | Shows an animated bar instead of a value. Cannot be combined with `value` |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height of the bar |
+| `fill` | `string` | `'bg-fill-primary'` | Fill color class for the bar |
+| `label` | `string` | `'Progress'` | Accessible name for the progress bar |
+| `className` | `string` | `—` | Additional CSS classes for the outer wrapper |
+
+## CircularProgress Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `progress` | `number` | `0` | Progress value from 0 to 100 |
+| `size` | `'sm' \| 'md' \| 'lg' \| number` | `'md'` | Named size variant (14, 20, or 60px) or an explicit pixel size |
+| `label` | `string` | `—` | Accessible name. When set, the indicator is exposed as a progress bar |
+| `strokeWidth` | `number` | `—` | Width of the stroke. Defaults to the size variant's stroke, or a tenth of a numeric size |
+| `strokeLinecap` | `'butt' \| 'round'` | `—` | Shape of the arc ends. Defaults to `butt` for `sm` and `round` otherwise |
+| `trackColor` | `string` | `'var(--color-fill-tertiary)'` | Color of the background track |
+| `progressColor` | `string` | `'var(--color-fill-primary)'` | Color of the progress arc |
+| `bgClassName` | `string` | `—` | Class applied to the background track |
+| `fgClassName` | `string` | `—` | Class applied to the progress arc |
+| `animated` | `boolean` | `false` | Draws the arc from empty to its value when it first appears |

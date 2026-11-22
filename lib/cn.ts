@@ -1,1 +1,1 @@
-export { cn } from 'cn';
+export { cn, type ClassValue } from '@/lib/utils';

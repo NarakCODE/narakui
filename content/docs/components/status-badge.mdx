@@ -1,0 +1,52 @@
+---
+title: Status Badge
+description: A small badge that marks a navigation item or heading as new, in beta, or coming soon.
+---
+
+import { StatusBadgeNavigation } from '@/components/examples/status-badge-navigation';
+import { StatusBadgeTypes } from '@/components/examples/status-badge-types';
+import { StatusBadgeWithIcon } from '@/components/examples/status-badge-with-icon';
+
+## Navigation
+
+`StatusBadge` is a small `Badge` with a `6px` left margin, so it sits right after a label. It is blue unless you set `type`.
+
+<ComponentPreview file="components/examples/status-badge-navigation.tsx">
+  <StatusBadgeNavigation />
+</ComponentPreview>
+
+## Types
+
+`type` takes any `Badge` color. When the parent already spaces its children, pass `className="ml-0"` to remove the left margin.
+
+<ComponentPreview file="components/examples/status-badge-types.tsx">
+  <StatusBadgeTypes />
+</ComponentPreview>
+
+## Icon
+
+`iconStart` adds an icon before the text, colored to match the badge. With neither `text` nor `iconStart`, the badge renders nothing, so you can pass optional values straight through.
+
+<ComponentPreview file="components/examples/status-badge-with-icon.tsx">
+  <StatusBadgeWithIcon />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { StatusBadge } from '@/components/ui/status-badge';
+
+<StatusBadge text="New" />
+<StatusBadge text="Beta" type="purple" />
+<StatusBadge text={item.badge} type={item.badgeType} iconStart={item.badgeIcon} />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `text` | `string \| null` | `—` | The label. |
+| `type` | `'default' \| 'red' \| 'blue' \| 'green' \| 'amber' \| 'yellow' \| 'purple' \| 'orange' \| 'gray' \| 'cyan'` | `'blue'` | Badge color. |
+| `iconStart` | `StatusBadgeIconValue` | `—` | Icon before the text: an icon name, an icon descriptor, or an element. |
+| `className` | `string` | `—` | Additional CSS classes for the badge. Use `ml-0` to remove the left margin. |
+| `titleClassName` | `string` | `—` | Additional CSS classes for the text. |

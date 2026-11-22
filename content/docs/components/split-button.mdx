@@ -1,0 +1,113 @@
+---
+title: Split Button
+description: A button that runs the most common action, joined to a menu of related alternatives.
+---
+
+import { SplitButtonPrimary } from '@/components/examples/split-button-primary';
+import { SplitButtonSecondary } from '@/components/examples/split-button-secondary';
+import { SplitButtonGhost } from '@/components/examples/split-button-ghost';
+import { SplitButtonSizes } from '@/components/examples/split-button-sizes';
+import { SplitButtonStates } from '@/components/examples/split-button-states';
+import { SplitButtonLink } from '@/components/examples/split-button-link';
+
+## Primary
+
+`SplitButton.Root` is a [Dropdown.Root](/docs/components/dropdown-menu). Put the leading `SplitButton.Action`, the chevron `SplitButton.Trigger` and an ordinary `Dropdown.Content` inside it. The trigger shows only an icon, so give it an `aria-label`.
+
+<ComponentPreview file="components/examples/split-button-primary.tsx">
+  <SplitButtonPrimary />
+</ComponentPreview>
+
+## Secondary with options
+
+Without `mode`, both halves use the secondary button style. The menu can change what the action does. Here it picks which checks run, and keeps itself open while you toggle them.
+
+<ComponentPreview file="components/examples/split-button-secondary.tsx">
+  <SplitButtonSecondary />
+</ComponentPreview>
+
+## Ghost
+
+Use `mode="ghost"` inside toolbars. Hovering either half also tints the other, so the pair reads as one control. Remove the root's shadow with `shadow-none` when it sits on a flat surface.
+
+<ComponentPreview file="components/examples/split-button-ghost.tsx">
+  <SplitButtonGhost />
+</ComponentPreview>
+
+## Sizes
+
+`size` on the root applies to both halves.
+
+<ComponentPreview file="components/examples/split-button-sizes.tsx">
+  <SplitButtonSizes />
+</ComponentPreview>
+
+## Disabled and loading
+
+`disabled` on the root disables both halves. Each half also takes its own `disabled`, and the action takes the button's `loading` prop. Disable the trigger while the action is loading so the menu cannot start a second run.
+
+<ComponentPreview file="components/examples/split-button-states.tsx">
+  <SplitButtonStates />
+</ComponentPreview>
+
+## Link action
+
+Give `SplitButton.Action` an `href` to render it as a link.
+
+<ComponentPreview file="components/examples/split-button-link.tsx">
+  <SplitButtonLink />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Dropdown } from '@/components/ui/dropdown-menu';
+import { SplitButton } from '@/components/ui/split-button';
+
+<SplitButton.Root mode="primary">
+  <SplitButton.Action iconStart="plus" onClick={create}>
+    Create
+  </SplitButton.Action>
+  <SplitButton.Trigger aria-label="More ways to create" />
+  <Dropdown.Content align="end">
+    <Dropdown.Item onSelect={importFile}>Import from a file</Dropdown.Item>
+  </Dropdown.Content>
+</SplitButton.Root>;
+```
+
+## SplitButton.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `mode` | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost' \| 'subtle' \| 'destructive' \| 'dashed'` | `'secondary'` | Button style shared by both halves |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Button size shared by both halves |
+| `disabled` | `boolean` | `false` | Disables both halves |
+| `open` | `boolean` | `—` | Whether the menu is open, when controlled |
+| `defaultOpen` | `boolean` | `—` | Whether the menu starts open, when uncontrolled |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the menu opens or closes |
+| `modal` | `boolean` | `false` | Whether the open menu blocks interaction with the rest of the page. Always true inside a dialog or drawer |
+| `className` | `string` | `—` | Additional classes for the wrapper around both halves |
+
+## SplitButton.Action Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | `—` | Label of the action |
+| `href` | `string` | `—` | Renders the action as a link to this destination |
+| `iconStart` | `ButtonIconValue` | `—` | Icon before the label |
+| `loading` | `{ isLoading?: boolean; className?: string }` | `—` | Shows a spinner in place of the icon and disables the action |
+| `disabled` | `boolean` | `—` | Disables the action. Defaults to the root's `disabled` |
+| `mode` | `ButtonMode` | `—` | Overrides the root's `mode` for this half |
+| `size` | `SplitButtonSize` | `—` | Overrides the root's `size` for this half |
+| `className` | `string` | `—` | Additional classes for the action. Other Button props are passed through |
+
+## SplitButton.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | Required | Accessible name of the icon-only menu trigger, such as `More ways to create` |
+| `iconStart` | `ButtonIconValue` | `'chevron-down'` | Icon of the trigger |
+| `disabled` | `boolean` | `—` | Disables the trigger. Defaults to the root's `disabled` |
+| `mode` | `ButtonMode` | `—` | Overrides the root's `mode` for this half |
+| `size` | `SplitButtonSize` | `—` | Overrides the root's `size` for this half |
+| `className` | `string` | `—` | Additional classes for the trigger. Other Button props are passed through |

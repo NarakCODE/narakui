@@ -1,16 +1,49 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
+import type { Metadata } from 'next';
+import { Geist_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
+import { DrawerProvider } from '@/components/ui/drawer';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { appName } from '@/lib/shared';
 import './global.css';
-import { Inter } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
-const inter = Inter({
-  subsets: ['latin'],
+const geistRounded = localFont({
+  src: './fonts/GeistRounded.woff2',
+  weight: '100 900',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-geist-rounded',
 });
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  title: {
+    default: appName,
+    template: `%s | ${appName}`,
+  },
+  description: `${appName} documentation`,
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(geistRounded.className, geistRounded.variable, geistMono.variable)}
+      suppressHydrationWarning
+    >
       <body className="flex flex-col min-h-screen">
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          <TooltipProvider delayDuration={300} skipDelayDuration={300}>
+            {children}
+            <DrawerProvider />
+          </TooltipProvider>
+        </RootProvider>
       </body>
     </html>
   );

@@ -1,0 +1,124 @@
+---
+title: Tab Strip
+description: A scrolling row of pill tabs for open items, like the artifacts beside a chat, that people can switch between, close and add to.
+---
+
+import { TabStripClosable } from '@/components/examples/tab-strip-closable';
+import { TabStripSelectOnly } from '@/components/examples/tab-strip-select-only';
+import { TabStripOverlayClose } from '@/components/examples/tab-strip-overlay-close';
+import { TabStripOverflow } from '@/components/examples/tab-strip-overflow';
+
+## Closable tabs
+
+A tab is built from four parts. `TabStripItem` is the slot in the strip. `TabStripTab` is the pill. `TabStripTrigger` is the button that selects the tab, and `TabStripClose` is a sibling of the trigger so the two buttons never nest. Pass the selected tab's id to `activeTabId` on `TabStrip`, and `isActive` to each part of that tab. The selected background smoothly slides to the newly selected tab.
+
+The close button shows on hover and focus, and always on the selected tab. Clicking it calls `onClose` without selecting the tab. Give square controls beside the strip, like the new tab button, `TAB_STRIP_CONTROL_CLASS` so they match the pills.
+
+<ComponentPreview file="components/examples/tab-strip-closable.tsx">
+  <TabStripClosable />
+</ComponentPreview>
+
+## Without close buttons
+
+Leave out `TabStripClose` when the set of tabs is fixed. Use `aria-controls` on `TabStripTrigger` to point at the panel it shows.
+
+<ComponentPreview file="components/examples/tab-strip-select-only.tsx">
+  <TabStripSelectOnly />
+</ComponentPreview>
+
+## Overlay close button
+
+With `overlay`, the close button floats over the end of the label instead of reserving space, and shows only on hover and focus, including on the selected tab. Tabs keep the same width whether or not they can close.
+
+<ComponentPreview file="components/examples/tab-strip-overlay-close.tsx">
+  <TabStripOverlayClose />
+</ComponentPreview>
+
+## Overflow and keyboard
+
+The strip scrolls sideways when its tabs do not fit, and fades its edges. When `activeTabId` changes, the selected tab scrolls into view. `TabStripLabel` truncates long titles and shows the full title in a native tooltip.
+
+The strip is one Tab stop: Tab moves focus to the selected tab, the left and right arrow keys move between tabs and wrap at the ends, and Home and End jump to the first and last tab. Enter or Space selects the focused tab.
+
+<ComponentPreview file="components/examples/tab-strip-overflow.tsx">
+  <TabStripOverflow />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  TabStrip,
+  TabStripClose,
+  TabStripItem,
+  TabStripLabel,
+  TabStripTab,
+  TabStripTrigger,
+} from '@/components/ui/tab-strip';
+
+<TabStrip activeTabId={activeId} aria-label="Artifacts">
+  {tabs.map((tab) => (
+    <TabStripItem key={tab.id} tabId={tab.id} isActive={tab.id === activeId}>
+      <TabStripTab isActive={tab.id === activeId}>
+        <TabStripTrigger
+          isActive={tab.id === activeId}
+          onClick={() => select(tab.id)}
+        >
+          <TabStripLabel>{tab.name}</TabStripLabel>
+        </TabStripTrigger>
+        <TabStripClose
+          label={`Close ${tab.name}`}
+          onClose={() => close(tab.id)}
+        />
+      </TabStripTab>
+    </TabStripItem>
+  ))}
+</TabStrip>;
+```
+
+## TabStrip Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-label` | `string` | `—` | Accessible name of the tab list. Pass this or `aria-labelledby` |
+| `activeTabId` | `string \| null` | `null` | Id of the selected tab. It scrolls into view when this changes, and becomes the strip's Tab stop again |
+| `className` | `string` | `—` | Additional classes for the tab list. Other div props are passed through |
+
+## TabStripItem Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `tabId` | `string` | Required | Id of the tab, matched against `activeTabId` |
+| `isActive` | `boolean` | `false` | Whether this is the selected tab |
+| `className` | `string` | `—` | Additional classes for the slot. Other div props are passed through |
+
+## TabStripTab Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `isActive` | `boolean` | `false` | Applies the selected pill style |
+| `ref` | `Ref<HTMLDivElement>` | `—` | Forwarded to the pill, so it can be a context menu or drag target |
+| `className` | `string` | `—` | Additional classes for the pill, such as a smaller max width. Other div props are passed through |
+
+## TabStripTrigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `isActive` | `boolean` | `false` | Sets `aria-selected` |
+| `asChild` | `boolean` | `false` | Renders the child element, such as a link, as the trigger instead of a button |
+| `className` | `string` | `—` | Additional classes for the trigger. Other button props are passed through |
+
+## TabStripLabel Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `string` | Required | Tab title. Truncates to one line, with the full title in a native tooltip |
+| `className` | `string` | `—` | Additional classes for the label |
+
+## TabStripClose Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `string` | Required | Accessible name and tooltip, such as `Close Visibility report` |
+| `onClose` | `() => void` | Required | Called on click, without selecting the tab |
+| `overlay` | `boolean` | `false` | Floats the button over the end of the label on hover and focus instead of reserving space |

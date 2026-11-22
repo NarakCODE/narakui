@@ -1,0 +1,195 @@
+---
+title: List
+description: A card of clickable rows, like recent projects or suggested tasks, with an optional heading, sections and footer.
+---
+
+import { ListActionsExample } from '@/components/examples/list-actions';
+import { ListBasicExample } from '@/components/examples/list-basic';
+import { ListRevealExample } from '@/components/examples/list-reveal';
+import { ListSectionsExample } from '@/components/examples/list-sections';
+
+## Basic
+
+`List.Root` is a card. Inside it, compose `List.Header`, `List.Body` and `List.Footer` yourself, with a `List.Divider` wherever you want a line. Rows go in `List.Items`, which renders a `ul`.
+
+Each row is a `ListItem.Root` around one `ListItem.PrimaryAction`. The primary action is a button by default; pass `asChild` and a link to make the row navigate. `ListItem.Content` lays out the icon, title, description and trailing metadata inside it. Long titles truncate and show the full text in a tooltip.
+
+Pass `keyboardNavigation` to let `ArrowDown` and `ArrowUp` move focus between rows. `Tab` still moves through every row and control in order. The list does not label itself: give the header a `titleId` and point the surrounding `section` at it with `aria-labelledby`.
+
+<ComponentPreview file="components/examples/list-basic.tsx">
+  <ListBasicExample />
+</ComponentPreview>
+
+## Row actions
+
+Put controls that do something other than open the row, like archiving, in `ListItem.Actions`. It sits beside the primary action rather than inside it, so the two never nest. Never put links or buttons in `ListItem.Content`, because everything in it belongs to the primary action.
+
+Use `titleBehavior="wrap"` when the whole title matters, like a task name. Pass controls for the whole list to `actions` on `List.Header`. Show an empty or loading state directly in `List.Body`, not as a fake row. Archive every task here to see the empty state.
+
+<ComponentPreview file="components/examples/list-actions.tsx">
+  <ListActionsExample />
+</ComponentPreview>
+
+## Sections
+
+Group rows with `List.Section`, a `List.Subheader` and their own `List.Items`. Give each subheader an `id` and label its section with `aria-labelledby`. Put dividers between sections, never inside a `List.Items`.
+
+The `status` slot holds a short label such as a `Badge`. A disabled primary action dims its row, and arrow keys skip it.
+
+<ComponentPreview file="components/examples/list-sections.tsx">
+  <ListSectionsExample />
+</ComponentPreview>
+
+## Action hint
+
+`ListItem.Reveal` shows its `resting` content until the row is hovered with a mouse or focused with the keyboard, then swaps in `active`. Both take the same space, so the row does not shift. Touch screens keep the resting content. Use it for a `ListItem.ActionHint` that says what clicking the row does; the hint is hidden from screen readers, so the row's own label must already make sense.
+
+<ComponentPreview file="components/examples/list-reveal.tsx">
+  <ListRevealExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { List, ListItem } from '@/components/ui/list';
+```
+
+```tsx
+<section aria-labelledby="projects-title">
+  <List.Root keyboardNavigation>
+    <List.Header titleId="projects-title" title="Recent projects" />
+    <List.Divider />
+    <List.Body>
+      <List.Items>
+        <ListItem.Root>
+          <ListItem.PrimaryAction asChild>
+            <a href="/projects/q4">
+              <ListItem.Content
+                title="Q4 visibility push"
+                description="3 suggested tasks"
+                trailing="2h ago"
+              />
+            </a>
+          </ListItem.PrimaryAction>
+        </ListItem.Root>
+      </List.Items>
+    </List.Body>
+  </List.Root>
+</section>
+```
+
+## Properties
+
+### List.Root
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `keyboardNavigation` | `boolean` | `false` | Lets `ArrowDown` and `ArrowUp` move focus between enabled rows. Stops at the first and last row. |
+| `background` | `'primary' \| 'secondary' \| 'tertiary' \| 'quaternary'` | `'primary'` | Card surface color. |
+| `padding` | `'none' \| 'sm' \| 'md'` | `'none'` | Card padding. Header, Body and Footer already have their own spacing. |
+| `onKeyDown` | `(event: React.KeyboardEvent<HTMLDivElement>) => void` | `—` | Runs before arrow key navigation. Call `preventDefault()` to stop it. |
+| `className` | `string` | `—` | Additional classes for the card. |
+
+### List.Header
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `React.ReactNode` | `—` | Heading text, rendered in an `h2` and truncated when too long. |
+| `titleId` | `string` | `—` | Id of the heading, for `aria-labelledby` on the surrounding section. |
+| `actions` | `React.ReactNode` | `—` | Controls at the end of the header. |
+| `children` | `React.ReactNode` | `—` | Replaces the heading, for example with a collapsible trigger. |
+| `className` | `string` | `—` | Additional classes for the header. |
+
+### List.Divider
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | `—` | Additional classes for the line. It is hidden from screen readers. |
+
+### List.Body
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `React.ReactNode` | `—` | Rows, sections, or a loading or empty state. |
+| `className` | `string` | `—` | Additional classes for the body. |
+
+### List.Section
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `aria-labelledby` | `string` | `—` | Id of the section's `List.Subheader`. |
+| `children` | `React.ReactNode` | `—` | A subheader and its `List.Items`. |
+
+### List.Subheader
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | `—` | Id that labels the section. |
+| `children` | `React.ReactNode` | `—` | Section heading, rendered in an `h3`. |
+| `className` | `string` | `—` | Additional classes for the heading. |
+
+### List.Items
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `React.ReactNode` | `—` | `ListItem.Root` rows or other `li` elements. |
+| `className` | `string` | `—` | Additional classes for the `ul`. |
+
+### List.Footer
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `React.ReactNode` | `—` | Footer controls, such as a See all link. |
+| `className` | `string` | `—` | Additional classes for the footer. |
+
+### ListItem.Root
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Renders onto the child element instead of an `li`. Wrap it in an `li` if the child is not one. |
+| `children` | `React.ReactNode` | `—` | One `ListItem.PrimaryAction` and optional `ListItem.Actions`. |
+| `className` | `string` | `—` | Additional classes for the row. |
+
+### ListItem.PrimaryAction
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Renders onto the child, usually a link with its own `href`, instead of a button. |
+| `onClick` | `(event: React.MouseEvent<HTMLButtonElement>) => void` | `—` | Called when the row is clicked. |
+| `disabled` | `boolean` | `false` | Dims the row and skips it during arrow key navigation. |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type when `asChild` is false. |
+| `className` | `string` | `—` | Additional classes for the button or link. |
+
+### ListItem.Content
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` (Required) | `React.ReactNode` | `—` | Row title. |
+| `description` | `React.ReactNode` | `—` | Secondary line under the title. |
+| `leading` | `React.ReactNode` | `—` | Icon or avatar before the title. |
+| `leadingAlign` | `'start' \| 'center'` | `'start'` | Aligns the leading slot with the title or centers it on the row. |
+| `status` | `React.ReactNode` | `—` | Short label after the title, such as a `Badge`. |
+| `trailing` | `React.ReactNode` | `—` | Metadata at the end of the row, such as a timestamp or `ListItem.Reveal`. |
+| `titleBehavior` | `'truncate' \| 'wrap'` | `'truncate'` | Truncates a long title with a tooltip, or wraps it onto more lines. |
+
+### ListItem.Actions
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `align` | `'start' \| 'center'` | `'start'` | Aligns the controls with the title or centers them on the row. |
+| `children` | `React.ReactNode` | `—` | Controls beside the primary action, like an archive button. |
+| `className` | `string` | `—` | Additional classes for the container. |
+
+### ListItem.Reveal
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `resting` (Required) | `React.ReactNode` | `—` | Content shown until the row is hovered or focused. |
+| `active` (Required) | `React.ReactNode` | `—` | Content shown while the row is hovered with a mouse or focused with the keyboard. |
+
+### ListItem.ActionHint
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `React.ReactNode` | `—` | Short text describing the primary action. Hidden from screen readers and not clickable. |
+| `className` | `string` | `—` | Additional classes for the hint. |

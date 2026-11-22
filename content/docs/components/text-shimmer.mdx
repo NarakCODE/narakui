@@ -1,0 +1,53 @@
+---
+title: Text Shimmer
+description: A highlight that sweeps across a label while the work it describes is in progress.
+---
+
+import { TextShimmerDefault } from '@/components/examples/text-shimmer-default';
+import { TextShimmerSteps } from '@/components/examples/text-shimmer-steps';
+import { TextShimmerTiming } from '@/components/examples/text-shimmer-timing';
+
+## Default
+
+The text renders in the tertiary text color with a primary-colored highlight moving across it. It inherits its size from the parent, so set typography with `className`. `children` must be a string. When reduced motion is enabled, the sweep pauses and the label stays legible in the secondary text color.
+
+<ComponentPreview file="components/examples/text-shimmer-default.tsx">
+  <TextShimmerDefault />
+</ComponentPreview>
+
+## In a row
+
+Use Text Shimmer for the step that is running and plain text once it finishes. It has 4px of vertical padding by default; pass `py-0` when it takes the place of text in a row, so the row keeps its height. It also truncates like normal text when you add `truncate` and a max width.
+
+<ComponentPreview file="components/examples/text-shimmer-steps.tsx">
+  <TextShimmerSteps />
+</ComponentPreview>
+
+## Duration and spread
+
+`duration` is the length of one sweep in seconds. `spread` sets the width of the highlight, in pixels per character, so longer labels get a wider highlight.
+
+<ComponentPreview file="components/examples/text-shimmer-timing.tsx">
+  <TextShimmerTiming />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { TextShimmer } from '@/components/ui/text-shimmer';
+
+{isRunning ? (
+  <TextShimmer className="py-0 text-body-small-medium">{label}</TextShimmer>
+) : (
+  <span className="text-body-small-medium">{label}</span>
+)}
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` (Required) | `string` | `—` | The label to animate |
+| `duration` | `number` | `1` | Length of one sweep, in seconds |
+| `spread` | `number` | `2` | Width of the highlight, in pixels per character of the label |
+| `className` | `string` | `—` | Additional CSS classes, such as typography or `py-0` |

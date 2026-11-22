@@ -1,0 +1,36 @@
+---
+title: Scroll Area
+description: A scroll container with a thin custom scrollbar that matches the product surface.
+---
+
+import { ScrollAreaHorizontal } from '@/components/examples/scroll-area-horizontal';
+import { ScrollAreaVertical } from '@/components/examples/scroll-area-vertical';
+
+## Vertical
+
+Give the area a fixed height; content past it scrolls. When the content has no focusable children, set `viewportLabel` so keyboard users can focus the area and scroll it with the arrow keys.
+
+<ComponentPreview file="components/examples/scroll-area-vertical.tsx">
+  <ScrollAreaVertical />
+</ComponentPreview>
+
+## Horizontal
+
+Set `orientation="horizontal"` to render a horizontal scrollbar. A direction without a scrollbar does not scroll. Use `"both"` for content that scrolls both ways.
+
+<ComponentPreview file="components/examples/scroll-area-horizontal.tsx">
+  <ScrollAreaHorizontal />
+</ComponentPreview>
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | `—` | Scrollable content. |
+| `orientation` | `'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Scrollbars to render. A direction without a scrollbar does not scroll. |
+| `type` | `'auto' \| 'always' \| 'scroll' \| 'hover'` | `'hover'` | When the scrollbars are visible. With `hover`, they show while the pointer is over the area or it is scrolling. |
+| `viewportLabel` | `string` | `—` | Accessible name for the viewport. Also makes it a focusable region, so keyboard users can scroll it. |
+| `viewportRef` | `Ref<HTMLDivElement>` | `—` | Ref to the scrolling viewport, for reading or setting the scroll position. |
+| `viewportClassName` | `string` | `—` | Additional classes for the viewport. |
+| `scrollbarClassName` | `string` | `—` | Additional classes for the scrollbars. |
+| `className` | `string` | `—` | Additional classes for the root. |

@@ -1,0 +1,90 @@
+---
+title: Tabs
+description: A set of layered sections of content that can be switched between using tab controls.
+---
+
+import { TabsBasic } from '@/components/examples/tabs-basic';
+import { TabsWithIcons } from '@/components/examples/tabs-with-icons';
+import { TabsWithContent } from '@/components/examples/tabs-with-content';
+import { TabsDisabled } from '@/components/examples/tabs-disabled';
+
+## Basic
+
+Add a bottom border to `Tabs.List` so the active underline sits on a line, as in the product. Set `defaultValue` on `Tabs.Root` to pick the tab shown first, or pass `value` and `onValueChange` to control it.
+
+<ComponentPreview file="components/examples/tabs-basic.tsx">
+  <TabsBasic />
+</ComponentPreview>
+
+## With icons
+
+Add `flex items-center gap-2` to a trigger to put an icon before its label.
+
+<ComponentPreview file="components/examples/tabs-with-icons.tsx">
+  <TabsWithIcons />
+</ComponentPreview>
+
+## With content
+
+`Tabs.Content` accepts any layout, such as a grid of metric cards.
+
+<ComponentPreview file="components/examples/tabs-with-content.tsx">
+  <TabsWithContent />
+</ComponentPreview>
+
+## Disabled
+
+A disabled trigger can't be selected and is skipped by arrow-key navigation.
+
+<ComponentPreview file="components/examples/tabs-disabled.tsx">
+  <TabsDisabled />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Tabs } from '@/components/ui/tabs';
+
+<Tabs.Root defaultValue="tab1">
+  <Tabs.List className="border-b border-fill-quaternary">
+    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="tab1">Content 1</Tabs.Content>
+  <Tabs.Content value="tab2">Content 2</Tabs.Content>
+</Tabs.Root>;
+```
+
+## Tabs.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `defaultValue` | `string` | `—` | Value of the tab shown first when uncontrolled |
+| `value` | `string` | `—` | Value of the active tab when controlled |
+| `onValueChange` | `(value: string) => void` | `—` | Callback fired when the active tab changes |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Orientation of the tabs, used for arrow-key navigation |
+| `activationMode` | `'automatic' \| 'manual'` | `'automatic'` | `automatic` activates a tab when it receives focus. `manual` waits for Enter, Space or a click |
+| `className` | `string` | `—` | Additional CSS classes to apply to the root |
+
+## Tabs.List Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `loop` | `boolean` | `true` | Whether arrow-key focus wraps from the last tab to the first |
+| `className` | `string` | `—` | Additional CSS classes to apply to the list |
+
+## Tabs.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | Value that links the trigger to its content |
+| `disabled` | `boolean` | `false` | Whether the tab trigger is disabled |
+| `className` | `string` | `—` | Additional CSS classes to apply to the trigger |
+
+## Tabs.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | Value of the trigger this content belongs to |
+| `forceMount` | `true` | `—` | Keeps the content mounted while its tab is inactive |
+| `className` | `string` | `—` | Additional CSS classes to apply to the content |

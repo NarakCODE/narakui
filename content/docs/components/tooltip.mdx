@@ -1,0 +1,103 @@
+---
+title: Tooltip
+description: A floating label that appears when hovering over an element to provide additional context or information.
+---
+
+import { TooltipWithArrow } from '@/components/examples/tooltip-arrow';
+import { TooltipBasic } from '@/components/examples/tooltip-basic';
+import { TooltipWithDelay } from '@/components/examples/tooltip-delay';
+import { TooltipDisabled } from '@/components/examples/tooltip-disabled';
+import { TooltipPositions } from '@/components/examples/tooltip-positions';
+import { TooltipRichContent } from '@/components/examples/tooltip-rich-content';
+import { TooltipUnderline } from '@/components/examples/tooltip-underline';
+
+## Basic
+
+A tooltip opens when its trigger is hovered or focused. Icon-only buttons need an `aria-label` as well; the tooltip does not name the button. Every `Tooltip` needs a `TooltipProvider` above it; render one near the root of the app.
+
+<ComponentPreview file="components/examples/tooltip-basic.tsx">
+  <TooltipBasic />
+</ComponentPreview>
+
+## Positions
+
+Set `side` to choose the preferred side of the trigger. The tooltip flips when there is no room.
+
+<ComponentPreview file="components/examples/tooltip-positions.tsx">
+  <TooltipPositions />
+</ComponentPreview>
+
+## Delay
+
+`TooltipProvider` sets the delay for every tooltip inside it. `delayDuration` is the wait before a tooltip opens, 300ms by default. `skipDelayDuration` is how long after one tooltip closes the next one opens at once, 500ms by default. This preview nests a provider with a longer `delayDuration`: the first tooltip in the toolbar waits 900ms, then moving to a neighbor opens it at once. One provider at the app root is usually enough.
+
+<ComponentPreview file="components/examples/tooltip-delay.tsx">
+  <TooltipWithDelay />
+</ComponentPreview>
+
+## Disabled
+
+Set `disabled` to keep the tooltip from opening, for example when a label is fully visible and needs no tooltip.
+
+<ComponentPreview file="components/examples/tooltip-disabled.tsx">
+  <TooltipDisabled />
+</ComponentPreview>
+
+## Arrow
+
+Set `showArrow` to point the tooltip at its trigger. Tooltips have no arrow by default.
+
+<ComponentPreview file="components/examples/tooltip-arrow.tsx">
+  <TooltipWithArrow />
+</ComponentPreview>
+
+## Underline
+
+Set `underline` to mark a term in running text with a dotted underline. Add `focusableTrigger` so keyboard and screen reader users can reach a trigger that isn't focusable on its own.
+
+<ComponentPreview file="components/examples/tooltip-underline.tsx">
+  <TooltipUnderline />
+</ComponentPreview>
+
+## Rich content
+
+`content` accepts any node. Build data tooltips from `TooltipLayout.Header`, `TooltipLayout.Body`, and `TooltipLayout.Row`, as chart tooltips do in the product.
+
+<ComponentPreview file="components/examples/tooltip-rich-content.tsx">
+  <TooltipRichContent />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
+
+<TooltipProvider>
+  <Tooltip content="Runs all 128 prompts again">
+    <Button iconStart="refresh">Rerun report</Button>
+  </Tooltip>
+</TooltipProvider>;
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `content` | `ReactNode` | `—` | **Required.** The content to display in the tooltip |
+| `children` | `ReactNode` | `—` | **Required.** The element that triggers the tooltip |
+| `contentProps` | `TooltipContentProps` | `—` | Props for the Radix tooltip content. `className` applies to the tooltip surface |
+| `rootProps` | `TooltipProps` | `—` | Props for the Radix tooltip root, such as `open` and `onOpenChange` |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | Preferred side of the trigger to render against |
+| `disabled` | `boolean` | `false` | Whether the tooltip is disabled |
+| `showArrow` | `boolean` | `false` | Whether to show an arrow pointing to the trigger element |
+| `underline` | `boolean` | `false` | Whether to show a dotted underline beneath the trigger text |
+| `focusableTrigger` | `boolean` | `false` | Makes the trigger keyboard-focusable and adds a focus outline, for triggers such as plain text |
+
+## TooltipProvider
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `delayDuration` | `number` | `300` | Milliseconds before a tooltip opens on hover |
+| `skipDelayDuration` | `number` | `500` | Milliseconds after a tooltip closes during which the next tooltip opens without a delay |
+| `children` | `ReactNode` | `—` | **Required.** The tooltips that share these settings |

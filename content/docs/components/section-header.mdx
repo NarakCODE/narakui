@@ -1,0 +1,68 @@
+---
+title: Section Header
+description: A title, subtitle, and actions row for a page section, with Section for consistent spacing.
+---
+
+import { SectionHeaderExample } from '@/components/examples/section-header-example';
+import { SectionHeaderLoading } from '@/components/examples/section-header-loading';
+
+## Section with header
+
+`SectionHeader` puts the title, an optional badge and info tooltip, and the subtitle on the left and its children on the right. Wrap it and the content below in `Section` for consistent vertical spacing.
+
+<ComponentPreview file="components/examples/section-header-example.tsx">
+  <SectionHeaderExample />
+</ComponentPreview>
+
+## Loading
+
+`isTitleLoading` and `isSubtitleLoading` swap the text for skeletons while it loads.
+
+<ComponentPreview file="components/examples/section-header-loading.tsx">
+  <SectionHeaderLoading />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Section, SectionHeader } from '@/components/ui/section-header';
+
+<Section>
+  <SectionHeader
+    title="Citation opportunities"
+    subtitle="Sites that cite your competitors but not your brand."
+    tooltipContent="Updated daily from your tracked prompts"
+  >
+    <Button size="small" iconStart="download">
+      Export
+    </Button>
+  </SectionHeader>
+  {/* Section body */}
+</Section>
+```
+
+## SectionHeader Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` (Required) | `string` | `—` | Section title |
+| `subtitle` | `string` | `—` | Supporting text below the title |
+| `children` | `ReactNode` | `—` | Actions aligned to the right |
+| `badge` | `ReactNode` | `—` | Content shown next to the title |
+| `tooltipContent` | `ReactNode` | `—` | Shows an info icon with this tooltip next to the title |
+| `titleTooltip` | `ReactNode` | `—` | Underlines the title and shows this tooltip on it |
+| `isTitleLoading` | `boolean` | `false` | Replaces the title with a skeleton |
+| `isSubtitleLoading` | `boolean` | `false` | Replaces the subtitle with a skeleton. Has no effect without a `subtitle` |
+| `id` | `string` | `—` | Anchor id for linking to the section |
+| `className` | `string` | `—` | Additional classes for the header row |
+| `childrenClassName` | `string` | `—` | Additional classes for the actions wrapper |
+| `subtitleClassName` | `string` | `—` | Additional classes for the subtitle |
+| `tooltipIconClassName` | `string` | `—` | Additional classes for the info icon shown by `tooltipContent` |
+
+## Section Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` (Required) | `ReactNode` | `—` | Section content |
+| `spacing` | `boolean` | `true` | Adds vertical spacing between children |
+| `className` | `string` | `—` | Additional classes for the section |

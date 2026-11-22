@@ -1,0 +1,105 @@
+---
+title: Input
+description: A text field with an optional label, icons, hint, and error message.
+---
+
+import { InputBasic } from '@/components/examples/input-basic';
+import { InputSizes } from '@/components/examples/input-sizes';
+import { InputStates } from '@/components/examples/input-states';
+import { InputWithIcons } from '@/components/examples/input-with-icons';
+import { InputFormExample } from '@/components/examples/input-form';
+import { InputWithSuggestions } from '@/components/examples/input-suggestions';
+
+## Basic usage
+
+A labeled field. `required` sets the native attribute and draws no marker, so say in the label or hint when a field is optional.
+
+<ComponentPreview file="components/examples/input-basic.tsx">
+  <InputBasic />
+</ComponentPreview>
+
+## Sizes
+
+Three sizes: `mini`, `small`, and `regular` (the default).
+
+<ComponentPreview file="components/examples/input-sizes.tsx">
+  <InputSizes />
+</ComponentPreview>
+
+## States
+
+Default, disabled, read-only, and error. `errorMessage` shows below the field while `error` is `true` and is linked to it for screen readers. Type a domain with a dot to clear the error.
+
+<ComponentPreview file="components/examples/input-states.tsx">
+  <InputStates />
+</ComponentPreview>
+
+## With icons
+
+`iconStart` and `iconEnd` take an icon name, an icon descriptor, or a node. Set `onEndIconClick` and `endIconLabel` to turn the end icon into a button, such as a show-password toggle.
+
+<ComponentPreview file="components/examples/input-with-icons.tsx">
+  <InputWithIcons />
+</ComponentPreview>
+
+## Form example
+
+Controlled inputs with hints, laid out in a responsive grid.
+
+<ComponentPreview file="components/examples/input-form.tsx">
+  <InputFormExample />
+</ComponentPreview>
+
+## With suggestions
+
+`SuggestionInput` wraps `Input` with a filtered suggestions dropdown. Import it from `@/components/ui/input`; it accepts every `Input` prop except `standalone` and `fieldOverlay`, plus `suggestions`, `onSuggestionSelect`, `maxSuggestions` (default `6`), `renderSuggestion`, and `forceShowDropdown` (skeleton rows while loading).
+
+<ComponentPreview file="components/examples/input-suggestions.tsx">
+  <InputWithSuggestions />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Input } from '@/components/ui/input';
+
+<Input label="Report recipient" placeholder="you@acme.com" type="email" required />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `ReactNode` | `—` | Label text for the input field |
+| `endLabel` | `ReactNode` | `—` | Content shown at the end of the label row |
+| `placeholder` | `string` | `—` | Placeholder text when input is empty |
+| `type` | `string` | `'text'` | HTML input type (`text`, `password`, `email`, etc.) |
+| `size` | `'mini' \| 'small' \| 'regular'` | `'regular'` | Size of the input |
+| `variant` | `'control' \| 'chromeless'` | `'control'` | `chromeless` drops the field's own surface so it takes on the surface it sits on |
+| `standalone` | `boolean` | `false` | Renders the native input as the surface itself, with no wrapper. Cannot be combined with icons, `preInputNode`, `fieldOverlay`, or `inputWrapperClassName` |
+| `disabled` | `boolean` | `false` | Whether the input is disabled |
+| `readOnly` | `boolean` | `false` | Whether the input is read-only |
+| `required` | `boolean` | `false` | Whether the input is required |
+| `error` | `boolean` | `false` | Whether to display the input in error state |
+| `errorMessage` | `string` | `—` | Error message shown below the input while `error` is `true` |
+| `iconStart` | `InputIconValue` | `—` | Icon name, descriptor, or node at the start of the input |
+| `iconEnd` | `InputIconValue` | `—` | Icon name, descriptor, or node at the end of the input |
+| `onEndIconClick` | `(e: React.MouseEvent<HTMLButtonElement>) => void` | `—` | Callback fired when the end icon is clicked; renders the end icon as a focusable button (requires `endIconLabel`) |
+| `endIconLabel` | `string` | `—` | Accessible name for the end icon button; required when `onEndIconClick` is set |
+| `preInputNode` | `ReactNode` | `—` | Node rendered before the input element |
+| `fieldOverlay` | `ReactNode` | `—` | Content anchored to the field surface, such as a suggestions popover |
+| `hint` | `string \| ReactNode` | `—` | Helper text displayed below the input |
+| `value` | `string` | `—` | Controlled input value |
+| `onChange` | `(e: ChangeEvent<HTMLInputElement>) => void` | `—` | Callback function to handle input change |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `—` | Callback function to handle input focus |
+| `onBlur` | `(e: FocusEvent<HTMLInputElement>) => void` | `—` | Callback function to handle input blur |
+| `onKeyDown` | `(e: KeyboardEvent<HTMLInputElement>) => void` | `—` | Callback function to handle input key down |
+| `autoFocus` | `boolean` | `false` | Whether to auto focus the input |
+| `autoComplete` | `'off' \| 'on'` | `'off'` | Whether to auto complete the input |
+| `className` | `string` | `—` | Additional CSS classes to apply to the input container |
+| `inputClassName` | `string` | `—` | Additional CSS classes to apply to the input element |
+| `inputWrapperClassName` | `string` | `—` | Additional CSS classes to apply to the input wrapper |
+| `id` | `string` | `—` | Native field ID. Generated when omitted; `inputRest.id` takes precedence |
+| `name` | `string` | `—` | Name attribute for the input |
+| `nativeClipboardSource` | `boolean` | `false` | Marks the input as a native clipboard source for surrounding shortcut scopes |
+| `inputRest` | `ComponentPropsWithoutRef<'input'>` | `—` | Extra props spread onto the native input element |

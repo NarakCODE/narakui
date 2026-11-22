@@ -1,0 +1,99 @@
+---
+title: Spinner
+description: Loading spinner components for indicating ongoing processes and operations.
+---
+
+import { SpinnerBlue } from '@/components/examples/spinner-blue';
+import { SpinnerCentered } from '@/components/examples/spinner-centered';
+import { SpinnerGray } from '@/components/examples/spinner-gray';
+import { SpinnerGray2 } from '@/components/examples/spinner-gray-2';
+import { SpinnerInContext } from '@/components/examples/spinner-in-context';
+import { SpinnerLabeled } from '@/components/examples/spinner-labeled';
+import { SpinnerSizes } from '@/components/examples/spinner-sizes';
+
+## Variants
+
+Three spinners for different surfaces. Each takes a `size` in pixels and falls back to a gentle opacity pulse when reduced motion is preferred.
+
+<ComponentPreview file="components/examples/spinner-sizes.tsx">
+  <SpinnerSizes />
+</ComponentPreview>
+
+## Blue spinner
+
+`BlueSpinner` is a blue arc for primary loading states.
+
+<ComponentPreview file="components/examples/spinner-blue.tsx">
+  <SpinnerBlue />
+</ComponentPreview>
+
+## Gray spinner
+
+`GraySpinner` is a ring of bars in the current text color.
+
+<ComponentPreview file="components/examples/spinner-gray.tsx">
+  <SpinnerGray />
+</ComponentPreview>
+
+## Gray spinner 2
+
+`GraySpinner2` is a compact ring with a gradient head, used in most loading affordances.
+
+<ComponentPreview file="components/examples/spinner-gray-2.tsx">
+  <SpinnerGray2 />
+</ComponentPreview>
+
+## In context
+
+Pair a spinner with a short status line that says what is loading.
+
+<ComponentPreview file="components/examples/spinner-in-context.tsx">
+  <SpinnerInContext />
+</ComponentPreview>
+
+## Accessible label
+
+Spinners are hidden from assistive technology by default. Pass `label` when the spinner is the only sign that something is loading. The spinner then renders with `role="status"` and the label as its accessible name.
+
+<ComponentPreview file="components/examples/spinner-labeled.tsx">
+  <SpinnerLabeled />
+</ComponentPreview>
+
+## Centered
+
+`CenteredSpinner` centers a `GraySpinner2` in an area whose content has not rendered yet. It fills the parent's width and height, with a minimum height of 160px. Pass `flex-1` to fill a flex parent, or `min-h-0` when the parent sizes itself.
+
+<ComponentPreview file="components/examples/spinner-centered.tsx">
+  <SpinnerCentered />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  BlueSpinner,
+  CenteredSpinner,
+  GraySpinner,
+  GraySpinner2,
+} from '@/components/ui/spinner';
+
+<BlueSpinner size={24} />
+<GraySpinner size={20} />
+<GraySpinner2 label="Loading results" />
+<CenteredSpinner />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `BlueSpinner` | `Component` | `—` | Blue colored spinner component |
+| `GraySpinner` | `Component` | `—` | Gray colored spinner component |
+| `GraySpinner2` | `Component` | `—` | Compact gradient spinner component |
+| `CenteredSpinner` | `Component` | `—` | `GraySpinner2` centered in a full-width box with a 160px minimum height |
+| `size` | `number` | `16` | Size of the spinner in pixels |
+| `className` | `string` | `—` | Additional CSS classes to apply to the spinner. On `CenteredSpinner`, applies to the wrapper |
+| `label` | `string` | `—` | Accessible name. When set, the spinner renders with `role="status"`. When omitted, it is hidden from assistive technology |
+| `aria-label` | `string` | `—` | Alias for `label`. `label` wins when both are set |
+| `style` | `CSSProperties` | `—` | Inline styles for `GraySpinner2` (e.g. to sync animation timing) |
+| `ref` | `Ref<SVGSVGElement>` | `—` | Ref forwarded to the `GraySpinner2` SVG element |

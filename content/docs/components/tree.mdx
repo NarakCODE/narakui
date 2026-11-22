@@ -1,0 +1,118 @@
+---
+title: Tree
+description: Hierarchical lists with expandable folders, keyboard navigation, selection, and drag-and-drop.
+---
+
+import { TreeBasicExample } from '@/components/examples/tree-basic';
+import { TreeDragAndDropExample } from '@/components/examples/tree-drag-and-drop';
+import { TreeIndentationExample } from '@/components/examples/tree-indentation';
+import { TreeSelectionExample } from '@/components/examples/tree-selection';
+
+## Basic tree
+
+Expandable folders rendered from a flat `tree.getItems()` list. Folder rows with children get a chevron that expands and collapses them. Leaf rows are padded past the chevron column.
+
+<ComponentPreview file="components/examples/tree-basic.tsx">
+  <TreeBasicExample />
+</ComponentPreview>
+
+## Indentation
+
+`indent` sets the width of each nesting level in pixels. The default is `16`; this preview uses `24`.
+
+<ComponentPreview file="components/examples/tree-indentation.tsx">
+  <TreeIndentationExample />
+</ComponentPreview>
+
+## Tree with selection
+
+Selection state stays in the consumer. Folders expand via the chevron; leaf rows handle selection. Call `event.preventDefault()` in a row's `onClick` to skip the default click behavior.
+
+<ComponentPreview file="components/examples/tree-selection.tsx">
+  <TreeSelectionExample />
+</ComponentPreview>
+
+## Tree with drag and drop
+
+Enable `dragAndDropFeature` on the tree instance and render `TreeDragLine` inside the tree container. The container needs `relative` so the line lines up with the rows. Moving the data is up to the `onDrop` handler you pass to `useTree`; this preview shows the live drop indicator.
+
+<ComponentPreview file="components/examples/tree-drag-and-drop.tsx">
+  <TreeDragAndDropExample />
+</ComponentPreview>
+
+## Usage
+
+`TreeItemLabel` reads the item from the surrounding `TreeItem` and shows `item.getItemName()` when it has no children.
+
+```tsx
+import {
+  hotkeysCoreFeature,
+  syncDataLoaderFeature,
+  Tree,
+  TreeItem,
+  TreeItemLabel,
+  useTree,
+} from '@/components/ui/tree';
+```
+
+```tsx
+const tree = useTree({
+  rootItemId: 'root',
+  getItemName: (item) => item.getItemData().name,
+  isItemFolder: (item) => item.getItemData().isFolder,
+  dataLoader: { getItem, getChildren },
+  features: [syncDataLoaderFeature, hotkeysCoreFeature],
+});
+
+<Tree tree={tree} aria-label="Files">
+  {tree.getItems().map((item) => (
+    <TreeItem key={item.getId()} item={item}>
+      <TreeItemLabel />
+    </TreeItem>
+  ))}
+</Tree>;
+```
+
+## Properties
+
+### Tree
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `tree` (Required) | `TreeInstance<T>` | `—` | The tree instance returned by `useTree`. |
+| `indent` | `number` | `16` | Width of each nesting level in pixels. |
+| `showLines` | `boolean` | `false` | Positions rows relatively so a consumer can draw guide lines. It draws no lines itself. |
+| `toggleIconType` | `'chevron' \| 'plus-minus'` | `'chevron'` | Icon used by the folder toggle in `TreeItemLabel`. |
+| `aria-label` | `string` | `—` | Accessible label for the tree. |
+| `asChild` | `boolean` | `false` | Render the child element instead of a `div`. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the tree container. |
+
+### TreeItem
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `item` (Required) | `ItemInstance<T>` | `—` | The tree item to render. |
+| `children` (Required) | `ReactNode` | `—` | Row content, usually a `TreeItemLabel`. |
+| `disabled` | `boolean` | `false` | Blocks clicks and keyboard actions and removes the row from the tab order. |
+| `onToggleExpand` | `(item: ItemInstance<T>) => void` | `—` | Replaces the default expand and collapse for the toggle button and the left and right arrow keys. |
+| `onClick` | `(event: MouseEvent<HTMLElement>) => void` | `—` | Runs before the default click handler. Call `preventDefault` to skip it. |
+| `asChild` | `boolean` | `false` | Render the child element instead of a `div`. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the row. |
+
+### TreeItemLabel
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `item` | `ItemInstance<T>` | `—` | The item to label. Defaults to the item of the surrounding `TreeItem`. |
+| `children` | `ReactNode` | `—` | Label content. Defaults to `item.getItemName()`. |
+| `onToggleClick` | `(event: MouseEvent<HTMLButtonElement>) => void` | `—` | Replaces the default expand and collapse when the folder toggle is clicked. |
+| `asChild` | `boolean` | `false` | Render the child element instead of a `span`. |
+| `className` | `string` | `—` | Additional CSS classes to apply to the label. |
+
+### Other exports
+
+| Export | Type | Description |
+| --- | --- | --- |
+| `TreeDragLine` | `component` | Drop position indicator. Renders nothing unless the tree uses `dragAndDropFeature`. |
+| `useTree` | `hook` | Builds a headless-tree compatible `TreeInstance<T>` with expansion, keyboard navigation, and optional drag-and-drop. |
+| `syncDataLoaderFeature`, `hotkeysCoreFeature`, `dragAndDropFeature` | `FeatureImplementation` | Feature tokens passed to `useTree`. |

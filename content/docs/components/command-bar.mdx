@@ -1,0 +1,85 @@
+---
+title: Command Bar
+description: A command menu interface for quick actions and navigation.
+---
+
+import { CommandBarBasic } from '@/components/examples/command-bar-basic';
+import { CommandBarInline } from '@/components/examples/command-bar-inline';
+
+## In a dialog
+
+The usual command bar: a search field over grouped pages and actions. Give `DialogContent` an `aria-label` so the dialog has a name, and set `inDialog` on `Command.Root` for the larger input and item sizing.
+
+<ComponentPreview file="components/examples/command-bar-basic.tsx">
+  <CommandBarBasic />
+</ComponentPreview>
+
+## Inline
+
+`Command.Root` also works without a dialog, for example as a searchable picker inside a card. Pass `label` to name the list.
+
+<ComponentPreview file="components/examples/command-bar-inline.tsx">
+  <CommandBarInline />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Command } from '@/components/ui/command-bar';
+
+<Command.Root>
+  <Command.Input placeholder="Search..." />
+  <Command.List>
+    <Command.Item>Item 1</Command.Item>
+    <Command.Item>Item 2</Command.Item>
+  </Command.List>
+</Command.Root>
+```
+
+## Command.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `inDialog` | `boolean` | `false` | Uses the larger input, item, and group spacing for a command bar inside a Dialog |
+| `label` | `string` | `—` | Accessible label for the command menu. Not shown visibly. |
+| `value` | `string` | `—` | Controlled value of the highlighted item |
+| `defaultValue` | `string` | `—` | Highlighted item value on first render |
+| `onValueChange` | `(value: string) => void` | `—` | Callback fired when the highlighted item changes |
+| `shouldFilter` | `boolean` | `true` | Set to `false` to turn off built-in filtering and sorting, then render matching items yourself |
+| `filter` | `(value: string, search: string, keywords?: string[]) => number` | `—` | Custom match score from `0` (hidden) to `1` (best match) |
+| `loop` | `boolean` | `false` | Wraps arrow-key navigation from the last item to the first |
+| `className` | `string` | `—` | Additional CSS classes to apply to the root |
+
+## Command.Input Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `—` | Controlled search text |
+| `onValueChange` | `(search: string) => void` | `—` | Callback fired when the search text changes |
+| `placeholder` | `string` | `—` | Placeholder shown next to the search icon |
+
+## Command.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onSelect` | `(value: string) => void` | `—` | Callback fired when the item is chosen by click or Enter |
+| `value` | `string` | `—` | Unique value for the item. Inferred from the text content when omitted. |
+| `keywords` | `string[]` | `—` | Extra terms to match when filtering |
+| `disabled` | `boolean` | `false` | Whether the command item is disabled |
+| `forceMount` | `boolean` | `false` | Always renders the item, regardless of filtering |
+
+## Command.Group Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `heading` | `ReactNode` | `—` | Heading rendered above the group's items |
+| `value` | `string` | `—` | Unique value for the group. Required when there is no heading. |
+| `forceMount` | `boolean` | `false` | Always renders the group, regardless of filtering |
+
+## Other Parts
+
+| Part | Type | Description |
+| --- | --- | --- |
+| `Command.List` | `ComponentPropsWithoutRef<typeof CommandPrimitive.List>` | Scrollable container for groups, items, and separators. Caps at `300px` tall. |
+| `Command.Empty` | `ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>` | Displayed when no search results are found |
+| `Command.Separator` | `ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>` | Line between groups. Hidden while searching unless `alwaysRender` is set. |

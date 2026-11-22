@@ -1,0 +1,85 @@
+---
+title: Textarea
+description: A multi-line text input component for longer text content and messages.
+---
+
+import { TextareaSizes } from '@/components/examples/textarea-sizes';
+import { TextareaStates } from '@/components/examples/textarea-states';
+import { TextareaDisabled } from '@/components/examples/textarea-disabled';
+import { TextareaReadOnly } from '@/components/examples/textarea-read-only';
+import { TextareaChromeless } from '@/components/examples/textarea-chromeless';
+
+## Sizes
+
+`regular` is the default. `small` uses smaller text for dense forms and side panels.
+
+<ComponentPreview file="components/examples/textarea-sizes.tsx">
+  <TextareaSizes />
+</ComponentPreview>
+
+## Error states
+
+Set `error` for the error style and `errorMessage` for the text below the field.
+
+<ComponentPreview file="components/examples/textarea-states.tsx">
+  <TextareaStates />
+</ComponentPreview>
+
+## Disabled
+
+A disabled textarea can't be focused or edited.
+
+<ComponentPreview file="components/examples/textarea-disabled.tsx">
+  <TextareaDisabled />
+</ComponentPreview>
+
+## Read only
+
+A read-only textarea can be focused and copied from, but not edited.
+
+<ComponentPreview file="components/examples/textarea-read-only.tsx">
+  <TextareaReadOnly />
+</ComponentPreview>
+
+## Chromeless
+
+`variant="chromeless"` drops the field's background, border, padding, shadow, and hover tint so the text sits on whatever surface it is embedded in. Reach for it when editing text in place — in a document, a card, or a title row — where a visible input box would read as a form rather than as the text being edited. The surrounding container supplies the affordance instead.
+
+Prefer this over re-styling a control field through `contentClassName`: the control surface sets `dark:`, `hover:`, and `focus-visible:` classes that a caller's unprefixed overrides cannot reach.
+
+<ComponentPreview file="components/examples/textarea-chromeless.tsx">
+  <TextareaChromeless />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Textarea } from '@/components/ui/textarea';
+
+<Textarea label="Message" placeholder="Enter your message" />
+<Textarea size="small" error errorMessage="This field is required" />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `ReactNode` | `—` | Label text for the textarea field |
+| `placeholder` | `string` | `—` | Placeholder text when textarea is empty |
+| `disabled` | `boolean` | `false` | Whether the textarea is disabled |
+| `readOnly` | `boolean` | `false` | Whether the textarea is read-only |
+| `required` | `boolean` | `false` | Whether the textarea is required |
+| `size` | `'small' \| 'regular'` | `'regular'` | Size of the textarea |
+| `variant` | `'control' \| 'chromeless'` | `'control'` | Whether the field renders its own surface. `'chromeless'` drops the background, border, padding, shadow, and hover tint for editing text in place. |
+| `id` | `string` | `—` | Native field ID, overridden by `inputRest.id`. Generated when both are omitted. |
+| `hint` | `ReactNode` | `—` | Helper text displayed below the textarea |
+| `value` | `string` | `—` | Controlled textarea value |
+| `error` | `boolean` | `false` | Whether to display the textarea in error state |
+| `errorMessage` | `string` | `—` | Error message shown below the textarea while `error` is `true` |
+| `onChange` | `(e: ChangeEvent<HTMLTextAreaElement>) => void` | `—` | Callback function to handle input change |
+| `endLabel` | `ReactNode` | `—` | End label to display below the textarea |
+| `fieldSizing` | `boolean` | `true` | Whether to use fixed or content field sizing |
+| `className` | `string` | `—` | Additional CSS classes to apply to the textarea container |
+| `contentClassName` | `string` | `—` | Additional CSS classes to apply to the textarea element |
+| `inputRest` | `ComponentPropsWithoutRef<'textarea'>` | `—` | Extra props spread onto the native textarea element |
+| `containerRef` | `Ref<HTMLDivElement>` | `—` | Ref to the container element |

@@ -1,0 +1,125 @@
+---
+title: Context Menu
+description: A menu of actions for an item that opens where the pointer right-clicks.
+---
+
+import { ContextMenuBasic } from '@/components/examples/context-menu-basic';
+import { ContextMenuSubmenu } from '@/components/examples/context-menu-submenu';
+
+## Basic usage
+
+Wrap the target in `ContextMenu.Trigger` `asChild`; right-clicking it or long-pressing it on a touch screen opens the menu at the pointer. Items take the same `start`, `end`, `destructive`, and `href` props as [Dropdown Menu](/docs/components/dropdown-menu) items. An item with `href` renders as a link, so it supports opening in a new tab.
+
+Right-clicking is hard to discover and unavailable to many keyboard users, so offer the same actions somewhere visible too, usually an ellipsis dropdown on the same card or row.
+
+<ComponentPreview file="components/examples/context-menu-basic.tsx">
+  <ContextMenuBasic />
+</ComponentPreview>
+
+## Labels, shortcuts, and submenus
+
+Give each row its own `ContextMenu.Root` so the menu knows which item it acts on; the trigger gets `data-state="open"` while its menu is open, which you can use to highlight the row. `ContextMenu.Label` names a section, `ContextMenu.Shortcut` shows a key hint at the end of an item, and `ContextMenu.Sub` nests a submenu that opens on hover or with the right arrow key.
+
+A disabled item with `disabledReason` stays hoverable and shows the reason in a tooltip, so people learn why the action isn't available.
+
+<ComponentPreview file="components/examples/context-menu-submenu.tsx">
+  <ContextMenuSubmenu />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { ContextMenu } from '@/components/ui/context-menu';
+
+<ContextMenu.Root>
+  <ContextMenu.Trigger asChild>
+    <div>Weekly visibility report</div>
+  </ContextMenu.Trigger>
+  <ContextMenu.Content>
+    <ContextMenu.Item start="pencil">Rename</ContextMenu.Item>
+    <ContextMenu.Separator />
+    <ContextMenu.Item start="trash" destructive>
+      Delete
+    </ContextMenu.Item>
+  </ContextMenu.Content>
+</ContextMenu.Root>
+```
+
+`ContextMenu.Trigger` `asChild` needs a child that forwards its ref and props, such as a `div`. When the target is a link or a clickable row, stop the menu's click and key events from reaching it with `onClick` and `onKeyDown` on `ContextMenu.Content`.
+
+## ContextMenu.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the menu opens or closes |
+| `modal` | `boolean` | `true` | Blocks interaction outside the menu while it is open |
+| `dir` | `'ltr' \| 'rtl'` | `—` | Reading direction, which also sets which side submenus open on |
+
+## ContextMenu.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Uses the child element as the right-click target instead of a wrapping span |
+| `disabled` | `boolean` | `false` | Lets the browser's own context menu open instead |
+
+## ContextMenu.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `number` | `249` | Minimum width in pixels |
+| `alignOffset` | `number` | `0` | Offset from the pointer along the alignment axis |
+| `collisionPadding` | `number \| Partial<Record<Side, number>>` | `0` | Space to keep from the viewport edges |
+| `onCloseAutoFocus` | `(event: Event) => void` | `—` | Called when focus returns to the trigger after closing. Call `preventDefault` to keep focus elsewhere |
+| `className` | `string` | `—` | Classes for the menu surface |
+
+## ContextMenu.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `start` | `IconName \| IconProps \| ReactNode` | `—` | Icon or element before the label |
+| `end` | `IconName \| IconProps \| ReactNode` | `—` | Icon or element after the label, aligned to the end |
+| `destructive` | `boolean` | `false` | Shows the item in red for actions that remove data |
+| `href` | `string` | `—` | Renders the item as a link |
+| `target` | `string` | `—` | Link target, such as `_blank` |
+| `rel` | `string` | `—` | Link relationship. Use `noopener noreferrer` with `target="_blank"` |
+| `onSelect` | `(event: Event) => void` | `—` | Called when the item is chosen. Call `preventDefault` to keep the menu open |
+| `disabled` | `boolean` | `false` | Dims the item and prevents choosing it |
+| `disabledReason` | `string` | `—` | Tooltip explaining why a disabled item is unavailable. Keeps the item hoverable |
+
+## ContextMenu.Label Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `'small' \| 'medium'` | `'medium'` | Height and text size of the section label |
+
+## ContextMenu.Sub Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Controlled open state of the submenu |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the submenu opens or closes |
+
+## ContextMenu.SubTrigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `startIcon` | `IconName \| IconProps \| ReactNode` | `—` | Icon or element before the label. A chevron is always shown at the end |
+| `disabled` | `boolean` | `false` | Dims the trigger and prevents opening the submenu |
+
+## ContextMenu.SubContent Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `size` | `number` | `249` | Minimum width in pixels |
+| `sideOffset` | `number` | `8` | Distance from the parent menu in pixels |
+| `alignOffset` | `number` | `-4` | Vertical offset from the submenu trigger |
+| `pinnedBottom` | `ReactNode` | `—` | Content fixed below the submenu's scrolling items, such as a create action |
+
+## Other Parts
+
+| Part | Type | Description |
+| --- | --- | --- |
+| `Separator` | `component` | Divider line between groups of items |
+| `Shortcut` | `component` | Key hint placed inside an item, after its label |
+| `Group` | `component` | Groups related items without adding visible chrome |
+| `Portal` | `component` | Radix portal. `Content` and `SubContent` already render in one |

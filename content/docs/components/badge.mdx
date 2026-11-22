@@ -1,0 +1,53 @@
+---
+title: Badge
+description: A compact status label with color, size, and icon variations.
+---
+
+import { BadgeAgentBuilder } from '@/components/examples/badge-agent-builder';
+import { BadgeColors } from '@/components/examples/badge-colors';
+import { BadgeSizes } from '@/components/examples/badge-sizes';
+import { BadgeWithIcon } from '@/components/examples/badge-with-icon';
+
+## Colors
+
+`default` is an outline on a transparent background, so it takes the color of the surface under it. Use it on primary surfaces such as cards, tables, and pages.
+
+<ComponentPreview file="components/examples/badge-colors.tsx">
+  <BadgeColors />
+</ComponentPreview>
+
+## Sizes
+
+<ComponentPreview file="components/examples/badge-sizes.tsx">
+  <BadgeSizes />
+</ComponentPreview>
+
+## Icon and tooltip
+
+`iconStart` takes an icon name or React node. `tooltip` wraps the badge in a tooltip.
+
+<ComponentPreview file="components/examples/badge-with-icon.tsx">
+  <BadgeWithIcon />
+</ComponentPreview>
+
+## Agent Builder variant
+
+Borderless squared badges used on the Agent Builder canvas, such as the `Beta` and `Internal` labels on node headers. This variant has no `yellow` style, so `type="yellow"` renders an unstyled label; use `amber` instead.
+
+<ComponentPreview file="components/examples/badge-agent-builder.tsx">
+  <BadgeAgentBuilder />
+</ComponentPreview>
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `ReactNode` | Required | Badge label. |
+| `type` | `'default' \| 'red' \| 'blue' \| 'green' \| 'amber' \| 'yellow' \| 'purple' \| 'orange' \| 'gray' \| 'cyan'` | `'default'` | Color treatment. |
+| `size` | `'micro' \| 'small' \| 'default' \| 'large'` | `'default'` | Padding and type scale. |
+| `variant` | `'default' \| 'agent-builder'` | `'default'` | Rounded bordered badge or the borderless Agent Builder badge. |
+| `fontWeight` | `'medium' \| 'regular'` | `'medium'` | Label weight. |
+| `iconStart` | `IconValue` | `—` | Icon shown before the label, tinted to match the type. |
+| `tooltip` | `string` | `—` | Tooltip content shown on hover. |
+| `className` | `string` | `—` | Additional classes for the badge. |
+| `titleClassName` | `string` | `—` | Additional classes for the label. |

@@ -1,0 +1,52 @@
+---
+title: Resize Handle
+description: A drag handle on a panel edge. Pass size, minSize, maxSize, and onSizeChange together to make it a focusable separator that resizes by keyboard.
+---
+
+import { ResizeHandleKeyboard } from '@/components/examples/resize-handle-keyboard';
+
+## Keyboard resizing
+
+Tab to the handle, then use the arrow keys to resize (`Shift` for larger steps) and `Home` or `End` to jump to `minSize` or `maxSize`. You can also drag the edge with a pointer or double-click to reset.
+
+<ComponentPreview file="components/examples/resize-handle-keyboard.tsx">
+  <ResizeHandleKeyboard />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { useState } from 'react';
+import { ResizeHandle } from '@/components/ui/resize-handle';
+
+function PanelLayout() {
+  const [width, setWidth] = useState(240);
+
+  return (
+    <aside className="relative" style={{ width }}>
+      <ResizeHandle
+        aria-label="Resize details panel"
+        position="left"
+        size={width}
+        minSize={160}
+        maxSize={360}
+        onSizeChange={setWidth}
+      />
+    </aside>
+  );
+}
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `position` | `'left' \| 'right' \| 'top'` | `'left'` | Edge of the parent panel where the handle sits |
+| `size` | `number` | `—` | Current panel size in pixels. Pass with `minSize`, `maxSize`, and `onSizeChange` to enable keyboard resizing |
+| `minSize` | `number` | `—` | Minimum allowed panel size in pixels |
+| `maxSize` | `number` | `—` | Maximum allowed panel size in pixels |
+| `onSizeChange` | `(size: number) => void` | `—` | Called with the clamped next size on keyboard resize |
+| `isDragging` | `boolean` | `false` | Keeps the indicator visible and highlighted while dragging |
+| `barClassName` | `string` | `—` | Additional classes for the indicator line |
+| `aria-label` | `string` | `'Drag to resize'` | Accessible label for the resize separator |
+| `className` | `string` | `—` | Additional classes for the hit target container |

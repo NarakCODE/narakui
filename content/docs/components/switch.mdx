@@ -1,0 +1,97 @@
+---
+title: Switch
+description: A toggle switch component for enabling or disabling features and settings.
+---
+
+import { SwitchDefault } from '@/components/examples/switch-default';
+import { SwitchSlim } from '@/components/examples/switch-slim';
+import { SwitchSmall } from '@/components/examples/switch-small';
+import { SwitchLarge } from '@/components/examples/switch-large';
+import { SwitchSlimSmall } from '@/components/examples/switch-slim-small';
+import { SwitchGreen } from '@/components/examples/switch-green';
+import { SwitchLoading } from '@/components/examples/switch-loading';
+
+## Default
+
+The default switch sits on a raised control surface. Pass `labelClassName="pr-2"` to balance the padding around the label.
+
+<ComponentPreview file="components/examples/switch-default.tsx">
+  <SwitchDefault />
+</ComponentPreview>
+
+## Slim
+
+`slim` drops the control surface. Use it inside menus, popovers and settings lists.
+
+<ComponentPreview file="components/examples/switch-slim.tsx">
+  <SwitchSlim />
+</ComponentPreview>
+
+## Small
+
+`size="sm"` shrinks the track and thumb for dense toolbars.
+
+<ComponentPreview file="components/examples/switch-small.tsx">
+  <SwitchSmall />
+</ComponentPreview>
+
+## Large
+
+`size="lg"` enlarges the track and thumb for roomier layouts.
+
+<ComponentPreview file="components/examples/switch-large.tsx">
+  <SwitchLarge />
+</ComponentPreview>
+
+## Slim and small
+
+Combine `slim` and `size="sm"` for compact chart controls.
+
+<ComponentPreview file="components/examples/switch-slim-small.tsx">
+  <SwitchSlimSmall />
+</ComponentPreview>
+
+## Green
+
+Set `color` to `green` to fill the checked track with green.
+
+<ComponentPreview file="components/examples/switch-green.tsx">
+  <SwitchGreen />
+</ComponentPreview>
+
+## Loading
+
+`isLoading` disables the switch, shows a spinner in the thumb, and sets `aria-busy`.
+
+<ComponentPreview file="components/examples/switch-loading.tsx">
+  <SwitchLoading />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Switch } from '@/components/ui/switch';
+
+<Switch title="Enable notifications" />
+<Switch slim size="sm" defaultChecked title="Compact switch" />
+<Switch checked={enabled} onCheckedChange={setEnabled} title="Controlled switch" />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `string` | `—` | The label text displayed next to the switch |
+| `checked` | `boolean` | `—` | The controlled checked state of the switch |
+| `defaultChecked` | `boolean` | `—` | The default checked state when used as an uncontrolled component |
+| `onCheckedChange` | `(checked: boolean) => void` | `—` | Event handler called when the checked state changes |
+| `disabled` | `boolean` | `false` | Whether the switch is disabled |
+| `required` | `boolean` | `—` | When `true`, indicates that the user must toggle the switch before the owning form can be submitted |
+| `name` | `string` | `—` | The name of the switch, used when submitting a form |
+| `value` | `string` | `'on'` | The value of the switch, used when submitting a form |
+| `slim` | `boolean` | `false` | Whether to use the slim variant with reduced padding and no shadow |
+| `size` | `'default' \| 'sm' \| 'lg'` | `'default'` | The size of the switch |
+| `color` | `'default' \| 'green'` | `'default'` | Fill color of the checked track |
+| `isLoading` | `boolean` | `false` | Disables the switch, shows a spinner in the thumb, and sets `aria-busy` |
+| `labelClassName` | `string` | `—` | Additional CSS classes to apply to the label |
+| `className` | `string` | `—` | Additional CSS classes. Applied to both the outer label and the switch track. |

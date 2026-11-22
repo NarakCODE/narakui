@@ -1,0 +1,83 @@
+---
+title: Segmented Tabs
+description: Pill-styled tabs where the active trigger fills with a control surface instead of showing an underline.
+---
+
+import { SegmentedTabsBasic } from '@/components/examples/segmented-tabs-basic';
+import { SegmentedTabsControlled } from '@/components/examples/segmented-tabs-controlled';
+import { SegmentedToggleGroupExample } from '@/components/examples/segmented-toggle-group-example';
+
+Built on the same Radix primitives as [Tabs](/docs/components/tabs), so it works as a full tab set or as a standalone controlled view switcher when the panel content is rendered elsewhere.
+
+## Basic
+
+A full segmented tab set with content panels.
+
+<ComponentPreview file="components/examples/segmented-tabs-basic.tsx">
+  <SegmentedTabsBasic />
+</ComponentPreview>
+
+## Controlled (list only)
+
+Use `value` + `onValueChange` and omit `Content` when the active view's content is rendered elsewhere, e.g. in a section body separate from the toolbar.
+
+> For a toolbar switcher whose content lives outside the control, prefer `SegmentedToggleGroup` (below). A Radix `tablist` without matching `Content` panels tells assistive tech to expect `tabpanel`s that do not exist; the toggle group keeps button/`aria-pressed` semantics instead.
+
+<ComponentPreview file="components/examples/segmented-tabs-controlled.tsx">
+  <SegmentedTabsControlled />
+</ComponentPreview>
+
+## Toggle group (button semantics)
+
+`SegmentedToggleGroup` has the same pill look but renders a `role="group"` of toggle buttons with `aria-pressed` instead of a Radix `tablist`. Use it for toolbar switchers that swap surrounding content rather than Radix tab panels. Pass an `aria-label` on the `Root` to name the group.
+
+Pass `href` to an item when the selected view lives in the URL. The item renders as a link, so it can open in a new tab. Following the link selects it, so `onValueChange` does not fire and can be omitted when every item is a link.
+
+<ComponentPreview file="components/examples/segmented-toggle-group-example.tsx">
+  <SegmentedToggleGroupExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import {
+  SegmentedTabs,
+  SegmentedToggleGroup,
+} from '@/components/ui/segmented-tabs';
+
+<SegmentedTabs.Root defaultValue="matrix">
+  <SegmentedTabs.List>
+    <SegmentedTabs.Trigger value="matrix">Matrix</SegmentedTabs.Trigger>
+    <SegmentedTabs.Trigger value="table">Table</SegmentedTabs.Trigger>
+  </SegmentedTabs.List>
+  <SegmentedTabs.Content value="matrix">Matrix view</SegmentedTabs.Content>
+  <SegmentedTabs.Content value="table">Table view</SegmentedTabs.Content>
+</SegmentedTabs.Root>;
+```
+
+## SegmentedTabs.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | `—` | Value of the active tab when controlled |
+| `defaultValue` | `string` | `—` | Active tab on first render when uncontrolled |
+| `onValueChange` | `(value: string) => void` | `—` | Called when the active tab changes |
+
+## SegmentedToggleGroup.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | Value of the selected item |
+| `onValueChange` | `(value: string) => void` | `—` | Called with the item value when the user selects a different button item |
+| `aria-label` | `string` | `—` | Accessible name for the group |
+| `className` | `string` | `—` | Additional classes for the group |
+
+## SegmentedToggleGroup.Item Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `string` | Required | Value that selects this item |
+| `children` | `ReactNode` | Required | Item label |
+| `href` | `string` | `—` | Renders the item as a link to this URL |
+| `prefetch` | `boolean \| 'auto' \| null` | `—` | Route prefetch for link items, passed to Next.js Link |
+| `className` | `string` | `—` | Additional classes for the item |

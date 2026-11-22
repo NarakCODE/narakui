@@ -1,0 +1,78 @@
+---
+title: Card
+description: Cards are flexible containers for grouping related content and actions.
+---
+
+import { CardBackgroundsExample } from '@/components/examples/card-backgrounds';
+import { BasicCardExample } from '@/components/examples/card-basic';
+import { CardMaterialsExample } from '@/components/examples/card-materials';
+import { CardOpticalRefractionExample } from '@/components/examples/card-optical-refraction';
+import { CardWithPaddingExample } from '@/components/examples/card-padding';
+
+## Basic card
+
+<ComponentPreview file="components/examples/card-basic.tsx">
+  <BasicCardExample />
+</ComponentPreview>
+
+## Liquid glass
+
+Pass `variant="liquid-glass"` to enable real-time WebGL2 optical rim refraction powered by `GlassLayer` with a translucent CSS fallback on first paint and non-WebGL browsers. Use `live` when animated content moves behind the card.
+
+<ComponentPreview file="components/examples/card-optical-refraction.tsx">
+  <CardOpticalRefractionExample />
+</ComponentPreview>
+
+## Materials
+
+Combine `variant="liquid-glass"` with `material` (`frosted`, `clear`, or `tinted`) and set `refract={false}` when you want pure CSS glass without a WebGL canvas.
+
+<ComponentPreview file="components/examples/card-materials.tsx">
+  <CardMaterialsExample />
+</ComponentPreview>
+
+## Backgrounds
+
+The default background is `primary`.
+
+<ComponentPreview file="components/examples/card-backgrounds.tsx">
+  <CardBackgroundsExample />
+</ComponentPreview>
+
+## Padding
+
+`sm` adds `16` px of padding and `md` adds `24` px. The default is `none`.
+
+<ComponentPreview file="components/examples/card-padding.tsx">
+  <CardWithPaddingExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Card } from '@/components/ui/card';
+
+<Card padding="sm">Default matte card</Card>
+
+<Card variant="liquid-glass" padding="sm">
+  Liquid glass card with WebGL2 optical refraction
+</Card>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'liquid-glass'` | `'default'` | Matte Rakfound surface (`default`) or optical liquid glass (`liquid-glass`) |
+| `background` | `'primary' \| 'secondary' \| 'tertiary' \| 'quaternary'` | `'primary'` | Semantic background surface tier of the card |
+| `padding` | `'none' \| 'sm' \| 'md'` | `'none'` | Apply a predefined internal padding size |
+| `material` | `'frosted' \| 'clear' \| 'tinted' \| 'solid'` | `'frosted'` (on `liquid-glass`) / `'solid'` (on `default`) | Glass surface material preset |
+| `refract` | `boolean` | `true` (on `liquid-glass`) / `false` (on `default`) | Enables real-time WebGL2 rim refraction via `GlassLayer` |
+| `blur` | `number` | `6` (`frosted`) / `4` (`clear`) | Backdrop frost blur in pixels |
+| `tint` | `number` | Tier default | Backdrop tint opacity (`0` to `1`) |
+| `live` | `boolean` | `false` | Repaints the refracted backdrop every frame for animated scenes behind the card |
+| `backdrop` | `string` | `—` | CSS selector of an ancestor whose content is refracted instead of the page |
+| `interactive` | `boolean` | `false` | Enables press feedback and hover rim response |
+| `cursorLight` | `boolean` | Matches `interactive` | Enables cursor-tracking specular rim highlight on fine pointers |
+| `optics` | `CardOptics` | `—` | Fine-tuned `GlassLayer` optical parameters |
+| `className` | `string` | `—` | Additional CSS classes to apply to the card container |

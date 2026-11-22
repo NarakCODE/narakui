@@ -1,0 +1,144 @@
+---
+title: Multi-select Filter
+description: A filter chip for toolbars that narrows a list or report to one or more values.
+---
+
+import { MultiSelectFilterAllowEmptyExample } from '@/components/examples/multi-select-filter-allow-empty';
+import { MultiSelectFilterBasicExample } from '@/components/examples/multi-select-filter-basic';
+import { MultiSelectFilterGroupsExample } from '@/components/examples/multi-select-filter-groups';
+import { MultiSelectFilterSelectorExample } from '@/components/examples/multi-select-filter-selector';
+
+## Basic usage
+
+Pass `items`, the controlled `selectedIds`, and `onChange`. With nothing narrowed the chip is a dashed button with `label` and `iconStart`. Once the selection narrows the results, the chip shows the label, the first pick with a `+N` count, and an X that resets the filter. Hover the chip to see every pick.
+
+`renderItemStart` adds an icon or avatar to each row; `renderSelectionIcons` stacks the picked items' icons in the chip. `MultiSelectSelectionIcons` draws that stack for you.
+
+<ComponentPreview file="components/examples/multi-select-filter-basic.tsx">
+  <MultiSelectFilterBasicExample />
+</ComponentPreview>
+
+## Empty or all selected
+
+By default, selecting every item means no filter, like the Topic chip here. The X returns to that state, and so does unchecking the last row. With everything selected, the footer's Clear all empties the checkboxes without filtering, and the next pick selects only that row.
+
+When the items are only part of the possible values, such as a few statuses, pass `allowEmpty`. An empty selection is then the cleared state, the chip stays active while anything is picked, and the X clears to `[]`. Short lists can hide the search with `showSearch={false}` and the per-row only button with `showOnlyButton={false}`.
+
+<ComponentPreview file="components/examples/multi-select-filter-allow-empty.tsx">
+  <MultiSelectFilterAllowEmptyExample />
+</ComponentPreview>
+
+## Groups
+
+Pass `groups` instead of `items` to show headed sections in your order. Without groups, picked rows move to the top each time the menu opens.
+
+<ComponentPreview file="components/examples/multi-select-filter-groups.tsx">
+  <MultiSelectFilterGroupsExample />
+</ComponentPreview>
+
+## Selector style
+
+For a picker that always has a value, pass `inactiveTriggerMode="secondary"` and `showInactiveTriggerChevron` so the cleared chip reads as a select. `allSelectedTriggerLabel` names the full selection, and `showSelectionIconsWhenAllSelected` keeps the icons in the chip.
+
+<ComponentPreview file="components/examples/multi-select-filter-selector.tsx">
+  <MultiSelectFilterSelectorExample />
+</ComponentPreview>
+
+## Usage
+
+`onChange` receives the next selection. To handle each action yourself, pass `onToggle`, `onSelectOnly`, `onSelectAll`, and `onClearAll`; each falls back to `onChange` when omitted.
+
+For server-side search, pass `disableClientFiltering`, read the query from `onSearchChange`, and set `searchInputLoading` while results load. Put an infinite-scroll sentinel in `listFooter`. When `items` is only the loaded page of a larger set, pass `allSelectableIds` or `selectionActive` so the chip knows whether the filter is reset.
+
+Inside a dialog, pass `withRadixPortal={false}` so the menu scrolls.
+
+```tsx
+import { MultiSelectFilter } from '@/components/ui/multi-select-filter';
+```
+
+```tsx
+<MultiSelectFilter
+  label="Topic"
+  items={topics}
+  selectedIds={selectedIds}
+  onChange={setSelectedIds}
+/>
+```
+
+## Properties
+
+### Data and selection
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` (Required) | `string` | `—` | Name of the filter, shown on the chip. |
+| `items` | `T[]` | `—` | Options, each `{ id, name, triggerName? }`. Use either `items` or `groups`. |
+| `groups` | `MultiSelectFilterGroup<T>[]` | `—` | Headed sections, each `{ id, heading?, items, renderItem? }`, shown in order. |
+| `selectedIds` (Required) | `string[]` | `—` | Controlled selection. |
+| `allowEmpty` | `boolean` | `false` | Treats an empty selection as the cleared state, so selecting every item still filters. |
+| `allowEmptySelection` | `boolean` | `false` | Keeps all selected as the cleared state but lets the last item be unchecked. |
+| `allSelectableIds` | `string[]` | `—` | Every selectable id, when `items` shows only part of them. |
+| `selectionActive` | `boolean` | `—` | Controls whether the chip shows as active, for selections over paginated items. |
+| `getItemDisabled` | `(item: T) => boolean` | `—` | Disables a row so it cannot be toggled. |
+| `renderItemDisabledTooltip` | `(item: T) => ReactNode` | `—` | Tooltip on a disabled row that explains why. |
+
+### Callbacks
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onChange` | `(ids: string[]) => void` | `—` | Called with the next selection. The handlers below fall back to it. |
+| `onToggle` | `(id: string) => void` | `—` | Called when a row is checked or unchecked. |
+| `onSelectOnly` | `(id: string) => void` | `—` | Called when a row's only button is clicked. |
+| `onSelectAll` | `() => void` | `—` | Called by Select all and by the X when empty is not the cleared state. |
+| `onClearAll` | `() => void` | `—` | Called by Clear all. |
+| `onSearchChange` | `(search: string) => void` | `—` | Called when the query changes. |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the menu opens or closes. |
+
+### Trigger
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `iconStart` | `MultiSelectFilterIconValue` | `—` | Icon on the cleared chip. |
+| `size` | `'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Chip size. Use `small` in compact tables and menus. |
+| `inactiveTriggerMode` | `ButtonMode` | `'dashed'` | Button style of the cleared chip. |
+| `showInactiveTriggerChevron` | `boolean` | `false` | Shows a chevron on the cleared chip. |
+| `renderSelectionIcons` | `(selectedItems: T[]) => ReactNode` | `—` | Icons of the picked items, shown before the chip's label. |
+| `showSelectionIconsWhenAllSelected` | `boolean` | `false` | Also shows the selection icons when every item is selected. |
+| `hideTriggerLabelText` | `boolean` | `false` | Shows only the selection icons in the chip; the label stays for screen readers. |
+| `allSelectedTriggerLabel` | `ReactNode` | `—` | Chip label when every item is selected. Defaults to `label`. |
+| `emptyTriggerLabel` | `ReactNode` | `—` | Chip label when nothing is selected. Defaults to `label`. |
+| `triggerLabel` | `ReactNode` | `—` | Replaces the first-pick and `+N` preview in the active chip, for example with a skeleton. |
+| `triggerTooltip` | `ReactNode` | `—` | Replaces the hover list of picks. Pass `null` to hide it. |
+| `hasNumericLabels` | `boolean` | `false` | Separates the first pick from `+N` with a comma, for labels such as `18-25`. |
+| `disabled` | `boolean` | `false` | Disables the chip. |
+| `triggerClassName` | `string` | `—` | Classes for the center button of the chip. |
+| `triggerContainerClassName` | `string` | `—` | Classes for the clickable part of the chip. |
+
+### Menu
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `renderItemStart` | `(item: T) => MultiSelectFilterIconValue` | `—` | Icon or avatar before each row's label. |
+| `renderItemLabel` | `(item: T) => ReactNode` | `—` | Replaces each row's label. |
+| `renderItemEnd` | `(item: T) => MultiSelectFilterIconValue` | `—` | Content at the end of each row. |
+| `showSearch` | `boolean` | `true` | Shows the search input. |
+| `searchPlaceholder` | `string` | `'Search'` | Placeholder of the search input. |
+| `searchText` | `string` | `—` | Controlled query. |
+| `disableClientFiltering` | `boolean` | `false` | Skips the built-in name filter, for server-side search. |
+| `searchInputLoading` | `boolean` | `false` | Shows a spinner in the search input. |
+| `noResultsLabel` | `ReactNode` | `'No results found.'` | Shown when search matches no row. |
+| `showOnlyButton` | `boolean` | `true` | Shows the only button on row hover. |
+| `itemsCountLabel` | `(count: number) => ReactNode` | ``count => `${count} items` `` | Selected count in the footer. |
+| `hideEmptyCount` | `boolean` | `true` | Hides the footer count when nothing is selected. |
+| `hideSelectAllButton` | `boolean` | `false` | Hides the footer's Select all and Clear all button. |
+| `hideClearAllButton` | `boolean` | `false` | Hides only Clear all. |
+| `hideFooter` | `boolean` | `false` | Hides the footer. |
+| `topRow` | `ReactNode` | `—` | Content between the search input and the list. |
+| `bottomRow` | `ReactNode` | `—` | Content between the list and the footer. |
+| `listFooter` | `ReactNode` | `—` | Content at the end of the scrolling list, such as a load-more sentinel. |
+| `footerExtra` | `ReactNode` | `—` | Content below the footer. |
+| `emptyState` | `ReactNode` | `—` | Shown in place of the list when there are no items. |
+| `align` | `'start' \| 'center' \| 'end'` | `'start'` | Alignment of the menu relative to the chip. Use `end` at the trailing edge of a toolbar. |
+| `defaultOpen` | `boolean` | `false` | Opens the menu on mount. |
+| `withRadixPortal` | `boolean` | `true` | Renders the menu in a portal. Set to `false` inside a dialog. |
+| `className` | `string` | `—` | Classes for the outer wrapper. |

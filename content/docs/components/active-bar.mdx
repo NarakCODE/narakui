@@ -1,0 +1,23 @@
+---
+title: Active Bar
+description: The sliding highlight behind the active item in a vertical navigation list.
+---
+
+import { ActiveBarExample } from '@/components/examples/active-bar-example';
+
+## Example
+
+Place it inside a `relative` list that sets `--item-height`. Move it by changing `top`; the bar animates between items.
+
+<ComponentPreview file="components/examples/active-bar-example.tsx">
+  <ActiveBarExample />
+</ComponentPreview>
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `top` | `number` | Required | Vertical offset in pixels of the active item. |
+| `leftOffset` | `number` | `0` | Inset from the left edge in pixels. |
+| `rightOffset` | `number` | `0` | Inset from the right edge in pixels. |
+| `className` | `string` | `—` | Additional classes, for example a z-index or custom transition. |

@@ -1,0 +1,75 @@
+---
+title: Notification Badge
+description: A dot or count pinned to the corner of another element, such as an icon button, to show there is something new.
+---
+
+import { NotificationBadgeColors } from '@/components/examples/notification-badge-colors';
+import { NotificationBadgeContent } from '@/components/examples/notification-badge-content';
+import { NotificationBadgeDot } from '@/components/examples/notification-badge-dot';
+import { NotificationBadgePlacement } from '@/components/examples/notification-badge-placement';
+import { NotificationBadgeToggle } from '@/components/examples/notification-badge-toggle';
+
+## Dot
+
+Wrap the element you want to mark. Without `content`, the badge is a dot. `size` sets the dot to `6`, `8`, or `10px`.
+
+The badge is visual only and is not announced. Put the same information in the anchor's accessible name, for example `aria-label="Notifications, 3 unread"`.
+
+<ComponentPreview file="components/examples/notification-badge-dot.tsx">
+  <NotificationBadgeDot />
+</ComponentPreview>
+
+## Content
+
+`content` shows a short count or label inside the badge, which grows to fit it. Keep it to a few characters, like `99+` or `Dev`.
+
+<ComponentPreview file="components/examples/notification-badge-content.tsx">
+  <NotificationBadgeContent />
+</ComponentPreview>
+
+## Placement
+
+`placement` pins the badge to one of the four corners. It sits slightly outside the corner, with a ring in the page background color that separates it from the anchor.
+
+<ComponentPreview file="components/examples/notification-badge-placement.tsx">
+  <NotificationBadgePlacement />
+</ComponentPreview>
+
+## Colors
+
+<ComponentPreview file="components/examples/notification-badge-colors.tsx">
+  <NotificationBadgeColors />
+</ComponentPreview>
+
+## Show and hide
+
+`show` hides the badge without changing the layout of the anchor. Use it rather than conditionally rendering the wrapper.
+
+<ComponentPreview file="components/examples/notification-badge-toggle.tsx">
+  <NotificationBadgeToggle />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Bell } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { NotificationBadge } from '@/components/ui/notification-badge';
+
+<NotificationBadge content={unread} show={unread > 0}>
+  <Button iconStart={<Bell />} aria-label={`Notifications, ${unread} unread`} />
+</NotificationBadge>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` | `ReactNode` | Required | The element the badge is pinned to. |
+| `content` | `ReactNode` | `—` | Short text or number inside the badge. The badge is a dot when omitted. |
+| `show` | `boolean` | `true` | Whether the badge is visible. |
+| `placement` | `'top-right' \| 'top-left' \| 'bottom-right' \| 'bottom-left'` | `'top-right'` | Corner of the anchor the badge is pinned to. |
+| `color` | `'red' \| 'blue' \| 'green' \| 'amber' \| 'purple' \| 'pink' \| 'gray'` | `'red'` | Badge color. |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the dot or badge. |
+| `className` | `string` | `—` | Additional CSS classes for the wrapper around the anchor. |
+| `badgeClassName` | `string` | `—` | Additional CSS classes for the badge, for example to nudge its position. |

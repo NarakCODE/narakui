@@ -1,0 +1,37 @@
+---
+title: Alert
+description: An inline callout for information, warnings, success, and errors.
+---
+
+import { AlertCompositions } from '@/components/examples/alert-compositions';
+import { AlertVariants } from '@/components/examples/alert-variants';
+
+## Variants
+
+`warning` and `destructive` render with `role="alert"`; `default` and `success` render with `role="status"`. Pass `role` to override. `default` uses the secondary background, so place it on a primary surface such as a card, dialog, or page.
+
+<ComponentPreview file="components/examples/alert-variants.tsx">
+  <AlertVariants />
+</ComponentPreview>
+
+## Compositions
+
+Every part is optional. Wrap a title and description in `AlertContent` so they stack.
+
+<ComponentPreview file="components/examples/alert-compositions.tsx">
+  <AlertCompositions />
+</ComponentPreview>
+
+## Alert Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'warning' \| 'destructive' \| 'success'` | `'default'` | Surface tint and icon color. `AlertIcon` inherits it. |
+| `role` | `string` | — | Overrides the live-region role chosen from the variant. |
+| `className` | `string` | — | Additional classes for the container. |
+
+## AlertIcon Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `'default' \| 'warning' \| 'destructive' \| 'success'` | — | Overrides the icon tint from the enclosing `Alert`. |

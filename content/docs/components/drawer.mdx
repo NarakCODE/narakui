@@ -1,0 +1,109 @@
+---
+title: Drawer
+description: A drawer component for displaying content in a slide-out panel from any side of the screen.
+---
+
+import { DrawerLeft } from '@/components/examples/drawer-left';
+import { DrawerRight } from '@/components/examples/drawer-right';
+import { DrawerWide } from '@/components/examples/drawer-wide';
+
+## Right
+
+Drawers open from the right by default, for settings and forms. Most product drawers set `width` between `460` and `560px`. The footer's `customRenderer` gets a `closeDrawer` callback.
+
+<ComponentPreview file="components/examples/drawer-right.tsx">
+  <DrawerRight />
+</ComponentPreview>
+
+## Left
+
+Set `placement="left"` for lists that relate to the page's own navigation. `contentClassName` adjusts the content padding.
+
+<ComponentPreview file="components/examples/drawer-left.tsx">
+  <DrawerLeft />
+</ComponentPreview>
+
+## Wide
+
+Use `800px` or more for multi-column forms and detail views. Without `width` the drawer grows up to `1100px`. On small screens it fills the viewport.
+
+<ComponentPreview file="components/examples/drawer-wide.tsx">
+  <DrawerWide />
+</ComponentPreview>
+
+## Setup
+
+Mount `<DrawerProvider />` once near the root of your app (inside the relevant context providers). Nested mounts will render duplicate drawers because all drawers share the same global store.
+
+```tsx
+// app/layout.tsx (or the highest layout that has the contexts your drawers need)
+import { DrawerProvider } from '@/components/ui/drawer';
+
+export default function RootLayout({ children }) {
+  return (
+    <>
+      {children}
+      <DrawerProvider />
+    </>
+  );
+}
+```
+
+## Usage
+
+Open drawers through the store. `DrawerProvider` renders the drawer parts for you. Opening a drawer with an `id` that is already open replaces it; opening a new `id` stacks it on top.
+
+```tsx
+import { useDrawerStore } from '@/components/ui/drawer';
+
+useDrawerStore.getState().openDrawer({
+  id: 'my-drawer',
+  placement: 'right',
+  header: {
+    title: 'My Drawer',
+  },
+  content: <div>Drawer content</div>,
+});
+
+useDrawerStore.getState().closeDrawer('my-drawer');
+```
+
+The store also has `updateDrawer(id, updates)` to change an open drawer and `closeAllDrawers()`.
+
+## openDrawer Options
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `id` (Required) | `string` | `—` | Unique identifier for the drawer. Pass it to `closeDrawer` and `updateDrawer`. |
+| `content` | `ReactNode` | `—` | Content rendered inside the drawer's padded scroll area |
+| `placement` | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Side of the screen where the drawer appears |
+| `width` | `number` | `1100` | Maximum width of the drawer in pixels |
+| `header` | `object` | `—` | Header configuration. See `header` Options below. |
+| `hideHeader` | `boolean` | `false` | Removes the header bar, close button included, for content that renders its own header |
+| `footer` | `{ customRenderer?: ({ closeDrawer, id }) => ReactNode }` | `—` | Footer rendered below the scroll area. Nothing renders without `customRenderer`. |
+| `withOverlay` | `boolean` | `true` | Renders the backdrop and makes the drawer modal |
+| `closeOnEsc` | `boolean` | `true` | Whether to close drawer when escape key is pressed |
+| `closeOnOutsideClick` | `boolean` | `true` | Whether to close drawer when clicking outside |
+| `beforeClose` | `() => boolean` | `—` | Called before closing. Return `false` to keep the drawer open. |
+| `onClose` | `() => void` | `—` | Called when the drawer closes. May return a promise, which `closeDrawer` passes back. |
+| `onCloseAutoFocus` | `(event: Event) => void` | `—` | Called when focus moves back after the drawer closes |
+| `className` | `string` | `—` | Additional CSS classes for the drawer panel |
+| `contentClassName` | `string` | `—` | Additional CSS classes for the padded content box |
+| `scrollAreaClassName` | `string` | `—` | Additional CSS classes for the scroll area around the content |
+
+## header Options
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `ReactNode` | `—` | Title shown on the left of the header |
+| `showCloseButton` | `boolean` | `true` | Shows the close button on the right of the header |
+| `headerEnd` | `ReactNode` | `—` | Content placed after the title |
+| `isBackButton` | `boolean` | `false` | Renders the title as a back button with a left chevron |
+| `onBack` | `() => void` | `—` | Called by the back button. Closes the drawer when omitted. |
+| `showNavigation` | `boolean` | `false` | Shows the previous/next pager. Needs `currentIndex` and `totalItems`. |
+| `currentIndex` | `number` | `—` | 0-based index of the item shown in the pager |
+| `totalItems` | `number` | `—` | Number of items in the pager |
+| `labelPrefix` | `string` | `—` | Text shown before the pager count |
+| `onPrevious` | `() => void` | `—` | Called by the pager's previous button |
+| `onNext` | `() => void` | `—` | Called by the pager's next button |
+| `customRenderer` | `({ closeDrawer, id }) => ReactNode` | `—` | Replaces the whole header, including its container |

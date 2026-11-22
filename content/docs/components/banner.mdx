@@ -1,0 +1,84 @@
+---
+title: Banner
+description: An inline message that tells people about the state of a page or section, with optional actions.
+---
+
+import { BannerAccentExample } from '@/components/examples/banner-accent-example';
+import { BannerWithActionsExample } from '@/components/examples/banner-actions-example';
+import { BannerColorsExample } from '@/components/examples/banner-colors-example';
+import { BannerWithDescriptionExample } from '@/components/examples/banner-description-example';
+
+An inline message that tells people about the state of a page or section, with optional actions.
+
+## Colors
+
+`color` sets the surface. Pick it by meaning: `green` for success, `blue` for something in progress, `orange` for a warning, `red` for an error, and `grey` or `white` for neutral information. `icon` takes `success`, `info`, `warning`, or `error` for the matching glyph.
+
+A banner has `role="status"` by default, so screen readers announce it politely. Use `role="alert"` for errors that need attention right away.
+
+<ComponentPreview file="components/examples/banner-colors-example.tsx">
+  <BannerColorsExample />
+</ComponentPreview>
+
+## Description
+
+`description` adds a second line of supporting copy. With a description, the icon lines up with the title instead of the middle of the banner.
+
+<ComponentPreview file="components/examples/banner-description-example.tsx">
+  <BannerWithDescriptionExample />
+</ComponentPreview>
+
+## Actions
+
+`primaryAction` and `secondaryAction` render at the end of the banner, with the secondary action first. Pass small buttons. `onDismiss` adds a close button labelled `"Dismiss banner"`; the banner does not hide itself, so remove it in the callback.
+
+The text shrinks to make room for the actions. Where the banner can get narrow, add `flex-wrap` and a minimum width on the text with `contentClassName`, so the actions move under the text instead.
+
+<ComponentPreview file="components/examples/banner-actions-example.tsx">
+  <BannerWithActionsExample />
+</ComponentPreview>
+
+## Accent color and custom icons
+
+`coloredTitle` colors the title, and the text of plain-text actions, with the banner's accent. `iconColor` colors only the icon, for a neutral surface that still needs a colored glyph. `icon` also accepts any icon element, which is sized and colored for you.
+
+<ComponentPreview file="components/examples/banner-accent-example.tsx">
+  <BannerAccentExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Banner } from '@/components/ui/banner';
+```
+
+```tsx
+<Banner color="blue" icon="info" title="Syncing project context from Notion" />
+<Banner
+  color="red"
+  icon="error"
+  role="alert"
+  title="We couldn't load your boards"
+  primaryAction={<Button size="small" onClick={retry}>Try again</Button>}
+/>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `title` | `React.ReactNode` | Required | The main message. |
+| `description` | `React.ReactNode` | — | Supporting copy under the title. |
+| `color` | `'green' \| 'red' \| 'orange' \| 'blue' \| 'grey' \| 'white'` | `'green'` | Surface and accent color. |
+| `icon` | `'info' \| 'warning' \| 'error' \| 'success' \| React.ReactNode` | — | A built-in glyph by name, or an icon element. No icon renders when omitted. |
+| `iconColor` | `'green' \| 'red' \| 'orange' \| 'blue' \| 'grey' \| 'white'` | `color` | Accent color for the icon alone. |
+| `coloredTitle` | `boolean` | `false` | Colors the title and the action area's text with the banner's accent. |
+| `primaryAction` | `React.ReactNode` | — | The main action, rendered last. |
+| `secondaryAction` | `React.ReactNode` | — | An extra action, rendered before `primaryAction`. |
+| `actionsAlignment` | `'start' \| 'center'` | `'center'` | Aligns the actions with the top or the middle of the banner. |
+| `onDismiss` | `() => void` | — | Shows a dismiss button and runs when it is clicked. The banner does not hide itself. |
+| `role` | `React.AriaRole` | `'status'` | Live-region role. Use `alert` for urgent errors, or `presentation` inside another live region. |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Lays out the icon, text, and actions in a row or a column. |
+| `className` | `string` | — | Additional CSS classes for the banner. |
+| `contentClassName` | `string` | — | Additional CSS classes for the title and description wrapper. |
+| `descriptionClassName` | `string` | — | Additional CSS classes for the description. |

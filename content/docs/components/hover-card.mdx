@@ -1,0 +1,79 @@
+---
+title: Hover Card
+description: A floating card that previews more about an element while the pointer rests on it.
+---
+
+import { HoverCardCitation } from '@/components/examples/hover-card-citation';
+import { HoverCardMetric } from '@/components/examples/hover-card-metric';
+import { HoverCardSources } from '@/components/examples/hover-card-sources';
+
+## Link preview
+
+Use a hover card for a preview people can glance at without leaving the page, such as the source behind a citation. It opens 120 milliseconds after the pointer enters the trigger or the trigger gets keyboard focus, and stays open while the pointer moves into the card.
+
+`HoverCard.Trigger` renders a link by default. Pass `asChild` to use your own link or button, so the trigger is focusable and still works on its own: here it opens the article.
+
+<ComponentPreview file="components/examples/hover-card-citation.tsx">
+  <HoverCardCitation />
+</ComponentPreview>
+
+## Metric details
+
+The card is 256 pixels wide with no padding, so set the padding and any other width with `className`. Use `side` and `align` to place it; it flips to stay in the viewport and scrolls inside when there isn't room. The trigger gets `data-state="open"` while the card is showing.
+
+<ComponentPreview file="components/examples/hover-card-metric.tsx">
+  <HoverCardMetric />
+</ComponentPreview>
+
+## Overflow list
+
+A hover card works well for the items behind a `+3` overflow. For a list, set `className="p-0"` and let each section bring its own padding. Hover cards don't open on touch screens, and keyboard users can't move focus into one, so never put the only way to reach information or an action inside it. Show the full list somewhere people can tap or tab to as well.
+
+<ComponentPreview file="components/examples/hover-card-sources.tsx">
+  <HoverCardSources />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { HoverCard } from '@/components/ui/hover-card';
+
+<HoverCard.Root>
+  <HoverCard.Trigger asChild>
+    <a href="https://www.nytimes.com/wirecutter/">wirecutter.com</a>
+  </HoverCard.Trigger>
+  <HoverCard.Content className="p-4">
+    The best coffee subscriptions, tested by our editors
+  </HoverCard.Content>
+</HoverCard.Root>;
+```
+
+Use `animation="tooltip"` when the card should fade like a [Tooltip](/docs/components/tooltip), for example previews that swap as the pointer moves down a list. For short labels, use a tooltip instead. For content people open on purpose, such as forms or menus, use a [Popover](/docs/components/popover).
+
+## HoverCard.Root Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `open` | `boolean` | `—` | Controlled open state |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled |
+| `onOpenChange` | `(open: boolean) => void` | `—` | Called when the card opens or closes |
+| `openDelay` | `number` | `120` | Milliseconds the pointer rests on the trigger before the card opens |
+| `closeDelay` | `number` | `120` | Milliseconds after the pointer leaves before the card closes |
+
+## HoverCard.Trigger Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `asChild` | `boolean` | `false` | Uses the child element as the trigger instead of a link |
+
+## HoverCard.Content Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Preferred side of the trigger. The card flips when there isn't room |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | Alignment against the trigger |
+| `sideOffset` | `number` | `8` | Distance from the trigger in pixels |
+| `alignOffset` | `number` | `0` | Offset along the alignment axis in pixels |
+| `collisionPadding` | `number \| Partial<Record<Side, number>>` | `12` | Space to keep from the viewport edges |
+| `animation` | `'card' \| 'tooltip'` | `'card'` | `card` fades, zooms, and slides in. `tooltip` only fades, at the tooltip's timing |
+| `className` | `string` | `—` | Classes for the card. Set padding here, and width to change it from 256 pixels |

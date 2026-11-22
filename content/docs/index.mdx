@@ -1,13 +1,39 @@
 ---
-title: Hello World
-description: Your first document
+title: Get Started
+description: Rakfound is our design system — the components, tokens, icons, and guidelines used to build Rakfound products.
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+## What is Rakfound?
 
-## What is Next?
+Rakfound is the set of React components, semantic design tokens, and icons that every Rakfound interface is built from. Components are written in TypeScript, styled with Tailwind CSS v4 on top of our light and warm-dark color and typography tokens (`app/design-system.css`), and built on Radix UI and `cmdk` primitives wherever a component needs accessible focus management or keyboard navigation.
+
+Each component page shows live interactive examples, the source code behind them, and the complete props the component accepts.
+
+## Why this site is public
+
+Rakfound lives directly inside our codebase and isn't published as a public package yet. We keep this site open anyway — it's the live reference our team works from every day, and a window into how we approach interface craft: semantic surfaces, concentric geometry, tactile press feedback, and restrained motion.
+
+## Explore
 
 <Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
+  <Card
+    title="Colors"
+    href="/docs/foundation/colors"
+    description="Semantic surface, fill, control, text, border, shadow, and workflow tokens for light and dark themes."
+  />
+  <Card
+    title="Typography"
+    href="/docs/foundation/typography"
+    description="Geist Rounded and Geist Mono paired with unified Title, Body, and Paragraph scale utilities."
+  />
+  <Card
+    title="Icons"
+    href="/docs/foundation/icons"
+    description="Searchable Lucide system icons mapped to component slots alongside Rakfound brand marks."
+  />
+  <Card
+    title="Button"
+    href="/docs/components/button"
+    description="Start exploring the Rakfound component library with Button modes, sizes, and states."
+  />
 </Cards>

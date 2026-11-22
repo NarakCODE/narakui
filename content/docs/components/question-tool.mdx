@@ -1,0 +1,87 @@
+---
+title: Question Tool
+description: The ask-user prompt. Takes over the composer card or sits inline as a transcript card.
+---
+
+import { QuestionToolKinds } from '@/components/examples/question-tool-kinds';
+import { QuestionToolStates } from '@/components/examples/question-tool-states';
+
+## Kinds
+
+Single choice, multi choice, and free text. Choice prompts include an Other field unless `allowCustomAnswer` is `false`. A choice question with `layout: 'grid'` fills two columns with short, label-only options.
+
+<ComponentPreview file="components/examples/question-tool-kinds.tsx">
+  <QuestionToolKinds />
+</ComponentPreview>
+
+## States
+
+A multi-step prompt, the compact prompt, the standalone card used in a transcript, and a completed card. `compact` replaces the footer with a header pager and a trailing Skip or Next; pass it to `promptSlot` on a compact composer. Once answered, the card shows a one-line summary. The composer variant has no summary; it stays disabled until the host removes it.
+
+<ComponentPreview file="components/examples/question-tool-states.tsx">
+  <QuestionToolStates />
+</ComponentPreview>
+
+## Usage
+
+`QuestionTool` is presentational. Product chats own submit, skip, and multi-question navigation, then pass the result in. If a submit handler throws or rejects, the tool shows an error and keeps the answer editable.
+
+```tsx
+import { Composer } from '@/components/ui/composer';
+import { QuestionTool } from '@/components/ui/question-tool';
+
+<Composer
+  activeSlot={
+    <QuestionTool
+      variant="composer"
+      questions={questions}
+      onSubmitAnswer={handleAnswer}
+    />
+  }
+/>
+```
+
+## QuestionTool Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `questions` | `QuestionConfig[]` (required) | `—` | Prompt list. Each item is `single`, `multi`, or `text`. See `QuestionConfig` below. |
+| `questionIndex` | `number` | `—` | 1-based index when the host owns navigation. Omit to let the card step locally. |
+| `totalQuestions` | `number` | `questions.length` | Progress denominator. Defaults to `questions.length`. |
+| `toolCallId` | `string` | `—` | Resets local drafts when the host starts a new tool call. |
+| `answer` | `QuestionAnswer` | `—` | Completed answer from the host. Marks a single-question prompt done. |
+| `variant` | `'card' \| 'composer'` | `'card'` | `composer` fills the takeover slot. `card` is the inline transcript treatment. |
+| `compact` | `boolean` | `false` | Composer only. A header pager and a trailing Skip/Next replace the footer, and choices start unselected. |
+| `disabled` | `boolean` | `false` | Disables the prompt while host-owned work is still pending. |
+| `chatStatus` | `string` | `—` | Host stream status. Disables the card variant while streaming. Ignored for composer. |
+| `allowSkip` | `boolean` | `true` | Shows the skip action. |
+| `submitLabel` | `string` | `'Submit'` | Primary action on the last question. |
+| `nextLabel` | `string` | `'Next'` | Primary action on earlier questions in a multi-step prompt. |
+| `skipLabel` | `string` | `'Skip'` | Skip action copy. |
+| `skippedLabel` | `string` | `'Skipped'` | Summary text for a skipped question on a completed card. |
+| `onSubmitAnswer` | `(answer: QuestionAnswer) => void \| Promise<void>` | `—` | Called with the last answer, or the only answer on a single prompt. May return a promise. |
+| `onSubmitAnswers` | `(answers: QuestionAnswerMap) => void \| Promise<void>` | `—` | Called with every answer, keyed by 1-based index, when the last question in a multi-step prompt is submitted. May return a promise. |
+| `onNextQuestion` | `() => void` | `—` | Called when the user advances to the next question. |
+| `onPreviousQuestion` | `() => void` | `—` | Called when the user goes back a question. |
+| `renderComposerCounter` | `(step: number, total: number) => ReactNode` | `—` | Replaces the composer header's step counter on multi-step prompts. |
+| `className` | `string` | `—` | Extra classes on the card frame. |
+| `choicesClassName` | `string` | `—` | Extra classes on the scrollable choices list, e.g. a scroll edge fade. |
+| `titlePlacement` | `'header' \| 'step'` | `'header'` | Where the composer variant shows the active question's title. `step` keeps it inside the animated step so it crossfades and resizes with the choices. |
+
+## QuestionConfig
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `kind` | `'single' \| 'multi' \| 'text'` (required) | `—` | Question type |
+| `title` | `string` (required) | `—` | Question text |
+| `id` | `string` | `—` | Stable id for the question |
+| `options` | `QuestionOption[]` | `—` | Choices for `single` and `multi` questions. Each has `id`, `label`, and an optional `description`. |
+| `layout` | `'list' \| 'grid'` | `'list'` | Grid fills two columns top to bottom with short, label-only options; the Other field spans both. Described options always render as a list. |
+| `allowCustomAnswer` | `boolean` | `true` | Shows the Other field. `false` submits only offered ids. |
+| `customLabel` | `string` | `—` | Placeholder for the Other field when `customPlaceholder` is not set |
+| `customPlaceholder` | `string` | `—` | Placeholder for the Other field |
+| `minSelections` | `number` | `1` | Fewest picks needed to submit |
+| `maxSelections` | `number` | `—` | Most picks allowed |
+| `ranked` | `boolean` | `false` | Multi only. Picks are ranked in order and each badge shows its rank. With `maxSelections`, the rest lock once that many are picked. |
+| `initialSelectedIds` | `readonly string[]` | `—` | Ids selected when the question opens. Defaults to the first option; compact questions open empty. |
+| `placeholder` | `string` | `—` | Placeholder for a text question |

@@ -1,0 +1,79 @@
+---
+title: Checkbox
+description: Select multiple options from a list.
+---
+
+import { CheckboxExample } from '@/components/examples/checkbox-example';
+import { CheckboxStatesExample } from '@/components/examples/checkbox-states';
+
+## Select all
+
+A parent checkbox turns indeterminate while only some of its children are checked. Clicking it from there checks every child.
+
+<ComponentPreview file="components/examples/checkbox-example.tsx">
+  <CheckboxExample />
+</ComponentPreview>
+
+## States
+
+Unchecked, checked, indeterminate, disabled, and a custom check color.
+
+<ComponentPreview file="components/examples/checkbox-states.tsx">
+  <CheckboxStatesExample />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Checkbox } from '@/components/ui/checkbox';
+
+<Checkbox checked={checked} onCheckedChange={setChecked}>
+  Label
+</Checkbox>
+```
+
+While `indeterminate` is `true` the box shows a minus and reports a mixed state to assistive technology, whatever `checked` is. Clicking it calls `onCheckedChange(true)`.
+
+## Indicator only
+
+`CheckboxIndicator` draws the box without an input. Use it inside a button, tree row, or other control that already handles the click.
+
+```tsx
+import { CheckboxIndicator } from '@/components/ui/checkbox';
+
+<CheckboxIndicator checked={isSelected} />
+```
+
+## Checkbox Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `className` | `string` | `—` | Additional CSS classes to apply to the label wrapper |
+| `children` | `React.ReactNode` | `—` | The content to be displayed as the checkbox label |
+| `color` | `string` | `—` | Custom color for the checkbox when checked (CSS color value) |
+| `childrenWrapperClassName` | `string` | `—` | Custom class name for the children wrapper element |
+| `checkboxClassName` | `string` | `—` | Custom class name for the checkbox control |
+| `disableHover` | `boolean` | `false` | Removes all hover feedback. |
+| `disablePadding` | `boolean` | `false` | Removes the container padding. Hover then darkens the empty checkbox's border instead of filling a background. |
+| `readOnly` | `boolean` | `false` | Prevent interaction with the checkbox while preserving appearance |
+| `indeterminate` | `boolean` | `false` | Shows the minus and reports a mixed state, whatever `checked` is. Clicking it calls `onCheckedChange(true)`. |
+| `indeterminateIcon` | `React.ReactNode` | `<Minus />` | Custom icon for the indeterminate state |
+| `selectedIcon` | `React.ReactNode` | `<Check />` | Custom icon for the selected state |
+| `disabled` | `boolean` | `false` | Set checkbox to a disabled, unclickable state |
+| `checked` | `boolean \| 'indeterminate'` | `—` | The controlled checked state of the checkbox |
+| `defaultChecked` | `boolean \| 'indeterminate'` | `—` | The default checked state when used as an uncontrolled component |
+| `onCheckedChange` | `(checked: CheckedState) => void` | `—` | Event handler called when the checked state changes. `CheckedState` is `boolean` or `'indeterminate'`. |
+| `required` | `boolean` | `—` | When `true`, indicates that the user must check the checkbox before the owning form can be submitted |
+| `name` | `string` | `—` | The name of the checkbox, used when submitting a form |
+| `value` | `string` | `'on'` | The value of the checkbox, used when submitting a form |
+
+## CheckboxIndicator Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `checked` | `boolean` | `false` | Shows the check mark |
+| `indeterminate` | `boolean` | `false` | Shows the minus mark. Wins over `checked`. |
+| `disabled` | `boolean` | `false` | Applies the same disabled treatment as `Checkbox` |
+| `selectedIcon` | `React.ReactNode` | `<Check />` | Custom icon for the selected state |
+| `indeterminateIcon` | `React.ReactNode` | `<Minus />` | Custom icon for the indeterminate state |
+| `className` | `string` | `—` | Additional CSS classes for the box |

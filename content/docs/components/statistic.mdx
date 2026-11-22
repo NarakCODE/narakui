@@ -1,0 +1,95 @@
+---
+title: Statistic
+description: Display numerical statistics and metrics with clear formatting and visual hierarchy.
+---
+
+import { StatisticBasic } from '@/components/examples/statistic-basic';
+import { StatisticDecimals } from '@/components/examples/statistic-decimals';
+import { StatisticEmpty } from '@/components/examples/statistic-empty';
+import { StatisticPrefixSuffix } from '@/components/examples/statistic-prefix-suffix';
+import { StatisticRank } from '@/components/examples/statistic-rank';
+import { StatisticTrends } from '@/components/examples/statistic-trends';
+import { StatisticTypes } from '@/components/examples/statistic-types';
+
+## Basic usage
+
+Display a number with formatting. Turn off `showTrend` for plain values; leave it on for changes.
+
+<ComponentPreview file="components/examples/statistic-basic.tsx">
+  <StatisticBasic />
+</ComponentPreview>
+
+## Types
+
+`number` abbreviates values of 1,000 or more with `k`, `M`, or `b`. `percentage` multiplies the value by 100, so pass a fraction.
+
+<ComponentPreview file="components/examples/statistic-types.tsx">
+  <StatisticTypes />
+</ComponentPreview>
+
+## Trends
+
+With `showTrend` on (the default), the sign of `value` sets the trend. Positive values are green with a plus sign, negative values are red with a minus sign, and values that round to zero show a dash.
+
+<ComponentPreview file="components/examples/statistic-trends.tsx">
+  <StatisticTrends />
+</ComponentPreview>
+
+## Rank changes
+
+Set `changeMode` to `rank` to show an up or down arrow instead of a sign.
+
+<ComponentPreview file="components/examples/statistic-rank.tsx">
+  <StatisticRank />
+</ComponentPreview>
+
+## Prefix and suffix
+
+Add prefixes and suffixes to provide context for your statistics. With `showTrend` on, the plus or minus sign replaces the prefix, so turn it off for values like currency. Without a trend the value renders as an absolute number, so pass the sign in `prefix` when it matters, for example `prefix="-$"`.
+
+<ComponentPreview file="components/examples/statistic-prefix-suffix.tsx">
+  <StatisticPrefixSuffix />
+</ComponentPreview>
+
+## Decimal places
+
+`decimals` sets the maximum number of decimal places. Add `fixedDecimals` to always show that many.
+
+<ComponentPreview file="components/examples/statistic-decimals.tsx">
+  <StatisticDecimals />
+</ComponentPreview>
+
+## Empty value
+
+A `null` or `undefined` value shows `emptyText` instead.
+
+<ComponentPreview file="components/examples/statistic-empty.tsx">
+  <StatisticEmpty />
+</ComponentPreview>
+
+## Usage
+
+```tsx
+import { Statistic } from '@/components/ui/statistic';
+
+<Statistic value={0.042} type="percentage" />
+<Statistic value={45_678} prefix="$" showTrend={false} />
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `value` | `number \| null \| undefined` | Required | The numerical value to display. `null` or `undefined` shows `emptyText`. |
+| `type` | `'number' \| 'percentage'` | `'number'` | `number` abbreviates large values with `k`, `M`, or `b`. `percentage` multiplies the value by 100 and adds `%`. |
+| `showTrend` | `boolean` | `true` | Colors the value by its sign and adds a plus or minus sign, or an arrow in rank mode. Values that round to zero show a dash. When off, the value renders as an absolute number. |
+| `changeMode` | `'value' \| 'rank'` | `'value'` | `value` shows a plus or minus sign. `rank` shows an up or down arrow and keeps the prefix. |
+| `decimals` | `number` | `1` | Maximum number of decimal places to display. |
+| `fixedDecimals` | `boolean` | `false` | Always shows exactly `decimals` fraction digits, keeping trailing zeros. |
+| `disableFormatting` | `boolean` | `false` | Shows the full number without `k`, `M`, or `b` abbreviation. |
+| `emptyText` | `string` | `'n/a'` | Text to display when `value` is `null` or `undefined`. |
+| `prefix` | `string` | `—` | Text to prepend before the value. Replaced by the plus or minus sign when `showTrend` is on and `changeMode` is `value`. |
+| `suffix` | `string` | `—` | Text to append after the value. |
+| `animated` | `boolean` | `true` | Whether to animate value changes. |
+| `transformDuration` | `number` | `250` | Duration of the digit animation in milliseconds. |
+| `className` | `string` | `—` | Additional CSS classes for the wrapper and the value. Replaces the default `font-medium tabular-nums` value styling. |
