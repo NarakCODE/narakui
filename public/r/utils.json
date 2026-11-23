@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils",
+  "title": "NarakUI Utilities",
+  "description": "Custom cn class-merging helper configured with NarakUI typography, gradient, and shadow class groups.",
+  "dependencies": [
+    "cn"
+  ],
+  "files": [
+    {
+      "path": "lib/utils.ts",
+      "content": "import { createCn } from 'cn/config';\n\nexport type { ClassValue } from 'cn';\n\n/**\n * Merges conditional class names and resolves Tailwind utility conflicts,\n * configured with NarakUI's custom typography, gradient, and shadow tokens.\n */\nexport const cn = createCn({\n  extend: {\n    classGroups: {\n      'font-size': [\n        {\n          text: [\n            'title',\n            'title-regular',\n            'title-small',\n            'title-small-regular',\n            'title-small-medium',\n            'title-small-semibold',\n            'title-mini',\n            'title-mini-regular',\n            'title-mini-medium',\n            'title-mini-semibold',\n            'body-regular',\n            'body-regular-medium',\n            'body-regular-semibold',\n            'body-regular-spaced',\n            'body-small',\n            'body-small-regular',\n            'body-small-medium',\n            'body-small-semibold',\n            'body-small-spaced',\n            'body-mini',\n            'body-mini-regular',\n            'body-mini-medium',\n            'body-micro',\n            'body-micro-regular',\n            'body-micro-medium',\n            'paragraph-regular',\n            'paragraph-small',\n            'paragraph-small-relaxed',\n          ],\n        },\n      ],\n      'bg-image': [\n        {\n          bg: ['button-primary', 'button-pos-action'],\n        },\n      ],\n      shadow: [\n        {\n          shadow: [\n            'low',\n            'low-hover',\n            'low-focus',\n            'low-borderless',\n            'medium',\n            'medium-hover',\n            'medium-focus',\n            'medium-borderless',\n            'high',\n            'high-borderless',\n            'focus',\n            'button-primary',\n            'button-pos-action',\n            'button-secondary',\n          ],\n        },\n      ],\n    },\n  },\n});\n",
+      "type": "registry:lib"
+    }
+  ],
+  "type": "registry:lib"
+}

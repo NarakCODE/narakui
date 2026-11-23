@@ -4,7 +4,7 @@ export type { ClassValue } from 'cn';
 
 /**
  * Merges conditional class names and resolves Tailwind utility conflicts,
- * configured with Rakfound's custom typography, gradient, and shadow tokens.
+ * configured with NarakUI's custom typography, gradient, and shadow tokens.
  */
 export const cn = createCn({
   extend: {
@@ -12,10 +12,13 @@ export const cn = createCn({
       'font-size': [
         {
           text: [
+            'title',
             'title-regular',
+            'title-small',
             'title-small-regular',
             'title-small-medium',
             'title-small-semibold',
+            'title-mini',
             'title-mini-regular',
             'title-mini-medium',
             'title-mini-semibold',
@@ -23,12 +26,15 @@ export const cn = createCn({
             'body-regular-medium',
             'body-regular-semibold',
             'body-regular-spaced',
+            'body-small',
             'body-small-regular',
             'body-small-medium',
             'body-small-semibold',
             'body-small-spaced',
+            'body-mini',
             'body-mini-regular',
             'body-mini-medium',
+            'body-micro',
             'body-micro-regular',
             'body-micro-medium',
             'paragraph-regular',

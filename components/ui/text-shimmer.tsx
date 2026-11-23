@@ -32,7 +32,7 @@ function TextShimmer({
   return (
     <>
       {!isStatic ? (
-        <style href="rakfound-text-shimmer" precedence="default">
+        <style href="narakui-text-shimmer" precedence="default">
           {TEXT_SHIMMER_STYLES}
         </style>
       ) : null}

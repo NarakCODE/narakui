@@ -50,7 +50,7 @@ const MATERIALS: {
     variant: 'default',
     material: 'solid',
     label: 'Default (solid)',
-    summary: 'Matte opaque Rakfound surface.',
+    summary: 'Matte opaque NarakUI surface.',
     detail: 'Zero bleed-through for nested cards or dense data.',
   },
 ];

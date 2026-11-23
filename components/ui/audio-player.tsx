@@ -1038,8 +1038,8 @@ export function Audio({
   );
 }
 
-const PREFS_STORAGE_KEY = 'rakfound-player-preferences';
-const PREFS_EVENT_NAME = 'rakfound-player-preferences-change';
+const PREFS_STORAGE_KEY = 'narakui-player-preferences';
+const PREFS_EVENT_NAME = 'narakui-player-preferences-change';
 
 interface StoredPreferences {
   volume?: number;
@@ -1113,7 +1113,7 @@ export function UserPreferences() {
 }
 
 /**
- * Animated Rakfound/Profound mark indicator shown when playback buffers for more than 500ms.
+ * Animated NarakUI/Profound mark indicator shown when playback buffers for more than 500ms.
  */
 export function BufferingIndicator({ className }: { className?: string }) {
   const { bufferingVisible, t } = usePlayerControls();

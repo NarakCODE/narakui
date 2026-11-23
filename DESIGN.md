@@ -1,8 +1,8 @@
-# Rakfound Design System Rules
+# NarakUI Design System Rules
 
 ## Surfaces
 
-- **Use Rakfound surface and shadow tokens from `app/design-system.css` (`bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`, `border-border-gray` / `border-border`, `shadow-low`, `shadow-medium`, `shadow-high`) instead of stock shadcn utility pairings.**
+- **Use NarakUI surface and shadow tokens from `app/design-system.css` (`bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary`, `border-border-gray` / `border-border`, `shadow-low`, `shadow-medium`, `shadow-high`) instead of stock shadcn utility pairings.**
   Why: Ensures light and warm dark mode surfaces (`#ffffff` / `#171615`), ring-inset shadows (`--color-shadow-ring-2`), and borders stay visually consistent across all components.
   <!-- 2026-11-22: "ensure the @[components/ui/button.tsx] follow the design system?" / "Okay You are a frontend engineer, I want you to restructure shadcn component to the design system that I attach to." -->
 
@@ -12,7 +12,7 @@
 
 ## Color
 
-- **Buttons and interactive controls must use Rakfound control and gradient tokens (`bg-primary bg-button-primary shadow-button-primary`, `bg-pos-action bg-button-pos-action shadow-button-pos-action`, `shadow-button-secondary`, `bg-control-bg`, `hover:bg-control-hover`, `aria-expanded:bg-control-selected`, `text-text-primary`, `text-text-secondary`).**
+- **Buttons and interactive controls must use NarakUI control and gradient tokens (`bg-primary bg-button-primary shadow-button-primary`, `bg-pos-action bg-button-pos-action shadow-button-pos-action`, `shadow-button-secondary`, `bg-control-bg`, `hover:bg-control-hover`, `aria-expanded:bg-control-selected`, `text-text-primary`, `text-text-secondary`).**
   Why: Stock shadcn classes (`hover:bg-primary/80`, `bg-background hover:bg-muted`, `dark:bg-input/30`) miss the tactile top-highlight gradients (`--background-image-button-primary`), inset ring shadows (`--shadow-button-primary`), and warm dark control surfaces (`#252423` / `#31302e`).
   <!-- 2026-11-22: "ensure the @[components/ui/button.tsx] follow the design system?" -->
 
@@ -23,11 +23,11 @@
 ## Typography
 
 - **Always use self-hosted `Geist Rounded` (`next/font/local` → `--font-geist-rounded` → `--font-sans`, `--font-heading`, `--font-brand`) paired with `Geist_Mono` (`--font-geist-mono` → `--font-mono`), and remove any `Inter` font or duplicate `:root` / `.dark` / `@theme` blocks injected by `shadcn` CLI commands from `app/layout.tsx` and `app/global.css`.**
-  Why: `app/design-system.css` is the single source of truth for Rakfound theme tokens and typography; `shadcn init` or `shadcn add` otherwise overwrites `--font-sans` with `Inter` and clobbers semantic colors.
+  Why: `app/design-system.css` is the single source of truth for NarakUI theme tokens and typography; `shadcn init` or `shadcn add` otherwise overwrites `--font-sans` with `Inter` and clobbers semantic colors.
   <!-- 2026-11-22: "Use Geist Rounded as the main interface font in this project... For Next.js, use next/font/local instead." -->
 
 - **Always import `cn` from `@/lib/utils` (or `@/lib/cn`), never from `"cn"` directly.**
-  Why: Default `"cn"` treats Rakfound's custom `@utility` typography classes (`text-body-*`, `text-title-*`, `text-paragraph-*`) as `text-color` utilities and strips them when merged with `text-text-*` color tokens (and strips `bg-primary` when merged with `bg-button-primary`). `lib/utils.ts` configures `createCn` from `cn/config` with all custom `font-size`, `bg-image`, and `shadow` groups.
+  Why: Default `"cn"` treats NarakUI's custom `@utility` typography classes (`text-body-*`, `text-title-*`, `text-paragraph-*`) as `text-color` utilities and strips them when merged with `text-text-*` color tokens (and strips `bg-primary` when merged with `bg-button-primary`). `lib/utils.ts` configures `createCn` from `cn/config` with all custom `font-size`, `bg-image`, and `shadow` groups.
   <!-- 2026-11-22: "I spot the issue of banner icon and title label not align center correctly." -->
 
 - **When pairing an icon (`size-4` / `16px`) with a `text-body-small-*` label (`13px` font / `18px` line-height), wrap the icon in `flex h-[18px] shrink-0 items-center justify-center [&>svg]:size-4` instead of using pixel margin hacks (`mt-[1px]`).**
@@ -68,12 +68,11 @@
 
 ## Interaction
 
-- **Never invent or guess a Rakfound component's API, variants, or architecture from placeholder `.mdx` descriptions before the user provides its Palermo / Rakfound design system source.**
+- **Never invent or guess a NarakUI component's API, variants, or architecture from placeholder `.mdx` descriptions before the user provides its Palermo / NarakUI design system source.**
   Why: Placeholder `.mdx` stubs only hold temporary one-line descriptions; each component must match the exact props, subcomponents, and behaviors from the provided design system specification.
   <!-- 2026-11-22: "I will give you the source." -->
 
 ## Copy
 
-- **Never include `## Install` / `## Installation` sections or CLI/package installation commands (`pnpm dlx shadcn...`, `npm i...`) in `content/docs/components/*.mdx`.**
-  Why: Components are documented and demoed internally first and are not public for CLI installation yet.
-  <!-- 2026-11-22: "ensure this components will not public to share the command install yet okay? just docs them and demo firsst" -->
+- **Every component page in `content/docs/components/*.mdx` must document installation under `## Installation` using `<ComponentInstallation name="..." />` (with `docSlug="..."` when the MDX filename differs from the registry item name) backed by the `@narakui` registry, and must never contain inline CLI/package install blocks or stale `@rakfound/` references.**
+  Why: `<ComponentInstallation />` dynamically generates the `@narakui` CLI command, AI install prompt, and manual setup steps from `registry.json`, keeping all 60 component docs consistent and synchronized with `https://ui.narakcode.dev/r/{name}.json`.

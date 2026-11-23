@@ -227,7 +227,7 @@ export const toast: ToastApi = Object.assign(
 /** Alias of `toast` for callers expecting `showToast`. */
 export const showToast = toast;
 
-/** Returns the Rakfound toast API (`toast.success`, `toast.warning`, `toast.progress`, etc.). */
+/** Returns the NarakUI toast API (`toast.success`, `toast.warning`, `toast.progress`, etc.). */
 export function useToast(): ToastApi {
   return toast;
 }
@@ -808,7 +808,7 @@ function ToastCard({
 }
 
 /**
- * Renders active Rakfound toasts in a stacked bottom-right viewport.
+ * Renders active NarakUI toasts in a stacked bottom-right viewport.
  * Render once near the root of the app; multiple mounted instances safely deduplicate.
  */
 export function ToastRenderer() {

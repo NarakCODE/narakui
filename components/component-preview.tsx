@@ -1,9 +1,12 @@
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { ReactNode } from 'react';
-import type { HighlightOptions } from 'fumadocs-core/highlight';
-import { ServerCodeBlock } from 'fumadocs-ui/components/codeblock.rsc';
+import { highlight, type HighlightOptions } from 'fumadocs-core/highlight';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import {
+  CodeBlockCaption,
+  CodeBlockFrame,
+} from '@/components/docs/mdx-code-block';
 import { DotGridSpotlight } from '@/components/dot-grid-spotlight';
 import { cn } from '@/lib/utils';
 
@@ -55,6 +58,25 @@ export async function ComponentPreview({
 
   const hasCodeTab = sourceCode !== undefined || Boolean(fileError);
 
+  const highlightedCode =
+    sourceCode !== undefined
+      ? await highlight(sourceCode, {
+          lang,
+          components: {
+            pre: ({ className: preClassName, style: _style, ...preProps }) => (
+              <pre
+                tabIndex={0}
+                className={cn(
+                  'scrollbar-custom max-h-[520px] overflow-auto overscroll-x-contain py-3.5 text-[13px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+                  preClassName,
+                )}
+                {...preProps}
+              />
+            ),
+          },
+        })
+      : null;
+
   const previewStage = (
     <div
       data-slot="component-preview-stage"
@@ -78,17 +100,24 @@ export async function ComponentPreview({
       <Tab value="Preview" className="overflow-hidden p-0">
         {previewStage}
       </Tab>
-      <Tab value="Code">
+      <Tab value="Code" className="overflow-hidden bg-bg-secondary p-1">
         {fileError ? (
-          <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
+          <div className="rounded-[9px] border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">
             {fileError}
           </div>
         ) : (
-          <ServerCodeBlock
-            code={sourceCode ?? ''}
-            lang={lang}
-            codeblock={title ? { title } : undefined}
-          />
+          <figure
+            data-docs-code-figure=""
+            dir="ltr"
+            className="not-prose my-0 bg-transparent p-0 ring-0"
+          >
+            {title ? (
+              <CodeBlockCaption data-language={String(lang)}>{title}</CodeBlockCaption>
+            ) : null}
+            <CodeBlockFrame code={sourceCode} hasTitle={Boolean(title)}>
+              {highlightedCode}
+            </CodeBlockFrame>
+          </figure>
         )}
       </Tab>
     </Tabs>

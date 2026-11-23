@@ -1281,7 +1281,7 @@ export interface YouTubeVideoProps extends Omit<React.ComponentProps<'div'>, 'ch
   children?: React.ReactNode;
 }
 
-/** Embeds a YouTube video driven by Rakfound's custom `<VideoSkin>` controls via the YouTube IFrame API. */
+/** Embeds a YouTube video driven by NarakUI's custom `<VideoSkin>` controls via the YouTube IFrame API. */
 export function YouTubeVideo({
   src,
   videoId,
@@ -2889,7 +2889,7 @@ export interface VideoSkinProps extends Omit<React.ComponentProps<'div'>, 'child
 }
 
 /**
- * The complete Rakfound video player interface: responsive container, poster,
+ * The complete NarakUI video player interface: responsive container, poster,
  * buffering and error states, keyboard shortcuts, click/double-click gestures, and control bar.
  */
 export function VideoSkin({

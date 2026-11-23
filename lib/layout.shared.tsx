@@ -1,11 +1,11 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { RakfoundLogo } from '@/components/rakfound-logo';
+import { NarakUILogo } from '@/components/narak-logo';
 import { gitConfig } from './shared';
 
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      title: <RakfoundLogo />,
+      title: <NarakUILogo />,
     },
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };

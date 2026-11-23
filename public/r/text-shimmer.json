@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-shimmer",
+  "title": "Text Shimmer",
+  "description": "A highlight that sweeps across a label while the work it describes is in progress.",
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/text-shimmer.tsx",
+      "content": "import type { ComponentProps, CSSProperties } from 'react';\nimport { cn } from '@/lib/utils';\n\nconst TEXT_SHIMMER_STYLES = `\n@keyframes rk-text-shimmer {\n  0% { background-position: 100% center; }\n  100% { background-position: 0% center; }\n}\n`;\n\nexport interface TextShimmerProps extends Omit<ComponentProps<'span'>, 'children'> {\n  /** The text label to animate. */\n  children: string;\n  /** Length of one highlight sweep, in seconds. */\n  duration?: number;\n  /** Width of the highlight, in pixels per character of the label. */\n  spread?: number;\n}\n\n/** Sweeps a primary-colored highlight across a tertiary-colored label while work is in progress. */\nfunction TextShimmer({\n  children,\n  duration = 1,\n  spread = 2,\n  className,\n  style,\n  ...props\n}: TextShimmerProps) {\n  const dynamicSpread = children.length * spread;\n  const isStatic = duration <= 0 || children.length === 0;\n\n  return (\n    <>\n      {!isStatic ? (\n        <style href=\"narakui-text-shimmer\" precedence=\"default\">\n          {TEXT_SHIMMER_STYLES}\n        </style>\n      ) : null}\n      <span\n        data-slot=\"text-shimmer\"\n        className={cn(\n          'relative inline-block w-fit bg-clip-text py-1 [contain:paint]',\n          isStatic\n            ? 'bg-none text-text-secondary'\n            : [\n                'bg-size-[250%_100%,auto] text-transparent',\n                '[--base-color:var(--color-text-tertiary)] [--base-gradient-color:var(--color-text-primary)]',\n                '[--bg:linear-gradient(90deg,#0000_calc(50%-var(--spread)),var(--base-gradient-color),#0000_calc(50%+var(--spread)))]',\n                '[background-image:var(--bg),linear-gradient(var(--base-color),var(--base-color))] [background-position:100%_center] [background-repeat:no-repeat,padding-box]',\n                'motion-safe:animate-[rk-text-shimmer_var(--duration,1s)_linear_infinite]',\n                'motion-reduce:animate-none motion-reduce:bg-none motion-reduce:text-text-secondary',\n              ],\n          className,\n        )}\n        style={\n          {\n            '--spread': `${dynamicSpread}px`,\n            '--duration': `${duration}s`,\n            ...style,\n          } as CSSProperties\n        }\n        {...props}\n      >\n        {children}\n      </span>\n    </>\n  );\n}\n\nexport { TextShimmer };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "A keycap that shows a keyboard shortcut, with the right modifier keys for the person's platform.",
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/kbd.tsx",
+      "content": "'use client';\n\nimport { useEffect, useState, type ComponentProps, type ReactNode } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type KbdVariant = 'light' | 'dark';\n\nexport interface KbdProps extends ComponentProps<'kbd'> {\n  /** Key tokens in order, such as `['mod', 'K']`. Takes precedence over `children`. */\n  keys?: string[];\n  /** Content to show when `keys` is not set. */\n  children?: ReactNode;\n  /** Keycap style: `light` for surfaces and secondary buttons, `dark` for primary buttons. */\n  variant?: KbdVariant;\n  /** Dims the keycap and sets `aria-disabled`. */\n  disabled?: boolean;\n}\n\nconst MAC_PLATFORM_PATTERN = /(Mac|iPhone|iPod|iPad)/i;\n\nfunction isMacPlatform(): boolean {\n  if (typeof navigator === 'undefined') {\n    return false;\n  }\n  const platform =\n    (navigator as Navigator & { userAgentData?: { platform?: string } }).userAgentData?.platform ??\n    navigator.platform ??\n    navigator.userAgent;\n  return MAC_PLATFORM_PATTERN.test(platform);\n}\n\nfunction formatKeyToken(token: string, isMac: boolean): string {\n  switch (token.toLowerCase()) {\n    case 'mod':\n    case 'meta':\n    case 'cmd':\n      return isMac ? '⌘' : 'Ctrl';\n    case 'alt':\n    case 'option':\n      return isMac ? '⌥' : 'Alt';\n    case 'shift':\n      return '⇧';\n    case 'enter':\n      return '↵';\n    default:\n      return token;\n  }\n}\n\n/** Keycap that displays a keyboard shortcut with platform-aware modifier symbols. */\nfunction Kbd({\n  keys,\n  children,\n  variant = 'light',\n  disabled = false,\n  className,\n  ...props\n}: KbdProps) {\n  // Always render Ctrl / Alt during SSR and switch to Mac symbols after hydration.\n  const [isMac, setIsMac] = useState(false);\n\n  useEffect(() => {\n    setIsMac(isMacPlatform());\n  }, []);\n\n  const surfaceClasses = disabled\n    ? 'cursor-not-allowed bg-bg-secondary text-text-quaternary shadow-none'\n    : variant === 'dark'\n      ? 'bg-fill-primary-hover text-text-inverse shadow-none'\n      : 'bg-bg-base text-text-tertiary shadow-low';\n\n  return (\n    <kbd\n      data-slot=\"kbd\"\n      data-variant={variant}\n      aria-disabled={disabled || undefined}\n      className={cn(\n        'inline-flex w-min items-center gap-1 rounded-[4px] px-1 font-sans text-body-small-medium whitespace-nowrap select-none',\n        surfaceClasses,\n        'in-data-[slot=tooltip-content]:bg-white/15 in-data-[slot=tooltip-content]:text-text-tooltip in-data-[slot=tooltip-content]:shadow-none',\n        className,\n      )}\n      {...props}\n    >\n      {keys && keys.length > 0\n        ? keys.map((token, index) => (\n            <span key={`${token}-${index}`}>{formatKeyToken(token, isMac)}</span>\n          ))\n        : children}\n    </kbd>\n  );\n}\n\n/** Inline group that arranges multiple `Kbd` elements together. */\nfunction KbdGroup({ className, ...props }: ComponentProps<'div'>) {\n  return (\n    <div\n      data-slot=\"kbd-group\"\n      className={cn('inline-flex items-center gap-1', className)}\n      {...props}\n    />\n  );\n}\n\nexport { Kbd, KbdGroup };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

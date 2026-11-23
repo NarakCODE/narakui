@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "description": "A scroll container with a thin custom scrollbar that matches the product surface.",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/scroll-area.tsx",
+      "content": "'use client';\n\nimport type { ComponentProps, Ref } from 'react';\nimport { ScrollArea as ScrollAreaPrimitive } from 'radix-ui';\nimport { cn } from '@/lib/utils';\n\nexport type ScrollAreaOrientation = 'vertical' | 'horizontal' | 'both';\n\nexport interface ScrollAreaProps\n  extends ComponentProps<typeof ScrollAreaPrimitive.Root> {\n  /** Scrollbars to render. A direction without a scrollbar does not scroll. */\n  orientation?: ScrollAreaOrientation;\n  /** Accessible name for the viewport. Also makes it a focusable region for keyboard scrolling. */\n  viewportLabel?: string;\n  /** Ref to the scrolling viewport, for reading or setting the scroll position. */\n  viewportRef?: Ref<HTMLDivElement>;\n  /** Additional classes for the viewport. */\n  viewportClassName?: string;\n  /** Additional classes for the scrollbars. */\n  scrollbarClassName?: string;\n}\n\n/** Scroll container with a thin custom scrollbar that matches NarakUI surfaces. */\nfunction ScrollArea({\n  className,\n  children,\n  viewportRef,\n  viewportClassName,\n  scrollbarClassName,\n  orientation = 'vertical',\n  type = 'hover',\n  viewportLabel,\n  ...props\n}: ScrollAreaProps) {\n  return (\n    <ScrollAreaPrimitive.Root\n      data-slot=\"scroll-area\"\n      type={type}\n      className={cn('relative', className)}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Viewport\n        data-slot=\"scroll-area-viewport\"\n        ref={viewportRef}\n        className={cn(\n          'size-full rounded-[inherit] outline-none transition-colors focus-visible:shadow-focus focus-visible:outline-1',\n          viewportClassName,\n        )}\n        {...(viewportLabel\n          ? { tabIndex: 0, role: 'region', 'aria-label': viewportLabel }\n          : null)}\n      >\n        {children}\n      </ScrollAreaPrimitive.Viewport>\n      {orientation !== 'horizontal' ? (\n        <ScrollBar orientation=\"vertical\" className={scrollbarClassName} />\n      ) : null}\n      {orientation !== 'vertical' ? (\n        <ScrollBar orientation=\"horizontal\" className={scrollbarClassName} />\n      ) : null}\n      <ScrollAreaPrimitive.Corner data-slot=\"scroll-area-corner\" />\n    </ScrollAreaPrimitive.Root>\n  );\n}\n\nexport type ScrollBarProps = ComponentProps<\n  typeof ScrollAreaPrimitive.ScrollAreaScrollbar\n>;\n\n/** Custom scrollbar track and thumb rendered inside `ScrollArea`. */\nfunction ScrollBar({\n  className,\n  orientation = 'vertical',\n  ...props\n}: ScrollBarProps) {\n  return (\n    <ScrollAreaPrimitive.ScrollAreaScrollbar\n      data-slot=\"scroll-area-scrollbar\"\n      data-orientation={orientation}\n      orientation={orientation}\n      className={cn(\n        'flex touch-none p-px transition-colors select-none',\n        orientation === 'vertical' &&\n          'h-full w-2.5 border-l border-l-transparent',\n        orientation === 'horizontal' &&\n          'h-2.5 flex-col border-t border-t-transparent',\n        className,\n      )}\n      {...props}\n    >\n      <ScrollAreaPrimitive.ScrollAreaThumb\n        data-slot=\"scroll-area-thumb\"\n        className=\"relative flex-1 rounded-full bg-bg-quaternary\"\n      />\n    </ScrollAreaPrimitive.ScrollAreaScrollbar>\n  );\n}\n\nexport { ScrollArea, ScrollBar };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "An inline callout for information, warnings, success, and errors.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/alert.tsx",
+      "content": "import type { ComponentProps } from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\nimport { cn } from '@/lib/utils';\n\nexport type AlertVariant = 'default' | 'warning' | 'destructive' | 'success';\n\nconst alertVariants = cva(\n  'group/alert flex items-start gap-2.5 rounded-md p-3 text-paragraph-small text-text-primary',\n  {\n    variants: {\n      variant: {\n        default: 'bg-bg-secondary',\n        warning: 'bg-bg-orange',\n        success: 'bg-bg-green',\n        destructive: 'bg-bg-red',\n      },\n    },\n    defaultVariants: {\n      variant: 'default',\n    },\n  },\n);\n\nconst alertIconVariants = cva('flex shrink-0 items-center [&_svg]:size-[1lh] [&_svg]:shrink-0', {\n  variants: {\n    variant: {\n      default: '[&_svg]:text-fill-secondary',\n      warning: '[&_svg]:text-text-orange',\n      success: '[&_svg]:text-text-green',\n      destructive: '[&_svg]:text-text-red',\n    },\n  },\n});\n\nconst INHERITED_ICON_TINT =\n  'group-data-[variant=default]/alert:[&_svg]:text-fill-secondary group-data-[variant=warning]/alert:[&_svg]:text-text-orange group-data-[variant=success]/alert:[&_svg]:text-text-green group-data-[variant=destructive]/alert:[&_svg]:text-text-red';\n\nexport type AlertProps = ComponentProps<'div'> & VariantProps<typeof alertVariants>;\n\n/** Inline status or alert callout supporting semantic surface tints and live-region defaults. */\nfunction Alert({ className, variant, role, ...props }: AlertProps) {\n  const resolvedVariant: AlertVariant = variant ?? 'default';\n  const resolvedRole =\n    role ?? (resolvedVariant === 'warning' || resolvedVariant === 'destructive' ? 'alert' : 'status');\n\n  return (\n    <div\n      data-slot=\"alert\"\n      data-variant={resolvedVariant}\n      role={resolvedRole}\n      className={cn(alertVariants({ variant: resolvedVariant }), className)}\n      {...props}\n    />\n  );\n}\n\nexport type AlertIconProps = ComponentProps<'div'> & {\n  /** Overrides the icon tint inherited from the enclosing Alert. */\n  variant?: AlertVariant;\n};\n\n/** Decorative leading icon slot sized to 1lh and tinted by Alert variant or explicit override. */\nfunction AlertIcon({ className, variant, ...props }: AlertIconProps) {\n  return (\n    <div\n      data-slot=\"alert-icon\"\n      aria-hidden=\"true\"\n      className={cn(\n        alertIconVariants({ variant }),\n        // Only apply group-based inheritance when no explicit variant override is provided.\n        variant === undefined && INHERITED_ICON_TINT,\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport type AlertContentProps = ComponentProps<'div'>;\n\n/** Vertical stack wrapper for AlertTitle and AlertDescription. */\nfunction AlertContent({ className, ...props }: AlertContentProps) {\n  return (\n    <div\n      data-slot=\"alert-content\"\n      className={cn('flex min-w-0 flex-1 flex-col gap-1', className)}\n      {...props}\n    />\n  );\n}\n\nexport type AlertTitleProps = ComponentProps<'p'>;\n\n/** Compact bold heading rendered inside AlertContent. */\nfunction AlertTitle({ className, ...props }: AlertTitleProps) {\n  return (\n    <p\n      data-slot=\"alert-title\"\n      className={cn('text-body-small-semibold leading-none', className)}\n      {...props}\n    />\n  );\n}\n\nexport type AlertDescriptionProps = ComponentProps<'div'>;\n\n/** Supporting body slot that fills available width cleanly with or without AlertContent. */\nfunction AlertDescription({ className, ...props }: AlertDescriptionProps) {\n  return (\n    <div\n      data-slot=\"alert-description\"\n      className={cn(\n        'w-full min-w-0 flex-1 text-pretty [&_a]:underline [&_a]:underline-offset-3',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport {\n  Alert,\n  AlertContent,\n  AlertDescription,\n  AlertIcon,\n  AlertTitle,\n  alertVariants,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

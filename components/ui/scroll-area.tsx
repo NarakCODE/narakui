@@ -20,7 +20,7 @@ export interface ScrollAreaProps
   scrollbarClassName?: string;
 }
 
-/** Scroll container with a thin custom scrollbar that matches Rakfound surfaces. */
+/** Scroll container with a thin custom scrollbar that matches NarakUI surfaces. */
 function ScrollArea({
   className,
   children,

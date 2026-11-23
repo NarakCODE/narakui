@@ -21,6 +21,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+## ui-sdk
+
+Before using ui-sdk, follow the `ui-sdk` skill if it's installed, and read `node_modules/@ui-sdk/react/docs/1lms.txt` (or `node_modules/@ui-sdk/react/docs/llms.txt`). To build a new component, also search `node_modules/@ui-sdk/react/docs/core.md` by heading, and read `rendering.md` next to it.
+
 # Docs
 
 - Framework: The docs framework

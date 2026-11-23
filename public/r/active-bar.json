@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "active-bar",
+  "title": "Active Bar",
+  "description": "The sliding highlight behind the active item in a vertical navigation list.",
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/active-bar.tsx",
+      "content": "import type { CSSProperties } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport interface ActiveBarProps {\n  /** Vertical offset in pixels of the active item. */\n  top: number;\n  /** Inset from the left edge in pixels. */\n  leftOffset?: number;\n  /** Inset from the right edge in pixels. */\n  rightOffset?: number;\n  /** Additional classes, for example a z-index or custom transition. */\n  className?: string;\n}\n\n/** Sliding background highlight positioned behind the active vertical navigation item. */\nexport function ActiveBar({\n  top,\n  leftOffset = 0,\n  rightOffset = 0,\n  className,\n}: ActiveBarProps) {\n  return (\n    <span\n      aria-hidden=\"true\"\n      style={\n        {\n          '--top': `${top}px`,\n          '--left-offset': `${leftOffset}px`,\n          '--right-offset': `${rightOffset}px`,\n        } as CSSProperties\n      }\n      className={cn(\n        'pointer-events-none absolute top-0 right-(--right-offset) left-(--left-offset) h-(--item-height) translate-y-(--top) rounded-md bg-fill-quinary transition-[translate] duration-200 ease-in-out motion-reduce:transition-none',\n        className,\n      )}\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

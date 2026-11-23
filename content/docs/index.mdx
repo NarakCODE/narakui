@@ -1,39 +1,38 @@
 ---
 title: Get Started
-description: Rakfound is our design system — the components, tokens, icons, and guidelines used to build Rakfound products.
+description: "NarakUI is our Design System: the components, tokens, icons, and guidelines used to build NarakUI products."
 ---
 
-## What is Rakfound?
+import { FoundationOverviewGrid } from '@/components/foundation/foundation-overview-grid';
 
-Rakfound is the set of React components, semantic design tokens, and icons that every Rakfound interface is built from. Components are written in TypeScript, styled with Tailwind CSS v4 on top of our light and warm-dark color and typography tokens (`app/design-system.css`), and built on Radix UI and `cmdk` primitives wherever a component needs accessible focus management or keyboard navigation.
+### What is NarakUI?
 
-Each component page shows live interactive examples, the source code behind them, and the complete props the component accepts.
+NarakUI is the set of React components, design tokens, and icons that every NarakUI product is built from. Components are written in TypeScript, styled with Tailwind CSS on top of the color and type tokens, and built on Radix primitives where a component needs focus management or keyboard support.
 
-## Why this site is public
+Each component page shows live examples, the code behind them, and the props the component accepts.
 
-Rakfound lives directly inside our codebase and isn't published as a public package yet. We keep this site open anyway — it's the live reference our team works from every day, and a window into how we approach interface craft: semantic surfaces, concentric geometry, tactile press feedback, and restrained motion.
+<FoundationOverviewGrid />
 
-## Explore
+### Why this site is public
 
-<Cards>
-  <Card
-    title="Colors"
-    href="/docs/foundation/colors"
-    description="Semantic surface, fill, control, text, border, shadow, and workflow tokens for light and dark themes."
-  />
-  <Card
-    title="Typography"
-    href="/docs/foundation/typography"
-    description="Geist Rounded and Geist Mono paired with unified Title, Body, and Paragraph scale utilities."
-  />
-  <Card
-    title="Icons"
-    href="/docs/foundation/icons"
-    description="Searchable Lucide system icons mapped to component slots alongside Rakfound brand marks."
-  />
-  <Card
-    title="Button"
-    href="/docs/components/button"
-    description="Start exploring the Rakfound component library with Button modes, sizes, and states."
-  />
-</Cards>
+NarakUI is the design system behind our products. It lives inside our codebase and is shared through the `@narakui` registry so teams and builders can inspect and reuse it directly.
+
+We keep this site public anyway. It's the reference and documentation our team works from every day, and a look at how we approach design: the decisions, the details, and the craft that go into what we build.
+
+### Getting Started
+
+NarakUI components are published through the public `@narakui` shadcn registry at `https://ui.narakcode.dev/r/{name}.json`. Add the registry to your `components.json` to install components with the shadcn CLI, copy the AI prompt on any component page, or copy the source files directly.
+
+```json title="components.json"
+{
+  "registries": {
+    "@narakui": "https://ui.narakcode.dev/r/{name}.json"
+  }
+}
+```
+
+Once configured, install any component using the shadcn CLI:
+
+```bash
+npx shadcn@latest add @narakui/button
+```

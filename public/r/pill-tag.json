@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pill-tag",
+  "title": "Pill & Tag",
+  "description": "Small label components for displaying status, tags, or labels.",
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/pill-tag.tsx",
+      "content": "import type { ComponentProps, ReactNode } from 'react';\nimport { cn } from '@/lib/utils';\n\nexport type PillColor = 'green' | 'blue' | 'purple' | 'orange' | 'red' | 'gray';\n\nconst PILL_COLOR_CLASSES: Record<PillColor, string> = {\n  green: 'text-text-green',\n  blue: 'text-text-blue',\n  purple: 'text-text-purple',\n  orange: 'text-text-orange',\n  red: 'text-text-red',\n  gray: 'text-text-secondary',\n};\n\nexport interface PillProps extends Omit<ComponentProps<'div'>, 'children' | 'color'> {\n  /** The text content to display in the pill. */\n  value: string;\n  /** Additional CSS classes to apply to the pill container. */\n  className?: string;\n  /** Text color of the pill. Inherits the surrounding text color when unset. */\n  color?: PillColor;\n  /** Whether to include horizontal padding in the pill. */\n  withPadding?: boolean;\n}\n\n/** Single-line text label with a fixed height and optional semantic text color. */\nfunction Pill({\n  value,\n  className,\n  color,\n  withPadding = true,\n  ...props\n}: PillProps) {\n  return (\n    <div\n      data-slot=\"pill\"\n      data-color={color}\n      className={cn(\n        'flex h-6 items-center justify-center',\n        color ? PILL_COLOR_CLASSES[color] : undefined,\n        withPadding && 'px-1.5',\n        className,\n      )}\n      {...props}\n    >\n      <p className=\"text-body-small-medium\">{value}</p>\n    </div>\n  );\n}\n\nexport interface TagProps extends ComponentProps<'div'> {\n  /** The content to display inside the tag. */\n  children: ReactNode;\n  /** Additional CSS classes to apply to the tag, including its colors. */\n  className?: string;\n}\n\n/** Rounded inline container for categorizing, labeling, or highlighting content. */\nfunction Tag({ children, className, ...props }: TagProps) {\n  return (\n    <div\n      data-slot=\"tag\"\n      className={cn('inline-flex items-center rounded-full px-2 py-0.5', className)}\n      {...props}\n    >\n      {children}\n    </div>\n  );\n}\n\nexport { Pill, Tag };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -35,11 +35,11 @@ function PopoverRoot({
 
 export type PopoverTriggerProps =
   | ({
-      /** Renders a styled Rakfound button with a trailing chevron that tracks `aria-expanded`. */
+      /** Renders a styled NarakUI button with a trailing chevron that tracks `aria-expanded`. */
       buttonWithChevron?: false;
     } & ComponentProps<typeof PopoverPrimitive.Trigger>)
   | ({
-      /** Renders a styled Rakfound button with a trailing chevron that tracks `aria-expanded`. */
+      /** Renders a styled NarakUI button with a trailing chevron that tracks `aria-expanded`. */
       buttonWithChevron: true;
     } & ButtonProps);
 

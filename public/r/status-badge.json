@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-badge",
+  "title": "Status Badge",
+  "description": "A small badge that marks a navigation item or heading as new, in beta, or coming soon.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils",
+    "@narakui/badge"
+  ],
+  "files": [
+    {
+      "path": "components/ui/status-badge.tsx",
+      "content": "'use client';\n\nimport { isValidElement, type ComponentProps, type ReactNode } from 'react';\nimport {\n  Check,\n  CircleAlert,\n  CircleCheck,\n  CircleX,\n  Clock,\n  Info,\n  Lock,\n  Radio,\n  Shield,\n  Sparkles,\n  TriangleAlert,\n  Zap,\n  type LucideIcon,\n} from 'lucide-react';\nimport { Badge, type BadgeType } from '@/components/ui/badge';\nimport { cn } from '@/lib/utils';\n\nconst STATUS_BADGE_ICONS = {\n  'check-circle': CircleCheck,\n  warning: TriangleAlert,\n  'close-circle': CircleX,\n  info: Info,\n  sparkles: Sparkles,\n  clock: Clock,\n  lock: Lock,\n  'alert-circle': CircleAlert,\n  check: Check,\n  zap: Zap,\n  shield: Shield,\n  signal: Radio,\n} as const satisfies Record<string, LucideIcon>;\n\nexport type StatusBadgeIconName = keyof typeof STATUS_BADGE_ICONS;\n\nexport interface StatusBadgeIconDescriptor {\n  /** Named icon registered for StatusBadge. */\n  name: StatusBadgeIconName | (string & {});\n  /** Additional CSS classes for the icon SVG. */\n  className?: string;\n}\n\nexport type StatusBadgeIconValue =\n  | StatusBadgeIconName\n  | (string & {})\n  | StatusBadgeIconDescriptor\n  | ReactNode;\n\nexport interface StatusBadgeProps extends Omit<ComponentProps<'span'>, 'children' | 'title'> {\n  /** The label. */\n  text?: string | null;\n  /** Badge color. */\n  type?: BadgeType;\n  /** Icon before the text: an icon name, an icon descriptor, or an element. */\n  iconStart?: StatusBadgeIconValue;\n  /** Additional CSS classes for the badge. Use `ml-0` to remove the left margin. */\n  className?: string;\n  /** Additional CSS classes for the text. */\n  titleClassName?: string;\n}\n\nfunction isIconDescriptor(value: unknown): value is StatusBadgeIconDescriptor {\n  return (\n    typeof value === 'object' &&\n    value !== null &&\n    !isValidElement(value) &&\n    'name' in value &&\n    typeof (value as { name?: unknown }).name === 'string'\n  );\n}\n\nfunction resolveStatusBadgeIcon(iconStart: StatusBadgeIconValue): ReactNode {\n  if (iconStart === undefined || iconStart === null || iconStart === '') {\n    return null;\n  }\n\n  if (typeof iconStart === 'string') {\n    if (iconStart in STATUS_BADGE_ICONS) {\n      const IconComponent = STATUS_BADGE_ICONS[iconStart as StatusBadgeIconName];\n      return <IconComponent className=\"size-2.5 shrink-0\" />;\n    }\n    return null;\n  }\n\n  if (isIconDescriptor(iconStart)) {\n    if (iconStart.name in STATUS_BADGE_ICONS) {\n      const IconComponent = STATUS_BADGE_ICONS[iconStart.name as StatusBadgeIconName];\n      return <IconComponent className={cn('size-2.5 shrink-0', iconStart.className)} />;\n    }\n    return null;\n  }\n\n  return iconStart;\n}\n\n/** Small badge for marking a navigation item or heading as new, in beta, or coming soon. */\nfunction StatusBadge({\n  text,\n  type = 'blue',\n  iconStart,\n  className,\n  titleClassName,\n  ...props\n}: StatusBadgeProps) {\n  const hasText = typeof text === 'string' && text.length > 0;\n  const resolvedIcon = iconStart !== undefined ? resolveStatusBadgeIcon(iconStart) : null;\n\n  if (!hasText && !resolvedIcon) {\n    return null;\n  }\n\n  return (\n    <Badge\n      data-slot=\"status-badge\"\n      title={hasText ? text : ''}\n      type={type}\n      size=\"small\"\n      iconStart={resolvedIcon ?? undefined}\n      className={cn(\n        'ml-1.5 px-[5px] py-0 [&_svg]:size-2.5',\n        resolvedIcon && hasText ? 'gap-0.75' : !hasText ? 'gap-0' : undefined,\n        className,\n      )}\n      titleClassName={cn('max-w-32 truncate', !hasText && 'hidden', titleClassName)}\n      {...props}\n    />\n  );\n}\n\nexport { StatusBadge };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

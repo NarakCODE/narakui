@@ -9,14 +9,21 @@ import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
 // Add the languages you need. Each one loads the first time it is used.
 const languages = {
   bash: () => import("shiki/langs/shellscript.mjs"),
+  c: () => import("shiki/langs/c.mjs"),
+  cpp: () => import("shiki/langs/cpp.mjs"),
   css: () => import("shiki/langs/css.mjs"),
   diff: () => import("shiki/langs/diff.mjs"),
+  go: () => import("shiki/langs/go.mjs"),
   html: () => import("shiki/langs/html.mjs"),
+  java: () => import("shiki/langs/java.mjs"),
   javascript: () => import("shiki/langs/javascript.mjs"),
   json: () => import("shiki/langs/json.mjs"),
+  jsonc: () => import("shiki/langs/jsonc.mjs"),
   jsx: () => import("shiki/langs/jsx.mjs"),
   markdown: () => import("shiki/langs/markdown.mjs"),
+  mdx: () => import("shiki/langs/mdx.mjs"),
   python: () => import("shiki/langs/python.mjs"),
+  rust: () => import("shiki/langs/rust.mjs"),
   sql: () => import("shiki/langs/sql.mjs"),
   tsx: () => import("shiki/langs/tsx.mjs"),
   typescript: () => import("shiki/langs/typescript.mjs"),
@@ -24,9 +31,14 @@ const languages = {
 }
 
 const aliases: Record<string, keyof typeof languages> = {
+  "c++": "cpp",
+  cjs: "javascript",
+  golang: "go",
   js: "javascript",
   md: "markdown",
+  mjs: "javascript",
   py: "python",
+  rs: "rust",
   sh: "bash",
   shell: "bash",
   shellscript: "bash",
@@ -36,6 +48,7 @@ const aliases: Record<string, keyof typeof languages> = {
 }
 
 let highlighter: Promise<HighlighterCore> | undefined
+const loadingLanguages = new Map<string, Promise<void>>()
 
 function getHighlighter() {
   highlighter ??= createHighlighterCore({
@@ -64,6 +77,25 @@ function getLanguage(language: string) {
   return aliases[name] ?? null
 }
 
+async function ensureLanguageLoaded(
+  shiki: HighlighterCore,
+  lang: keyof typeof languages | "ansi"
+) {
+  if (lang === "ansi" || shiki.getLoadedLanguages().includes(lang)) {
+    return
+  }
+
+  let pending = loadingLanguages.get(lang)
+  if (!pending) {
+    pending = shiki.loadLanguage(languages[lang]).finally(() => {
+      loadingLanguages.delete(lang)
+    })
+    loadingLanguages.set(lang, pending)
+  }
+
+  await pending
+}
+
 // Loads a language and returns a highlighter for it, or null for a language
 // that is not listed.
 export async function loadHighlighter(language: string) {
@@ -75,9 +107,7 @@ export async function loadHighlighter(language: string) {
 
   const shiki = await getHighlighter()
 
-  if (lang !== "ansi" && !shiki.getLoadedLanguages().includes(lang)) {
-    await shiki.loadLanguage(languages[lang])
-  }
+  await ensureLanguageLoaded(shiki, lang)
 
   return {
     // Returns one React node per line, and the grammar state after the last
@@ -113,6 +143,9 @@ export async function loadHighlighter(language: string) {
         state: shiki.getLastGrammarState(tokens),
       }
     },
+    toHtml(code: string, theme: "github-light" | "github-dark" = "github-light") {
+      return shiki.codeToHtml(code, { lang, theme })
+    },
   }
 }
 
@@ -121,4 +154,15 @@ export async function highlightCode(code: string, language: string) {
   const highlighter = await loadHighlighter(language)
 
   return highlighter ? highlighter.highlight(code).lines : null
+}
+
+// Returns a Shiki-highlighted HTML string, or null for a language that is not listed.
+export async function highlightCodeToHtml(
+  code: string,
+  language: string,
+  theme: "github-light" | "github-dark" = "github-light"
+) {
+  const highlighter = await loadHighlighter(language)
+
+  return highlighter ? highlighter.toHtml(code, theme) : null
 }

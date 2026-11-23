@@ -13,6 +13,22 @@ Place it inside a `relative` list that sets `--item-height`. Move it by changing
   <ActiveBarExample />
 </ComponentPreview>
 
+## Installation
+
+<ComponentInstallation name="active-bar" />
+
+## Usage
+
+```tsx
+import { ActiveBar } from '@/components/ui/active-bar';
+```
+
+```tsx title="components/nav-list.tsx"
+<nav className="relative flex flex-col [--item-height:32px]">
+  <ActiveBar top={activeIndex * 32} />
+</nav>
+```
+
 ## Properties
 
 | Prop | Type | Default | Description |

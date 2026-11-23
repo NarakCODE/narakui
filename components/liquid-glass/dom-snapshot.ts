@@ -588,13 +588,13 @@ export type DomSnapshotOptions = {
 /** A computed `clip-path` of the `inset()` or `path()` kind as a canvas path; anything else is not clipped. */
 function clipShape(value: string, box: Box): Path2D | null {
   if (!value || value === 'none') return null
-  const path = /^path\((?:[a-z-]+\s*,\s*)?["'](.*)["']\)$/s.exec(value)
+  const path = /^path\((?:[a-z-]+\s*,\s*)?["']([\s\S]*)["']\)$/.exec(value)
   if (path) {
     const shape = new Path2D()
     shape.addPath(new Path2D(path[1]), new DOMMatrix().translate(box.x, box.y))
     return shape
   }
-  const inset = /^inset\((.*)\)$/s.exec(value)
+  const inset = /^inset\(([\s\S]*)\)$/.exec(value)
   if (!inset) return null
   const [sides, round = ''] = inset[1].split(/\s+round\s+/)
   const length = (token: string, of: number) => (token.endsWith('%') ? (parseFloat(token) / 100) * of : parseFloat(token) || 0)

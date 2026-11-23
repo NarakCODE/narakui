@@ -5,19 +5,17 @@ import {
   useMemo,
   useRef,
   useState,
-  type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { getHighlighter } from 'fumadocs-core/highlight';
 import { Check, Copy, Search, TriangleAlert } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { useHighlightedCode } from '@/hooks/use-highlighted-code';
+import { highlightCodeToHtml } from '@/lib/highlighter';
 import { cn } from '@/lib/utils';
-
-type ShikiLang = NonNullable<NonNullable<Parameters<typeof getHighlighter>[1]>['langs']>[number];
 
 export interface CodeBlockLanguage {
   /** Canonical language identifier passed to the highlighter. */
@@ -128,12 +126,6 @@ function escapeHtml(value: string): string {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
-}
-
-interface HighlightedToken {
-  content: string;
-  lightColor?: string;
-  darkColor?: string;
 }
 
 export interface CodeBlockFrameProps {
@@ -260,11 +252,10 @@ function CodeBlockCopyButton({
           const isDark =
             typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
           const theme = isDark ? 'github-dark' : 'github-light';
-          const highlighter = await getHighlighter('js', {
-            langs: [normalizedLang as ShikiLang],
-            themes: [theme],
-          });
-          html = highlighter.codeToHtml(plainText, { lang: normalizedLang, theme });
+          const highlightedHtml = await highlightCodeToHtml(plainText, normalizedLang, theme);
+          if (highlightedHtml) {
+            html = highlightedHtml;
+          }
         } catch {
           // Fall back to escaped HTML if grammar loading fails.
         }
@@ -522,54 +513,7 @@ function CodeBlock({
     () => normalizeLanguage(language) ?? detectLanguage(source),
     [language, source],
   );
-  const [highlighted, setHighlighted] = useState<{
-    key: string;
-    lines: HighlightedToken[][];
-  } | null>(null);
-
-  const highlightKey = `${resolvedLanguage}\0${source}`;
-
-  useEffect(() => {
-    if (!source || resolvedLanguage === 'plaintext') {
-      return;
-    }
-
-    let cancelled = false;
-
-    getHighlighter('js', {
-      langs: [resolvedLanguage as ShikiLang],
-      themes: ['github-light', 'github-dark'],
-    })
-      .then((highlighter) => {
-        if (cancelled) return;
-        const result = highlighter.codeToTokens(source, {
-          lang: resolvedLanguage,
-          themes: {
-            light: 'github-light',
-            dark: 'github-dark',
-          },
-        });
-        if (cancelled) return;
-
-        const lines: HighlightedToken[][] = result.tokens.map((line) =>
-          line.map((token) => ({
-            content: token.content,
-            lightColor: token.htmlStyle?.color ?? token.color,
-            darkColor: token.htmlStyle?.['--shiki-dark'],
-          })),
-        );
-        setHighlighted({ key: highlightKey, lines });
-      })
-      .catch(() => {
-        // Keep plain-text fallback if grammar fails to load.
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [highlightKey, resolvedLanguage, source]);
-
-  const activeLines = highlighted?.key === highlightKey ? highlighted.lines : null;
+  const highlightedLines = useHighlightedCode(source, resolvedLanguage);
 
   return (
     <CodeBlockFrame
@@ -591,28 +535,16 @@ function CodeBlock({
       }
     >
       <code data-slot="code-block-code" className={cn('block min-w-max', codeClassName)}>
-        {activeLines
-          ? activeLines.map((line, lineIndex) => (
-              <span key={lineIndex} className="block min-h-[1lh]">
-                {line.length === 0
-                  ? '\n'
-                  : line.map((token, tokenIndex) => (
-                      <span
-                        key={tokenIndex}
-                        style={
-                          {
-                            '--token-light': token.lightColor,
-                            '--token-dark': token.darkColor,
-                          } as CSSProperties
-                        }
-                        className="text-(--token-light) dark:text-(--token-dark)"
-                      >
-                        {token.content}
-                      </span>
-                    ))}
-              </span>
-            ))
-          : source}
+        {source
+          ? highlightedLines.map((line, lineIndex) => {
+              const isEmpty = line === '' || (Array.isArray(line) && line.length === 0);
+              return (
+                <span key={lineIndex} className="block min-h-[1lh]">
+                  {isEmpty ? '\n' : line}
+                </span>
+              );
+            })
+          : null}
       </code>
     </CodeBlockFrame>
   );

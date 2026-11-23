@@ -1,0 +1,67 @@
+---
+title: Search Field
+description: A search input built on ui-sdk with an automatic Clear button that empties the field and restores focus.
+---
+
+import { SearchFieldExample } from '@/components/examples/search-field-example';
+
+## Basic usage
+
+`SearchField` composes `@ui-sdk/react/input` (`InputGroup`, `Input`, and `InputClear`) with `@ui-sdk/react/field`. The Clear button renders only while the input contains text; activating it empties the value, reports `"clear-press"`, and returns focus to the input.
+
+<ComponentPreview file="components/examples/search-field-example.tsx">
+  <SearchFieldExample />
+</ComponentPreview>
+
+## Installation
+
+<ComponentInstallation name="search-field" />
+
+## Usage
+
+```tsx
+import { SearchField } from '@/components/ui/search-field';
+
+<SearchField
+  label="Search documentation"
+  placeholder="Search components..."
+  defaultValue="Button"
+/>
+```
+
+Or compose the parts directly:
+
+```tsx
+import {
+  SearchFieldClear,
+  SearchFieldGroup,
+  SearchFieldInput,
+} from '@/components/ui/search-field';
+
+<SearchFieldGroup>
+  <SearchFieldInput aria-label="Search" placeholder="Search..." />
+  <SearchFieldClear aria-label="Clear search" />
+</SearchFieldGroup>
+```
+
+## Properties
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `label` | `ReactNode` | `—` | Visible label wired to the input via `FieldLabel` |
+| `endLabel` | `ReactNode` | `—` | Content rendered at the end of the label row |
+| `placeholder` | `string` | `—` | Placeholder text when the search field is empty |
+| `value` | `string` | `—` | Controlled input value |
+| `defaultValue` | `string` | `—` | Initial value for uncontrolled usage and form reset |
+| `onValueChange` | `(value: string, details: ChangeDetails<SearchFieldValueChangeReason>) => void` | `—` | Called when the value changes from typing (`"input-change"`), pressing Clear (`"clear-press"`), form reset (`"reset"`), or a controller (`"imperative"`) |
+| `controller` | `SearchFieldController` | `—` | Controller created with `createSearchFieldController()` |
+| `size` | `'mini' \| 'micro' \| 'small' \| 'regular' \| 'large'` | `'regular'` | Height and typography scale of the search field |
+| `variant` | `'control' \| 'chromeless'` | `'control'` | Surface treatment (`control` card shadow or `chromeless`) |
+| `iconStart` | `ReactNode \| boolean` | `<Search />` | Leading icon inside the group; pass `false` to omit |
+| `clearLabel` | `string` | `'Clear search'` | Accessible label applied to the `InputClear` button |
+| `hint` | `ReactNode` | `—` | Helper description linked via `FieldDescription` |
+| `error` | `boolean` | `false` | Marks the field invalid and applies error border styling |
+| `errorMessage` | `ReactNode` | `—` | Error text shown via `FieldError` while `error` is `true` |
+| `disabled` | `boolean` | `false` | Disables the input and hides the Clear button |
+| `readOnly` | `boolean` | `false` | Makes the input read-only and hides the Clear button |
+| `required` | `boolean` | `false` | Marks the search input required for form submission |

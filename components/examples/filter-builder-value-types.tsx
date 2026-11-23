@@ -134,7 +134,7 @@ export const FilterBuilderValueTypesExample = () => {
     useState<FilterCondition>({
       fieldId: 'domains',
       operatorId: 'includes-any',
-      value: ['rakfound.com', 'docs.rakfound.com'],
+      value: ['narakcode.dev', 'ui.narakcode.dev'],
     });
 
   return (

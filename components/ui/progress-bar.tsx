@@ -78,7 +78,7 @@ function LinearProgress({
   return (
     <div data-slot="linear-progress" className={cn('w-full', className)} {...props}>
       {indeterminate ? (
-        <style href="rakfound-linear-progress" precedence="default">
+        <style href="narakui-linear-progress" precedence="default">
           {LINEAR_INDETERMINATE_STYLES}
         </style>
       ) : null}
@@ -185,7 +185,7 @@ function CircularProgress({
   return (
     <>
       {animated ? (
-        <style href="rakfound-circular-progress" precedence="default">
+        <style href="narakui-circular-progress" precedence="default">
           {CIRCULAR_DRAW_STYLES}
         </style>
       ) : null}

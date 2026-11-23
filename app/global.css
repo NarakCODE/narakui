@@ -1,12 +1,24 @@
+@layer ui-sdk;
+
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/shadcn.css';
 @import 'fumadocs-ui/css/preset.css';
 @import './design-system.css';
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-
-html:has(> body[data-scroll-locked]) {
-  scrollbar-gutter: auto;
+#nd-docs-layout {
+  grid-template-columns: 0px var(--fd-sidebar-col) minmax(0, 1fr) var(--fd-toc-width) 0px !important;
 }
+
+#nd-docs-layout:has(#nd-page[data-full='true']) {
+  grid-template-columns: 0px var(--fd-sidebar-col) minmax(0, 1fr) var(--fd-toc-width) 0px !important;
+}
+
+[data-layout-main]:has(> #nd-page[data-full='true']) {
+  justify-items: stretch;
+}
+
+#nd-page[data-full='true'] {
+  max-width: none;
+}
+

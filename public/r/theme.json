@@ -1,0 +1,1113 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme",
+  "title": "NarakUI Theme",
+  "description": "NarakUI design tokens, light and warm dark themes, typography utilities, elevation shadows, animations, and surface styles for Tailwind CSS v4.",
+  "dependencies": [
+    "tw-animate-css"
+  ],
+  "cssVars": {
+    "theme": {
+      "color-background": "var(--background)",
+      "color-foreground": "var(--foreground)",
+      "font-sans": "var(--font-geist-rounded), ui-rounded, system-ui, sans-serif",
+      "font-mono": "var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+      "font-heading": "var(--font-geist-rounded), ui-rounded, system-ui, sans-serif",
+      "font-brand": "var(--font-geist-rounded), ui-rounded, system-ui, sans-serif",
+      "text-title": "1.75rem",
+      "text-title--line-height": "2rem",
+      "text-title--letter-spacing": "-0.025em",
+      "text-title--font-weight": "600",
+      "text-title-small": "1.5rem",
+      "text-title-small--line-height": "2rem",
+      "text-title-small--letter-spacing": "-0.02em",
+      "text-title-mini": "1.125rem",
+      "text-title-mini--line-height": "1.5rem",
+      "text-title-mini--letter-spacing": "-0.015em",
+      "text-body-regular": "0.875rem",
+      "text-body-regular--line-height": "1.25rem",
+      "text-body-small": "0.8125rem",
+      "text-body-small--line-height": "1.125rem",
+      "text-body-mini": "0.75rem",
+      "text-body-mini--line-height": "1rem",
+      "text-body-mini--letter-spacing": "0.005em",
+      "text-body-micro": "0.625rem",
+      "text-body-micro--line-height": "0.875rem",
+      "text-body-micro--letter-spacing": "0.01em",
+      "color-brand-cobalt": "var(--brand-cobalt)",
+      "color-sidebar-ring": "var(--sidebar-ring)",
+      "color-sidebar-border": "var(--sidebar-border)",
+      "color-sidebar-accent-foreground": "var(--sidebar-accent-foreground)",
+      "color-sidebar-accent": "var(--sidebar-accent)",
+      "color-sidebar-primary-foreground": "var(--sidebar-primary-foreground)",
+      "color-sidebar-primary": "var(--sidebar-primary)",
+      "color-sidebar-foreground": "var(--sidebar-foreground)",
+      "color-sidebar": "var(--sidebar)",
+      "color-chart-5": "var(--chart-5)",
+      "color-chart-4": "var(--chart-4)",
+      "color-chart-3": "var(--chart-3)",
+      "color-chart-2": "var(--chart-2)",
+      "color-chart-1": "var(--chart-1)",
+      "color-ring": "var(--ring)",
+      "color-input": "var(--input)",
+      "color-border": "var(--border)",
+      "color-destructive": "var(--destructive)",
+      "color-accent-foreground": "var(--accent-foreground)",
+      "color-accent": "var(--accent)",
+      "color-muted-foreground": "var(--muted-foreground)",
+      "color-muted": "var(--muted)",
+      "color-secondary-foreground": "var(--secondary-foreground)",
+      "color-secondary": "var(--secondary)",
+      "color-primary-foreground": "var(--primary-foreground)",
+      "color-primary": "var(--primary)",
+      "color-pos-action": "var(--pos-action)",
+      "color-popover-foreground": "var(--popover-foreground)",
+      "color-popover": "var(--popover)",
+      "color-card-foreground": "var(--card-foreground)",
+      "color-card": "var(--card)",
+      "radius-sm": "calc(var(--radius) * 0.6)",
+      "radius-md": "calc(var(--radius) * 0.8)",
+      "radius-lg": "var(--radius)",
+      "radius-xl": "calc(var(--radius) * 1.4)",
+      "radius-2xl": "calc(var(--radius) * 1.8)",
+      "radius-3xl": "calc(var(--radius) * 2.2)",
+      "radius-4xl": "calc(var(--radius) * 2.6)",
+      "color-bg-base": "var(--bg-base)",
+      "color-bg-primary": "var(--bg-primary)",
+      "color-bg-secondary": "var(--bg-secondary)",
+      "color-bg-tertiary": "var(--bg-tertiary)",
+      "color-bg-quaternary": "var(--bg-quaternary)",
+      "color-bg-sidebar": "var(--bg-sidebar)",
+      "color-bg-header": "var(--bg-header)",
+      "color-bg-overlay": "var(--bg-overlay)",
+      "color-bg-tooltip": "var(--bg-tooltip)",
+      "color-bg-educational-tooltip": "var(--bg-educational-tooltip)",
+      "color-bg-transparent": "var(--bg-transparent)",
+      "color-bg-blue": "var(--bg-blue)",
+      "color-bg-purple": "var(--bg-purple)",
+      "color-bg-red": "var(--bg-red)",
+      "color-bg-red-hover": "var(--bg-red-hover)",
+      "color-bg-green": "var(--bg-green)",
+      "color-bg-green-hover": "var(--bg-green-hover)",
+      "color-bg-orange": "var(--bg-orange)",
+      "color-bg-orange-hover": "var(--bg-orange-hover)",
+      "color-bg-amber": "var(--bg-amber)",
+      "color-bg-cyan": "var(--bg-cyan)",
+      "color-bg-pink": "var(--bg-pink)",
+      "color-fill-primary": "var(--fill-primary)",
+      "color-fill-primary-hover": "var(--fill-primary-hover)",
+      "color-fill-secondary": "var(--fill-secondary)",
+      "color-fill-tertiary": "var(--fill-tertiary)",
+      "color-fill-quaternary": "var(--fill-quaternary)",
+      "color-fill-quinary": "var(--fill-quinary)",
+      "color-fill-inverse": "var(--fill-inverse)",
+      "color-fill-green": "var(--fill-green)",
+      "color-fill-green-hover": "var(--fill-green-hover)",
+      "color-fill-red": "var(--fill-red)",
+      "color-fill-red-hover": "var(--fill-red-hover)",
+      "color-fill-blue": "var(--fill-blue)",
+      "color-fill-orange": "var(--fill-orange)",
+      "color-fill-orange-lightest": "var(--fill-orange-lightest)",
+      "color-fill-orange-dark": "var(--fill-orange-dark)",
+      "color-fill-amber": "var(--fill-amber)",
+      "color-fill-yellow": "var(--fill-yellow)",
+      "color-fill-cyan": "var(--fill-cyan)",
+      "color-fill-pink": "var(--fill-pink)",
+      "color-control-bg": "var(--control-bg)",
+      "color-control-hover": "var(--control-hover)",
+      "color-control-selected": "var(--control-selected)",
+      "color-control-primary": "var(--control-primary)",
+      "color-control-primary-hover": "var(--control-primary-hover)",
+      "color-text-primary": "var(--text-primary)",
+      "color-text-secondary": "var(--text-secondary)",
+      "color-text-tertiary": "var(--text-tertiary)",
+      "color-text-quaternary": "var(--text-quaternary)",
+      "color-text-inverse": "var(--text-inverse)",
+      "color-text-white": "var(--text-white)",
+      "color-text-black": "var(--text-black)",
+      "color-text-green": "var(--text-green)",
+      "color-text-red": "var(--text-red)",
+      "color-text-blue": "var(--text-blue)",
+      "color-text-purple": "var(--text-purple)",
+      "color-text-orange": "var(--text-orange)",
+      "color-text-yellow": "var(--text-yellow)",
+      "color-text-amber": "var(--text-amber)",
+      "color-text-cyan": "var(--text-cyan)",
+      "color-text-pink": "var(--text-pink)",
+      "color-text-tooltip": "var(--text-tooltip)",
+      "color-text-tooltip-secondary": "var(--text-tooltip-secondary)",
+      "color-border-gray": "var(--border-gray)",
+      "color-stroke-sunburst": "var(--stroke-sunburst)",
+      "color-stroke-sunburst-loading": "var(--stroke-sunburst-loading)",
+      "color-red-base": "var(--red-base)",
+      "color-red-border": "var(--red-border)",
+      "color-red-muted-fill": "var(--red-muted-fill)",
+      "color-red-emphasis": "var(--red-emphasis)",
+      "color-blue-base": "var(--blue-base)",
+      "color-blue-border": "var(--blue-border)",
+      "color-blue-muted-fill": "var(--blue-muted-fill)",
+      "color-blue-emphasis": "var(--blue-emphasis)",
+      "color-green-base": "var(--green-base)",
+      "color-green-border": "var(--green-border)",
+      "color-green-muted-fill": "var(--green-muted-fill)",
+      "color-green-emphasis": "var(--green-emphasis)",
+      "color-amber-base": "var(--amber-base)",
+      "color-amber-border": "var(--amber-border)",
+      "color-amber-muted-fill": "var(--amber-muted-fill)",
+      "color-amber-emphasis": "var(--amber-emphasis)",
+      "color-purple-base": "var(--purple-base)",
+      "color-purple-border": "var(--purple-border)",
+      "color-purple-muted-fill": "var(--purple-muted-fill)",
+      "color-purple-emphasis": "var(--purple-emphasis)",
+      "color-orange-base": "var(--orange-base)",
+      "color-orange-border": "var(--orange-border)",
+      "color-orange-muted-fill": "var(--orange-muted-fill)",
+      "color-orange-emphasis": "var(--orange-emphasis)",
+      "color-cyan-base": "var(--cyan-base)",
+      "color-cyan-border": "var(--cyan-border)",
+      "color-cyan-muted-fill": "var(--cyan-muted-fill)",
+      "color-cyan-emphasis": "var(--cyan-emphasis)",
+      "color-pink-base": "var(--pink-base)",
+      "color-pink-muted-fill": "var(--pink-muted-fill)",
+      "color-workflow-bg-base": "var(--workflow-bg-base)",
+      "color-workflow-fill-green": "var(--workflow-fill-green)",
+      "color-workflow-fill-green-faint": "var(--workflow-fill-green-faint)",
+      "color-workflow-fill-blue": "var(--workflow-fill-blue)",
+      "color-workflow-fill-blue-faint": "var(--workflow-fill-blue-faint)",
+      "color-workflow-fill-purple": "var(--workflow-fill-purple)",
+      "color-workflow-fill-purple-faint": "var(--workflow-fill-purple-faint)",
+      "color-workflow-fill-orange": "var(--workflow-fill-orange)",
+      "color-workflow-fill-orange-faint": "var(--workflow-fill-orange-faint)",
+      "color-workflow-fill-pink": "var(--workflow-fill-pink)",
+      "color-workflow-fill-pink-faint": "var(--workflow-fill-pink-faint)",
+      "color-workflow-fill-red": "var(--workflow-fill-red)",
+      "color-workflow-fill-red-faint": "var(--workflow-fill-red-faint)",
+      "shadow-low": "0 0 0 1px var(--color-shadow-ring-2), 0 1px 2px 0 var(--color-shadow-1), 0 1px 3px 0 var(--color-shadow-2)",
+      "shadow-low-hover": "0 0 0 1px var(--color-shadow-stroke), 0 1px 2px 0 var(--color-shadow-1), 0 1px 3px 0 var(--color-shadow-2)",
+      "shadow-low-focus": "0 0 0 1px var(--color-shadow-ring-2), 0 0 0 3px var(--color-shadow-stroke), 0 1px 2px 0 var(--color-shadow-1), 0 1px 3px 0 var(--color-shadow-2)",
+      "shadow-low-borderless": "0 1px 2px 0 var(--color-shadow-1), 0 1px 3px 0 var(--color-shadow-2)",
+      "shadow-medium": "0 0 0 1px var(--color-shadow-ring-2), 0 2px 4px -1px var(--color-shadow-1), 0 4px 8px -2px var(--color-shadow-2)",
+      "shadow-medium-hover": "0 0 0 1px var(--color-shadow-stroke), 0 2px 4px -1px var(--color-shadow-1), 0 4px 8px -2px var(--color-shadow-2)",
+      "shadow-medium-focus": "0 0 0 1px var(--color-shadow-ring-2), 0 0 0 3px var(--color-shadow-stroke), 0 2px 4px -1px var(--color-shadow-1), 0 4px 8px -2px var(--color-shadow-2)",
+      "shadow-medium-borderless": "0 2px 4px -1px var(--color-shadow-1), 0 4px 8px -2px var(--color-shadow-2)",
+      "shadow-high": "0 0 0 1px var(--color-shadow-ring-2), 0 4px 8px -2px var(--color-shadow-1), 0 12px 24px -4px var(--color-shadow-2)",
+      "shadow-high-borderless": "0 4px 8px -2px var(--color-shadow-1), 0 12px 24px -4px var(--color-shadow-2)",
+      "shadow-focus": "0 0 0 3px var(--color-shadow-stroke)",
+      "shadow-button-primary": "inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px color-mix(in oklch, var(--primary) 82%, black 18%), 0 1px 2px 0 var(--color-shadow-2)",
+      "shadow-button-pos-action": "inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 0 0 1px color-mix(in oklch, var(--pos-action) 82%, black 18%), 0 1px 2px 0 var(--color-shadow-2)",
+      "shadow-button-secondary": "inset 0 1px 0 0 rgba(255, 255, 255, 0.12), inset 0 0 0 1px var(--color-shadow-ring-2), 0 1px 2px 0 var(--color-shadow-1)",
+      "background-image-button-primary": "linear-gradient( 180deg, color-mix(in oklch, var(--primary) 84%, white 16%) 0%, var(--primary) 100% )",
+      "background-image-button-pos-action": "linear-gradient( 180deg, color-mix(in oklch, var(--pos-action) 84%, white 16%) 0%, var(--pos-action) 100% )",
+      "ease-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+      "ease-in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+      "ease-drawer": "cubic-bezier(0.32, 0.72, 0, 1)",
+      "animate-heartbeat": "heartbeat 2s infinite var(--ease-in-out)"
+    }
+  },
+  "css": {
+    "@import \"tw-animate-css\"": {},
+    "@custom-variant dark (&:is(.dark *))": {},
+    ":root": {
+      "--ease-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+      "--ease-in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+      "--ease-drawer": "cubic-bezier(0.32, 0.72, 0, 1)",
+      "--brand-white": "#ffffff",
+      "--brand-black": "#000000",
+      "--brand-cobalt": "#376cff",
+      "--bg-base": "#ffffff",
+      "--bg-primary": "#ffffff",
+      "--bg-secondary": "#fafafa",
+      "--bg-tertiary": "#f5f5f5",
+      "--bg-quaternary": "#e8e8e8",
+      "--bg-sidebar": "#fafafa",
+      "--bg-header": "color-mix(in srgb, #ffffff 70%, transparent)",
+      "--bg-overlay": "rgba(0, 0, 0, 0.03)",
+      "--bg-tooltip": "rgba(24, 24, 26, 0.9)",
+      "--bg-educational-tooltip": "#3b82f6",
+      "--bg-transparent": "transparent",
+      "--bg-blue": "oklch(97% 0.014 254.604)",
+      "--bg-purple": "oklch(97.7% 0.014 308.299)",
+      "--bg-red": "oklch(97.1% 0.013 17.38)",
+      "--bg-red-hover": "color-mix( in oklch, oklch(63.7% 0.237 25.331) 10%, transparent )",
+      "--bg-green": "oklch(96.861% 0.02956 154.903)",
+      "--bg-green-hover": "color-mix( in oklch, oklch(62.695% 0.18045 148.232) 10%, transparent )",
+      "--bg-orange": "oklch(98% 0.016 73.684)",
+      "--bg-orange-hover": "color-mix( in oklch, oklch(70.5% 0.213 47.604) 10%, transparent )",
+      "--bg-amber": "oklch(98.7% 0.022 95.277)",
+      "--bg-cyan": "oklch(97% 0.02 200)",
+      "--bg-pink": "oklch(97.5% 0.018 0)",
+      "--color-dot-grid": "#cccccc",
+      "--fill-primary": "#18181a",
+      "--fill-primary-hover": "#2c2c2e",
+      "--fill-secondary": "#969696",
+      "--fill-tertiary": "#d4d4d8",
+      "--fill-quaternary": "#e8e8e8",
+      "--fill-quinary": "#f0f0f0",
+      "--fill-inverse": "#ffffff",
+      "--fill-green": "oklch(62.695% 0.18045 148.232)",
+      "--fill-green-hover": "color-mix( in oklch, oklch(62.695% 0.18045 148.232) 10%, transparent )",
+      "--fill-red": "oklch(63.7% 0.237 25.331)",
+      "--fill-red-hover": "color-mix( in oklch, oklch(63.7% 0.237 25.331) 90%, transparent )",
+      "--fill-blue": "oklch(62.3% 0.214 259.815)",
+      "--fill-orange": "oklch(70.5% 0.213 47.604)",
+      "--fill-orange-lightest": "oklch(98% 0.016 73.684)",
+      "--fill-orange-dark": "oklch(47% 0.157 37.304)",
+      "--fill-amber": "oklch(76.9% 0.188 70.08)",
+      "--fill-yellow": "#f9ff57",
+      "--fill-cyan": "oklch(70% 0.14 200)",
+      "--fill-pink": "oklch(74% 0.15 0)",
+      "--control-bg": "#ffffff",
+      "--control-hover": "#f5f5f5",
+      "--control-selected": "#f1f1f1",
+      "--control-primary": "#18181a",
+      "--control-primary-hover": "#2c2c2e",
+      "--text-primary": "#18181a",
+      "--text-secondary": "#787878",
+      "--text-tertiary": "#969696",
+      "--text-quaternary": "#b4b4b4",
+      "--text-inverse": "#ffffff",
+      "--text-white": "#ffffff",
+      "--text-black": "#18181a",
+      "--text-green": "oklch(62.695% 0.18045 148.232)",
+      "--text-red": "oklch(63.7% 0.237 25.331)",
+      "--text-blue": "oklch(62.3% 0.214 259.815)",
+      "--text-purple": "oklch(62.7% 0.265 303.9)",
+      "--text-orange": "oklch(70.5% 0.213 47.604)",
+      "--text-yellow": "oklch(76.9% 0.188 70.08)",
+      "--text-amber": "oklch(76.9% 0.188 70.08)",
+      "--text-cyan": "oklch(70% 0.14 200)",
+      "--text-pink": "oklch(74% 0.15 0)",
+      "--text-tooltip": "#ffffff",
+      "--text-tooltip-secondary": "#b4b4b4",
+      "--border-gray": "#eeeeee",
+      "--stroke-sunburst": "rgb(255, 255, 255)",
+      "--stroke-sunburst-loading": "rgba(255, 255, 255, 0.8)",
+      "--red-base": "oklch(63.7% 0.237 25.331)",
+      "--red-border": "oklch(94.5% 0.027 17.633)",
+      "--red-muted-fill": "oklch(97.1% 0.013 17.38)",
+      "--red-emphasis": "oklch(44.4% 0.177 26.899)",
+      "--blue-base": "oklch(62.3% 0.214 259.815)",
+      "--blue-border": "oklch(94.2% 0.028 255.34)",
+      "--blue-muted-fill": "oklch(97% 0.014 254.604)",
+      "--blue-emphasis": "oklch(41.214% 0.17348 265.122)",
+      "--green-base": "oklch(62.695% 0.18045 148.232)",
+      "--green-border": "oklch(92.774% 0.06064 156.846)",
+      "--green-muted-fill": "oklch(96.861% 0.02956 154.903)",
+      "--green-emphasis": "oklch(39.3% 0.095 152.535)",
+      "--amber-base": "oklch(76.9% 0.188 70.08)",
+      "--amber-border": "oklch(94.011% 0.05289 96.769)",
+      "--amber-muted-fill": "oklch(98.7% 0.022 95.277)",
+      "--amber-emphasis": "oklch(47.3% 0.137 46.201)",
+      "--purple-base": "oklch(62.7% 0.265 303.9)",
+      "--purple-border": "oklch(93.565% 0.0325 311.625)",
+      "--purple-muted-fill": "oklch(97.7% 0.014 308.299)",
+      "--purple-emphasis": "oklch(38.1% 0.176 304.987)",
+      "--orange-base": "oklch(70.5% 0.213 47.604)",
+      "--orange-border": "oklch(92.766% 0.03899 74.753)",
+      "--orange-muted-fill": "oklch(98% 0.016 73.684)",
+      "--orange-emphasis": "oklch(47% 0.157 37.304)",
+      "--cyan-base": "oklch(70% 0.14 200)",
+      "--cyan-border": "oklch(92% 0.04 200)",
+      "--cyan-muted-fill": "oklch(97% 0.02 200)",
+      "--cyan-emphasis": "oklch(45% 0.12 200)",
+      "--pink-base": "oklch(74% 0.15 0)",
+      "--pink-muted-fill": "oklch(97.5% 0.018 0)",
+      "--color-chart-other": "#888888",
+      "--color-shadow-ring-1": "rgba(0, 0, 0, 0.02)",
+      "--color-shadow-ring-2": "rgba(0, 0, 0, 0.05)",
+      "--color-shadow-stroke": "#ebebeb",
+      "--color-shadow-1": "rgba(0, 0, 0, 0.02)",
+      "--color-shadow-2": "rgba(0, 0, 0, 0.05)",
+      "--color-shadow-red-1": "rgba(255, 95, 87, 0.08)",
+      "--color-shadow-red-2": "rgba(255, 95, 87, 0.12)",
+      "--color-shadow-red-3": "rgba(255, 95, 87, 0.2)",
+      "--card-glass-shadow": "0 0 0 1px var(--color-shadow-ring-2), 0 2px 6px -1px rgba(24, 24, 26, 0.05), 0 12px 28px -6px rgba(24, 24, 26, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.88), inset 0 -1px 0 0 rgba(255, 244, 232, 0.56)",
+      "--card-glass-drop": "0 0 0 1px var(--color-shadow-ring-2), 0 10px 28px -4px rgba(24, 24, 26, 0.08), 0 20px 48px -8px rgba(24, 24, 26, 0.07)",
+      "--card-glass-reflection": "linear-gradient( 165deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.2) 28%, rgba(255, 255, 255, 0) 56%, rgba(255, 244, 232, 0.14) 100% )",
+      "--card-glass-rim": "linear-gradient( 145deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.58) 26%, rgba(255, 255, 255, 0.24) 52%, rgba(255, 245, 235, 0.8) 100% )",
+      "--card-glass-spot": "radial-gradient( circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.45) 38%, rgba(255, 245, 235, 0.14) 64%, transparent 76% )",
+      "--workflow-bg-base": "rgb(247, 247, 247)",
+      "--workflow-fill-green": "rgb(78, 168, 82)",
+      "--workflow-fill-green-faint": "#4ea8521a",
+      "--workflow-fill-blue": "rgb(72, 148, 238)",
+      "--workflow-fill-blue-faint": "#4894ee1a",
+      "--workflow-fill-purple": "rgb(141, 88, 247)",
+      "--workflow-fill-purple-faint": "#8d58f71a",
+      "--workflow-fill-orange": "rgb(255, 159, 79)",
+      "--workflow-fill-orange-faint": "rgb(255, 159, 79, 0.16)",
+      "--workflow-fill-pink": "rgb(248, 82, 145)",
+      "--workflow-fill-pink-faint": "#f852911a",
+      "--workflow-fill-red": "oklch(63.7% 0.237 25.331)",
+      "--workflow-fill-red-faint": "color-mix( in srgb, oklch(63.7% 0.237 25.331) 10%, transparent )",
+      "--card": "var(--bg-primary)",
+      "--card-foreground": "var(--text-primary)",
+      "--popover": "var(--bg-primary)",
+      "--popover-foreground": "var(--text-primary)",
+      "--primary": "#18181a",
+      "--primary-foreground": "#ffffff",
+      "--pos-action": "oklch(0.56 0.18 50)",
+      "--secondary": "var(--bg-tertiary)",
+      "--secondary-foreground": "var(--text-primary)",
+      "--muted": "var(--bg-secondary)",
+      "--muted-foreground": "var(--text-secondary)",
+      "--accent": "var(--bg-tertiary)",
+      "--accent-foreground": "var(--text-primary)",
+      "--destructive": "var(--red-base)",
+      "--border": "var(--border-gray)",
+      "--input": "var(--border-gray)",
+      "--ring": "var(--text-tertiary)",
+      "--chart-1": "oklch(0.809 0.105 251.813)",
+      "--chart-2": "oklch(0.623 0.214 259.815)",
+      "--chart-3": "oklch(0.546 0.245 262.881)",
+      "--chart-4": "oklch(0.488 0.243 264.376)",
+      "--chart-5": "oklch(0.424 0.199 265.638)",
+      "--radius": "0.625rem",
+      "--sidebar": "var(--bg-sidebar)",
+      "--sidebar-foreground": "var(--text-primary)",
+      "--sidebar-primary": "#18181a",
+      "--sidebar-primary-foreground": "#ffffff",
+      "--sidebar-accent": "var(--bg-tertiary)",
+      "--sidebar-accent-foreground": "var(--text-primary)",
+      "--sidebar-border": "var(--border-gray)",
+      "--sidebar-ring": "var(--text-tertiary)",
+      "--background": "var(--bg-base)",
+      "--foreground": "var(--text-primary)"
+    },
+    ".dark": {
+      "--bg-base": "#121110",
+      "--bg-primary": "#171615",
+      "--bg-secondary": "#1e1d1c",
+      "--bg-tertiary": "#272625",
+      "--bg-quaternary": "#31302e",
+      "--bg-sidebar": "#121110",
+      "--bg-header": "color-mix(in srgb, #121110 70%, transparent)",
+      "--bg-overlay": "rgba(0, 0, 0, 0.03)",
+      "--bg-tooltip": "rgba(46, 45, 43, 0.9)",
+      "--bg-educational-tooltip": "#3b82f6",
+      "--bg-transparent": "transparent",
+      "--bg-blue": "oklch(0.282 0.091 267.935 / 0.7)",
+      "--bg-purple": "oklch(0.291 0.149 302.717 / 0.5)",
+      "--bg-red": "oklch(0.258 0.092 26.042 / 0.7)",
+      "--bg-red-hover": "color-mix( in oklch, oklch(0.704 0.191 22.216) 10%, transparent )",
+      "--bg-green": "oklch(0.266 0.065 152.934 / 0.7)",
+      "--bg-green-hover": "color-mix( in oklch, oklch(0.792 0.209 151.711) 10%, transparent )",
+      "--bg-orange": "oklch(0.266 0.079 36.259 / 0.7)",
+      "--bg-orange-hover": "color-mix( in oklch, oklch(0.75 0.183 55.934) 10%, transparent )",
+      "--bg-amber": "oklch(0.279 0.077 45.635 / 0.7)",
+      "--bg-cyan": "oklch(0.28 0.08 200 / 0.7)",
+      "--bg-pink": "oklch(0.28 0.06 0 / 0.7)",
+      "--color-dot-grid": "#cccccc",
+      "--fill-primary": "#f5f4f2",
+      "--fill-primary-hover": "#ecebe9",
+      "--fill-secondary": "#75736f",
+      "--fill-tertiary": "#5a5855",
+      "--fill-quaternary": "#232221",
+      "--fill-quinary": "#2b2a28",
+      "--fill-inverse": "#121110",
+      "--fill-green": "oklch(0.792 0.209 151.711)",
+      "--fill-green-hover": "color-mix( in oklch, oklch(0.792 0.209 151.711) 90%, #121110 10% )",
+      "--fill-red": "oklch(0.704 0.191 22.216)",
+      "--fill-red-hover": "color-mix( in oklch, oklch(0.704 0.191 22.216) 90%, #121110 10% )",
+      "--fill-blue": "oklch(0.707 0.165 254.624)",
+      "--fill-orange": "oklch(0.75 0.183 55.934)",
+      "--fill-orange-lightest": "oklch(0.266 0.079 36.259 / 0.7)",
+      "--fill-orange-dark": "oklch(0.75 0.183 55.934)",
+      "--fill-amber": "oklch(0.828 0.189 84.429)",
+      "--fill-yellow": "#5e602b",
+      "--fill-cyan": "oklch(0.75 0.14 200)",
+      "--fill-pink": "oklch(0.8 0.12 0)",
+      "--control-bg": "#252423",
+      "--control-hover": "#31302e",
+      "--control-selected": "#383735",
+      "--control-primary": "#f5f4f2",
+      "--control-primary-hover": "#ecebe9",
+      "--text-primary": "#ecebe9",
+      "--text-secondary": "#aaa8a5",
+      "--text-tertiary": "#898784",
+      "--text-quaternary": "#676563",
+      "--text-inverse": "#0f0e0d",
+      "--text-white": "#ffffff",
+      "--text-black": "#18181a",
+      "--text-green": "oklch(0.792 0.209 151.711)",
+      "--text-red": "oklch(0.704 0.191 22.216)",
+      "--text-blue": "oklch(0.707 0.165 254.624)",
+      "--text-purple": "oklch(0.714 0.203 305.504)",
+      "--text-orange": "oklch(0.75 0.183 55.934)",
+      "--text-yellow": "oklch(0.828 0.189 84.429)",
+      "--text-amber": "oklch(0.828 0.189 84.429)",
+      "--text-cyan": "oklch(0.75 0.14 200)",
+      "--text-pink": "oklch(0.8 0.12 0)",
+      "--text-tooltip": "#ecebe9",
+      "--text-tooltip-secondary": "#b4b4b4",
+      "--border-gray": "#2e2d2b",
+      "--stroke-sunburst": "rgba(255, 255, 255, 0.4)",
+      "--stroke-sunburst-loading": "rgba(255, 255, 255, 0.15)",
+      "--red-base": "oklch(0.704 0.191 22.216)",
+      "--red-border": "oklch(0.396 0.141 25.723 / 0.2)",
+      "--red-muted-fill": "oklch(0.258 0.092 26.042 / 0.7)",
+      "--red-emphasis": "color-mix( in oklch, oklch(0.704 0.191 22.216) 90%, oklch(1 0 0) )",
+      "--blue-base": "oklch(0.707 0.165 254.624)",
+      "--blue-border": "oklch(36% 0.14 260)",
+      "--blue-muted-fill": "oklch(0.282 0.091 267.935 / 0.7)",
+      "--blue-emphasis": "color-mix( in oklch, oklch(0.707 0.165 254.624) 90%, oklch(1 0 0) )",
+      "--green-base": "oklch(0.792 0.209 151.711)",
+      "--green-border": "oklch(0.393 0.095 152.535 / 0.4)",
+      "--green-muted-fill": "oklch(0.266 0.065 152.934 / 0.7)",
+      "--green-emphasis": "color-mix( in oklch, oklch(0.792 0.209 151.711) 90%, oklch(1 0 0) )",
+      "--amber-base": "oklch(0.828 0.189 84.429)",
+      "--amber-border": "oklch(0.414 0.112 45.904 / 0.2)",
+      "--amber-muted-fill": "oklch(0.279 0.077 45.635 / 0.7)",
+      "--amber-emphasis": "color-mix( in oklch, oklch(0.828 0.189 84.429) 90%, oklch(1 0 0) )",
+      "--purple-base": "oklch(0.714 0.203 305.504)",
+      "--purple-border": "oklch(0.381 0.176 304.987 / 0.4)",
+      "--purple-muted-fill": "oklch(0.291 0.149 302.717 / 0.5)",
+      "--purple-emphasis": "color-mix( in oklch, oklch(0.714 0.203 305.504) 90%, oklch(1 0 0) )",
+      "--orange-base": "oklch(0.75 0.183 55.934)",
+      "--orange-border": "oklch(0.408 0.123 38.172 / 0.2)",
+      "--orange-muted-fill": "oklch(0.266 0.079 36.259 / 0.7)",
+      "--orange-emphasis": "color-mix( in oklch, oklch(0.75 0.183 55.934) 90%, oklch(1 0 0) )",
+      "--cyan-base": "oklch(0.75 0.14 200)",
+      "--cyan-border": "oklch(0.4 0.1 200 / 0.3)",
+      "--cyan-muted-fill": "oklch(0.28 0.08 200 / 0.7)",
+      "--cyan-emphasis": "color-mix(in oklch, oklch(0.75 0.14 200) 90%, oklch(1 0 0))",
+      "--pink-base": "oklch(0.8 0.12 0)",
+      "--pink-muted-fill": "oklch(0.28 0.06 0 / 0.7)",
+      "--color-chart-other": "#5b5956",
+      "--color-shadow-ring-1": "rgba(0, 0, 0, 0)",
+      "--color-shadow-ring-2": "rgba(214, 213, 212, 0.12)",
+      "--color-shadow-stroke": "#2c2b29",
+      "--color-shadow-1": "rgba(0, 0, 0, 0)",
+      "--color-shadow-2": "rgba(0, 0, 0, 0.1)",
+      "--color-shadow-red-1": "rgba(255, 95, 87, 0.15)",
+      "--color-shadow-red-2": "rgba(255, 95, 87, 0.25)",
+      "--color-shadow-red-3": "rgba(255, 95, 87, 0.3)",
+      "--card-glass-shadow": "0 0 0 1px rgba(255, 252, 248, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.26), 0 14px 32px -8px rgba(0, 0, 0, 0.44), inset 0 1px 0 0 rgba(255, 252, 248, 0.12), inset 0 -1px 0 0 rgba(255, 224, 194, 0.05)",
+      "--card-glass-drop": "0 0 0 1px rgba(255, 252, 248, 0.08), 0 12px 30px -4px rgba(0, 0, 0, 0.4), 0 22px 50px -8px rgba(0, 0, 0, 0.36)",
+      "--card-glass-reflection": "linear-gradient( 165deg, rgba(255, 252, 248, 0.085) 0%, rgba(255, 252, 248, 0.024) 30%, rgba(255, 252, 248, 0) 58%, rgba(255, 224, 194, 0.032) 100% )",
+      "--card-glass-rim": "linear-gradient( 145deg, rgba(255, 252, 248, 0.32) 0%, rgba(255, 252, 248, 0.11) 30%, rgba(255, 252, 248, 0.04) 55%, rgba(255, 236, 214, 0.18) 100% )",
+      "--card-glass-spot": "radial-gradient( circle, rgba(255, 252, 248, 0.72) 0%, rgba(255, 244, 232, 0.26) 40%, rgba(255, 232, 210, 0.08) 64%, transparent 76% )",
+      "--workflow-bg-base": "rgb(18, 17, 16)",
+      "--workflow-fill-green": "rgb(95, 207, 100)",
+      "--workflow-fill-green-faint": "#5fcf641a",
+      "--workflow-fill-blue": "rgb(93, 171, 255)",
+      "--workflow-fill-blue-faint": "#5dabff1a",
+      "--workflow-fill-purple": "rgb(147, 93, 255)",
+      "--workflow-fill-purple-faint": "#935dff1a",
+      "--workflow-fill-orange": "rgb(255, 135, 99)",
+      "--workflow-fill-orange-faint": "#ff87631a",
+      "--workflow-fill-pink": "rgb(255, 101, 159)",
+      "--workflow-fill-pink-faint": "#ff659f1a",
+      "--workflow-fill-red": "oklch(0.704 0.191 22.216)",
+      "--workflow-fill-red-faint": "color-mix( in srgb, oklch(0.704 0.191 22.216) 10%, transparent )",
+      "--background": "var(--bg-base)",
+      "--foreground": "var(--text-primary)",
+      "--card": "var(--bg-primary)",
+      "--card-foreground": "var(--text-primary)",
+      "--popover": "var(--bg-primary)",
+      "--popover-foreground": "var(--text-primary)",
+      "--primary": "#f5f4f2",
+      "--primary-foreground": "#121110",
+      "--pos-action": "oklch(0.72 0.18 50)",
+      "--secondary": "var(--bg-tertiary)",
+      "--secondary-foreground": "var(--text-primary)",
+      "--muted": "var(--bg-secondary)",
+      "--muted-foreground": "var(--text-secondary)",
+      "--accent": "var(--bg-tertiary)",
+      "--accent-foreground": "var(--text-primary)",
+      "--destructive": "var(--red-base)",
+      "--border": "var(--border-gray)",
+      "--input": "var(--border-gray)",
+      "--ring": "var(--text-tertiary)",
+      "--chart-1": "oklch(0.809 0.105 251.813)",
+      "--chart-2": "oklch(0.623 0.214 259.815)",
+      "--chart-3": "oklch(0.546 0.245 262.881)",
+      "--chart-4": "oklch(0.488 0.243 264.376)",
+      "--chart-5": "oklch(0.424 0.199 265.638)",
+      "--sidebar": "var(--bg-sidebar)",
+      "--sidebar-foreground": "var(--text-primary)",
+      "--sidebar-primary": "#f5f4f2",
+      "--sidebar-primary-foreground": "#121110",
+      "--sidebar-accent": "var(--bg-tertiary)",
+      "--sidebar-accent-foreground": "var(--text-primary)",
+      "--sidebar-border": "var(--border-gray)",
+      "--sidebar-ring": "var(--text-tertiary)"
+    },
+    "@layer components": {
+      ".input-default": {
+        "@apply h-9": {}
+      },
+      ".input-lg": {
+        "@apply h-10": {}
+      },
+      ".input-sm": {
+        "@apply h-8": {}
+      },
+      ".input-size-lg": {
+        "@apply size-10": {}
+      },
+      "[data-slot=\"button\"].h-10:not(.px-6), button[data-slot=\"button\"].h-10:not(.px-6), [data-slot=\"dropdown-menu-trigger\"].h-10:not(.px-6), [data-slot=\"dialog-trigger\"].h-10:not(.px-6), [data-slot=\"dialog-close\"].h-10:not(.px-6), [data-slot=\"popover-trigger\"].h-10:not(.px-6), a[data-slot=\"button\"].h-10:not(.px-6)": {
+        "@apply px-4": {}
+      },
+      "[data-slot=\"button\"].h-9:not(.px-6), button[data-slot=\"button\"].h-9:not(.px-6), [data-slot=\"dropdown-menu-trigger\"].h-9:not(.px-6), [data-slot=\"dialog-trigger\"].h-9:not(.px-6), [data-slot=\"dialog-close\"].h-9:not(.px-6), [data-slot=\"popover-trigger\"].h-9:not(.px-6), a[data-slot=\"button\"].h-9:not(.px-6)": {
+        "@apply px-3": {}
+      },
+      "@keyframes heartbeat-ring": {
+        "0%": {
+          "opacity": "0.65",
+          "transform": "scale(1)"
+        },
+        "70%, 100%": {
+          "opacity": "0",
+          "transform": "scale(1.35)"
+        }
+      },
+      "@keyframes composer-spectrum-spin": {
+        "from": {
+          "transform": "translate(-50%, -50%) rotate(0deg)"
+        },
+        "to": {
+          "transform": "translate(-50%, -50%) rotate(360deg)"
+        }
+      },
+      "@keyframes composer-success-halo": {
+        "0%": {
+          "opacity": "0.95",
+          "transform": "scale(1)"
+        },
+        "100%": {
+          "opacity": "0",
+          "transform": "scale(1.018)"
+        }
+      },
+      "@keyframes composer-success-halo-fade": {
+        "0%": {
+          "opacity": "0.95"
+        },
+        "100%": {
+          "opacity": "0"
+        }
+      },
+      ".card-glass": {
+        "--card-glass-tone": "var(--bg-primary)",
+        "--card-glass-tint": "74%",
+        "--card-glass-blur": "14px",
+        "--card-glass-saturate": "165%",
+        "background-color": "color-mix( in srgb, var(--card-glass-tone) var(--card-glass-tint), transparent )",
+        "-webkit-backdrop-filter": "blur(var(--card-glass-blur)) saturate(var(--card-glass-saturate))",
+        "backdrop-filter": "blur(var(--card-glass-blur)) saturate(var(--card-glass-saturate))",
+        "box-shadow": "var(--card-glass-shadow)"
+      },
+      ".card-glass[data-background=\"secondary\"]": {
+        "--card-glass-tone": "var(--bg-secondary)",
+        "--card-glass-tint": "80%"
+      },
+      ".card-glass[data-background=\"tertiary\"]": {
+        "--card-glass-tone": "var(--bg-tertiary)",
+        "--card-glass-tint": "86%"
+      },
+      ".card-glass[data-background=\"quaternary\"]": {
+        "--card-glass-tone": "var(--bg-quaternary)",
+        "--card-glass-tint": "92%"
+      },
+      ".card-glass[data-material=\"clear\"]": {
+        "--card-glass-tint": "26%",
+        "--card-glass-blur": "6px",
+        "--card-glass-saturate": "185%"
+      },
+      ".card-glass[data-material=\"clear\"][data-background=\"secondary\"]": {
+        "--card-glass-tint": "34%"
+      },
+      ".card-glass[data-material=\"clear\"][data-background=\"tertiary\"]": {
+        "--card-glass-tint": "42%"
+      },
+      ".card-glass[data-material=\"clear\"][data-background=\"quaternary\"]": {
+        "--card-glass-tint": "50%"
+      },
+      ".card-glass[data-material=\"tinted\"]": {
+        "--card-glass-tint": "92%",
+        "--card-glass-blur": "10px",
+        "--card-glass-saturate": "180%"
+      },
+      ".card-glass[data-material=\"solid\"]": {
+        "--card-glass-tint": "100%",
+        "--card-glass-blur": "0px",
+        "background-color": "var(--card-glass-tone)",
+        "-webkit-backdrop-filter": "none",
+        "backdrop-filter": "none",
+        "box-shadow": "var(--shadow-medium)"
+      },
+      ".card-glass[data-refract=\"true\"][data-material=\"frosted\"]": {
+        "--glass-tint": "var(--card-glass-tone)"
+      },
+      ".card-glass::before": {
+        "content": "\"\"",
+        "position": "absolute",
+        "inset": "0",
+        "z-index": "-1",
+        "border-radius": "inherit",
+        "pointer-events": "none",
+        "background-image": "var(--card-glass-reflection)"
+      },
+      ".card-glass::after": {
+        "content": "\"\"",
+        "position": "absolute",
+        "inset": "0",
+        "z-index": "20",
+        "border-radius": "inherit",
+        "padding": "1px",
+        "pointer-events": "none",
+        "background-image": "var(--card-glass-rim)",
+        "opacity": "0.92",
+        "transition": "opacity 150ms var(--ease-out)",
+        "-webkit-mask": "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        "-webkit-mask-composite": "xor",
+        "mask": "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        "mask-composite": "exclude"
+      },
+      ".card-glass[data-material=\"solid\"]::before": {
+        "opacity": "0"
+      },
+      ".card-glass[data-material=\"solid\"]::after": {
+        "opacity": "0.4"
+      },
+      ".card-glass[data-glass-ready]::before, .card-glass[data-glass-ready]::after": {
+        "opacity": "0"
+      },
+      ".card-glass[data-glass-tone=\"dark\"]": {
+        "--text-primary": "#f5f4f2",
+        "--text-secondary": "rgba(245, 244, 242, 0.74)"
+      },
+      ".card-glass[data-glass-tone=\"light\"]": {
+        "--text-primary": "#18181a",
+        "--text-secondary": "rgba(24, 24, 26, 0.68)"
+      },
+      ".card-glass-rim-mask": {
+        "-webkit-mask": "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        "-webkit-mask-composite": "xor",
+        "mask": "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+        "mask-composite": "exclude"
+      },
+      "@media (hover: hover) and (pointer: fine)": {
+        ".card-glass[data-interactive=\"true\"]:hover::after": {
+          "opacity": "1"
+        },
+        ".card-glass[data-interactive=\"true\"][data-material=\"frosted\"]:hover, .card-glass[data-interactive=\"true\"][data-material=\"clear\"]:hover": {
+          "background-color": "color-mix( in srgb, var(--card-glass-tone) min(100%, calc(var(--card-glass-tint) + 8%)), transparent )"
+        }
+      },
+      "@media (prefers-reduced-transparency: reduce)": {
+        ".card-glass[data-material=\"frosted\"], .card-glass[data-material=\"clear\"], .card-glass[data-material=\"tinted\"]": {
+          "background-color": "var(--card-glass-tone)",
+          "-webkit-backdrop-filter": "none",
+          "backdrop-filter": "none"
+        }
+      },
+      "@media (prefers-contrast: more)": {
+        ".card-glass": {
+          "background-color": "var(--card-glass-tone)",
+          "-webkit-backdrop-filter": "none",
+          "backdrop-filter": "none",
+          "box-shadow": "0 0 0 1px var(--border-gray), 0 2px 6px -1px var(--color-shadow-2)"
+        }
+      },
+      "[data-docs-code-figure]": {
+        "@apply relative my-5 rounded-xl bg-bg-secondary p-1 text-text-primary ring-1 ring-inset ring-border": {},
+        "@apply has-data-[docs-code-title]:pt-0": {},
+        "@apply has-data-[slot=code-block-command]:pt-0": {},
+        "pre": {
+          "@apply m-0 bg-transparent": {}
+        },
+        "code": {
+          "@apply grid min-w-full font-mono text-[13px]": {}
+        },
+        ".line, [data-line]": {
+          "@apply pr-(--code-padding-right,1rem) pl-4": {}
+        }
+      },
+      "[data-fade-overlay]": {
+        "@apply pointer-events-none absolute top-0 right-0 z-1 rounded-tr-[8px]": {},
+        "--fade-linear-gradient": "linear-gradient( to right, transparent 0, color-mix(in oklab, var(--fade-color, var(--bg-primary)) 20%, transparent) 10px, color-mix(in oklab, var(--fade-color, var(--bg-primary)) 50%, transparent) 25px, color-mix(in oklab, var(--fade-color, var(--bg-primary)) 80%, transparent) 35px, var(--fade-color, var(--bg-primary)) 45px )",
+        "width": "var(--fade-width, 5rem)",
+        "height": "var(--fade-height, 2.25rem)",
+        "background": "var(--fade-background, var(--fade-linear-gradient))"
+      }
+    },
+    "@layer base": {
+      "button:not(:disabled), [role=\"checkbox\"]:not(:disabled), [role=\"radio\"]:not(:disabled), [role=\"switch\"]:not(:disabled), [role=\"button\"]:not(:disabled)": {
+        "cursor": "pointer"
+      },
+      "label[for], label:has([role=\"checkbox\"]):not(:disabled), label:has([role=\"radio\"]):not(:disabled), label:has([role=\"switch\"]):not(:disabled)": {
+        "cursor": "pointer"
+      },
+      "[role=\"slider\"]:not([data-disabled]), [data-slot=\"slider-track\"]:not([data-disabled]), [data-slot=\"slider-thumb\"]:not([data-disabled])": {
+        "cursor": "pointer"
+      },
+      "[role=\"menuitem\"]:not(:disabled), [role=\"menuitemcheckbox\"]:not(:disabled), [role=\"menuitemradio\"]:not(:disabled)": {
+        "cursor": "pointer !important"
+      },
+      "[role=\"option\"]:not(:disabled), select[data-slot=\"native-select\"]:not(:disabled)": {
+        "cursor": "pointer !important"
+      },
+      "input[type=\"number\"]::-webkit-inner-spin-button, input[type=\"number\"]::-webkit-outer-spin-button": {
+        "cursor": "pointer"
+      },
+      "*": {
+        "@apply border-border outline-ring/50": {}
+      },
+      "html": {
+        "@apply font-sans antialiased": {},
+        "font-synthesis-weight": "none",
+        "scrollbar-gutter": "stable"
+      },
+      "html:has(> body[data-scroll-locked])": {
+        "scrollbar-gutter": "auto"
+      },
+      "body": {
+        "@apply bg-background text-foreground": {}
+      },
+      "h1, h2, h3, h4": {
+        "text-wrap": "balance"
+      },
+      "p": {
+        "text-wrap": "pretty"
+      },
+      "pre, code": {
+        "tab-size": "2"
+      }
+    },
+    "@keyframes heartbeat": {
+      "0%, 100%": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      },
+      "50%": {
+        "opacity": "0.85",
+        "transform": "scale(1.03)"
+      }
+    },
+    ".animate-heartbeat": {
+      "position": "relative"
+    },
+    ".animate-heartbeat::after": {
+      "content": "\"\"",
+      "position": "absolute",
+      "inset": "0",
+      "border-radius": "inherit",
+      "border": "2px solid var(--heartbeat-color, var(--primary))",
+      "pointer-events": "none",
+      "animation": "heartbeat-ring 2s infinite var(--ease-in-out)"
+    },
+    "@utility text-title-regular": {
+      "font-size": "1.75rem",
+      "line-height": "2rem",
+      "font-weight": "600",
+      "letter-spacing": "-0.025em"
+    },
+    "@utility text-title-small-regular": {
+      "font-size": "1.5rem",
+      "line-height": "2rem",
+      "font-weight": "400",
+      "letter-spacing": "-0.02em"
+    },
+    "@utility text-title-small-medium": {
+      "font-size": "1.5rem",
+      "line-height": "2rem",
+      "font-weight": "500",
+      "letter-spacing": "-0.02em"
+    },
+    "@utility text-title-small-semibold": {
+      "font-size": "1.5rem",
+      "line-height": "2rem",
+      "font-weight": "600",
+      "letter-spacing": "-0.02em"
+    },
+    "@utility text-title-mini-regular": {
+      "font-size": "1.125rem",
+      "line-height": "1.5rem",
+      "font-weight": "400",
+      "letter-spacing": "-0.015em"
+    },
+    "@utility text-title-mini-medium": {
+      "font-size": "1.125rem",
+      "line-height": "1.5rem",
+      "font-weight": "500",
+      "letter-spacing": "-0.015em"
+    },
+    "@utility text-title-mini-semibold": {
+      "font-size": "1.125rem",
+      "line-height": "1.5rem",
+      "font-weight": "600",
+      "letter-spacing": "-0.015em"
+    },
+    "@utility text-body-regular-medium": {
+      "font-size": "0.875rem",
+      "line-height": "1.25rem",
+      "font-weight": "500"
+    },
+    "@utility text-body-regular-semibold": {
+      "font-size": "0.875rem",
+      "line-height": "1.25rem",
+      "font-weight": "600"
+    },
+    "@utility text-body-regular-spaced": {
+      "font-size": "0.875rem",
+      "line-height": "1.5rem",
+      "font-weight": "400"
+    },
+    "@utility text-body-small-regular": {
+      "font-size": "0.8125rem",
+      "line-height": "1.125rem",
+      "font-weight": "400"
+    },
+    "@utility text-body-small-medium": {
+      "font-size": "0.8125rem",
+      "line-height": "1.125rem",
+      "font-weight": "500"
+    },
+    "@utility text-body-small-semibold": {
+      "font-size": "0.8125rem",
+      "line-height": "1.125rem",
+      "font-weight": "600"
+    },
+    "@utility text-body-small-spaced": {
+      "font-size": "0.8125rem",
+      "line-height": "1.25rem",
+      "font-weight": "400"
+    },
+    "@utility text-body-mini-regular": {
+      "font-size": "0.75rem",
+      "line-height": "1rem",
+      "font-weight": "400",
+      "letter-spacing": "0.005em"
+    },
+    "@utility text-body-mini-medium": {
+      "font-size": "0.75rem",
+      "line-height": "1rem",
+      "font-weight": "500",
+      "letter-spacing": "0.005em"
+    },
+    "@utility text-body-micro-regular": {
+      "font-size": "0.625rem",
+      "line-height": "0.875rem",
+      "font-weight": "400",
+      "letter-spacing": "0.01em"
+    },
+    "@utility text-body-micro-medium": {
+      "font-size": "0.625rem",
+      "line-height": "0.875rem",
+      "font-weight": "500",
+      "letter-spacing": "0.01em"
+    },
+    "@utility text-paragraph-regular": {
+      "font-size": "0.875rem",
+      "line-height": "1.25rem",
+      "font-weight": "400"
+    },
+    "@utility text-paragraph-small": {
+      "font-size": "0.8125rem",
+      "line-height": "1.125rem",
+      "font-weight": "400"
+    },
+    "@utility text-paragraph-small-relaxed": {
+      "font-size": "0.8125rem",
+      "line-height": "1.7",
+      "font-weight": "400"
+    },
+    "@utility scrollbar-custom": {
+      "&::-webkit-scrollbar": {
+        "width": "6px",
+        "height": "6px"
+      },
+      "&::-webkit-scrollbar-track, &::-webkit-scrollbar-corner": {
+        "background-color": "transparent"
+      },
+      "&::-webkit-scrollbar-thumb": {
+        "border": "1px solid transparent",
+        "border-radius": "9999px",
+        "background-color": "transparent",
+        "background-clip": "padding-box"
+      },
+      "&:hover::-webkit-scrollbar-thumb, &:focus-within::-webkit-scrollbar-thumb": {
+        "background-color": "var(--fill-tertiary)"
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        "background-color": "var(--fill-secondary)"
+      }
+    },
+    "@supports not selector(::-webkit-scrollbar)": {
+      ".scrollbar-custom": {
+        "scrollbar-width": "thin",
+        "scrollbar-color": "transparent transparent"
+      },
+      ".scrollbar-custom:hover, .scrollbar-custom:focus-within": {
+        "scrollbar-color": "var(--fill-tertiary) transparent"
+      }
+    },
+    ".composer-working-glow": {
+      "--composer-ring-accent": "var(--composer-accent, var(--fill-blue))",
+      "background": "radial-gradient( closest-side, color-mix(in oklch, var(--composer-ring-accent) 28%, transparent) 75%, transparent 100% )"
+    },
+    ".composer-working-ring": {
+      "--composer-ring-accent": "var(--composer-accent, var(--fill-blue))",
+      "overflow": "hidden"
+    },
+    ".composer-working-ring::before": {
+      "content": "\"\"",
+      "position": "absolute",
+      "top": "50%",
+      "left": "50%",
+      "width": "200%",
+      "aspect-ratio": "1",
+      "background": "conic-gradient( from 0deg, transparent 0deg, color-mix(in oklch, var(--composer-ring-accent) 20%, transparent) 120deg, var(--composer-ring-accent) 200deg, color-mix(in oklch, var(--composer-ring-accent) 55%, white 20%) 255deg, transparent 330deg )",
+      "animation": "composer-spectrum-spin 3.2s linear infinite"
+    },
+    ".composer-success-halo": {
+      "--composer-ring-accent": "var(--composer-accent, var(--fill-blue))",
+      "border": "2px solid color-mix(in oklch, var(--composer-ring-accent) 75%, transparent)",
+      "box-shadow": "0 0 0 4px color-mix(in oklch, var(--composer-ring-accent) 18%, transparent)",
+      "animation": "composer-success-halo 280ms var(--ease-out) forwards"
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ".animate-heartbeat, .animate-heartbeat::after": {
+        "animation": "none"
+      },
+      ".composer-working-ring::before": {
+        "animation": "none",
+        "background": "color-mix( in oklch, var(--composer-ring-accent) 45%, transparent )"
+      },
+      ".composer-success-halo": {
+        "animation": "composer-success-halo-fade 280ms var(--ease-out) forwards"
+      },
+      ".foundation-wipe-y, .foundation-wipe-x, .foundation-mark-enter, .foundation-swatch-0, .foundation-swatch-1, .foundation-swatch-2, .foundation-swatch-3, .foundation-row-enter, .foundation-icon-pop": {
+        "animation-name": "foundation-preview-fade",
+        "clip-path": "none"
+      }
+    },
+    "@keyframes foundation-preview-fade": {
+      "from": {
+        "opacity": "0"
+      },
+      "to": {
+        "opacity": "1"
+      }
+    },
+    "@keyframes foundation-wipe-y": {
+      "from": {
+        "opacity": "0",
+        "clip-path": "inset(0 0 100% 0)"
+      },
+      "to": {
+        "opacity": "1",
+        "clip-path": "inset(0 0 0 0)"
+      }
+    },
+    "@keyframes foundation-wipe-x": {
+      "from": {
+        "opacity": "0",
+        "clip-path": "inset(0 100% 0 0)"
+      },
+      "to": {
+        "opacity": "1",
+        "clip-path": "inset(0 0 0 0)"
+      }
+    },
+    "@keyframes foundation-mark-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(6px) scale(0.92)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateY(0) scale(1)"
+      }
+    },
+    "@keyframes foundation-swatch-0": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateX(48px) scale(0.92)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateX(0) scale(1)"
+      }
+    },
+    "@keyframes foundation-swatch-1": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateX(16px) scale(0.92)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateX(0) scale(1)"
+      }
+    },
+    "@keyframes foundation-swatch-2": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateX(-16px) scale(0.92)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateX(0) scale(1)"
+      }
+    },
+    "@keyframes foundation-swatch-3": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateX(-48px) scale(0.92)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateX(0) scale(1)"
+      }
+    },
+    "@keyframes foundation-row-enter": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(6px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "translateY(0)"
+      }
+    },
+    "@keyframes foundation-icon-pop": {
+      "from": {
+        "opacity": "0",
+        "transform": "scale(0.9)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "scale(1)"
+      }
+    },
+    ".foundation-wipe-y": {
+      "animation": "foundation-wipe-y 200ms var(--ease-out) both"
+    },
+    ".foundation-wipe-x": {
+      "animation": "foundation-wipe-x 200ms var(--ease-out) both"
+    },
+    ".foundation-mark-enter": {
+      "animation": "foundation-mark-enter 220ms var(--ease-out) both"
+    },
+    ".foundation-swatch-0": {
+      "animation": "foundation-swatch-0 220ms var(--ease-out) both"
+    },
+    ".foundation-swatch-1": {
+      "animation": "foundation-swatch-1 220ms var(--ease-out) both"
+    },
+    ".foundation-swatch-2": {
+      "animation": "foundation-swatch-2 220ms var(--ease-out) both"
+    },
+    ".foundation-swatch-3": {
+      "animation": "foundation-swatch-3 220ms var(--ease-out) both"
+    },
+    ".foundation-row-enter": {
+      "animation": "foundation-row-enter 200ms var(--ease-out) both"
+    },
+    ".foundation-icon-pop": {
+      "animation": "foundation-icon-pop 180ms var(--ease-out) both"
+    }
+  },
+  "type": "registry:theme"
+}

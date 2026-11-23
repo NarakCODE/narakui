@@ -73,7 +73,7 @@ function MarqueeTrack({
   );
 }
 
-/** WebGL2 optical rim refraction powered by `variant="liquid-glass"` on Rakfound Card. */
+/** WebGL2 optical rim refraction powered by `variant="liquid-glass"` on NarakUI Card. */
 export function CardOpticalRefractionExample() {
   const [mode, setMode] = useState<RefractMode>('live');
 

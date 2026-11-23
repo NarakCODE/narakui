@@ -13,7 +13,7 @@ export function AvatarTypes() {
       <Avatar fallbackText="Maya Chen" />
       <Avatar fallbackText="Maya Chen" showInitials={false} />
       <Avatar
-        fallbackText="Rakfound"
+        fallbackText="NarakUI"
         fallback={<Building2 aria-hidden="true" className="size-4" />}
       />
       <Avatar fallbackText="Maya Chen" isLoading />

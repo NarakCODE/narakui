@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "A visual separator component for dividing content into distinct sections.",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/separator.tsx",
+      "content": "'use client';\n\nimport type { ComponentProps } from 'react';\nimport { Separator as SeparatorPrimitive } from 'radix-ui';\nimport { cn } from '@/lib/utils';\n\nexport type SeparatorProps = ComponentProps<typeof SeparatorPrimitive.Root>;\n\n/** Visual and semantic divider between content sections, inline metadata, or list rows. */\nfunction Separator({\n  className,\n  orientation = 'horizontal',\n  decorative = false,\n  ...props\n}: SeparatorProps) {\n  return (\n    <SeparatorPrimitive.Root\n      data-slot=\"separator\"\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        'shrink-0 bg-fill-quaternary dark:bg-border-gray',\n        orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',\n        className,\n      )}\n      {...props}\n    />\n  );\n}\n\nexport { Separator };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -97,7 +97,7 @@ const cardVariants = cva(
 export interface CardProps
   extends ComponentProps<'div'>,
     VariantProps<typeof cardVariants> {
-  /** Surface variant: matte Rakfound surface (`default`) or WebGL2/CSS liquid glass (`liquid-glass`). @default 'default' */
+  /** Surface variant: matte NarakUI surface (`default`) or WebGL2/CSS liquid glass (`liquid-glass`). @default 'default' */
   variant?: CardVariant;
   /** Liquid glass material surface treatment. Defaults to `'frosted'` for `liquid-glass` and `'solid'` for `default`. */
   material?: CardMaterial;
@@ -119,7 +119,7 @@ export interface CardProps
   optics?: GlassOptics;
 }
 
-/** Surface container supporting Rakfound matte tiers (`default`) and WebGL2/CSS liquid glass (`liquid-glass`). */
+/** Surface container supporting NarakUI matte tiers (`default`) and WebGL2/CSS liquid glass (`liquid-glass`). */
 function Card({
   ref,
   className,

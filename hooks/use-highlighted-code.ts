@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import { loadHighlighter } from "@/lib/highlighter"
@@ -70,6 +72,6 @@ export function useHighlightedCode(value: string, language: string) {
       return code.split("\n")
     }
 
-    return [...next.lines, highlighter.highlight(tail, next.state).lines[0]]
+    return [...next.lines, highlighter.highlight(tail, next.state).lines[0] ?? []]
   }, [code, highlighter, next, tail])
 }

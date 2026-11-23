@@ -1,16 +1,22 @@
 {
-  "name": "rakfound-ui",
+  "name": "narakui",
   "version": "0.0.68",
   "private": true,
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint:design": "node -e 'const fs=require(\"fs\"),path=require(\"path\");let errs=[];const walk=(d,fn)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);e.isDirectory()?walk(p,fn):fn(p)}};for(const dir of [\"app\",\"components\"])walk(dir,p=>{if(!/\\.(ts|tsx)$/.test(p))return;const c=fs.readFileSync(p,\"utf8\");if(/from\\s+[\"\\x27]cn[\"\\x27]/.test(c))errs.push(p+\": import cn from @/lib/utils instead of \\\"cn\\\"\")});walk(\"components/ui\",p=>{if(!p.endsWith(\".tsx\"))return;const c=fs.readFileSync(p,\"utf8\");if(/animate-in/.test(c)&&/motion-reduce:animate-none/.test(c))errs.push(p+\": keep opacity fade under motion-reduce instead of motion-reduce:animate-none\");if(/animate-in/.test(c)&&/animate-out/.test(c)&&!/data-\\[state=closed\\]:duration-/.test(c))errs.push(p+\": triggered overlays must specify asymmetric open/closed durations (e.g. data-[state=open]:duration-250 data-[state=closed]:duration-180)\")});walk(\"content/docs/components\",p=>{if(!p.endsWith(\".mdx\"))return;const c=fs.readFileSync(p,\"utf8\");if(/^##+\\s*Install/m.test(c)||/shadcn@latest\\s+add/.test(c))errs.push(p+\": do not include public install sections or commands\")});if(errs.length){console.error(errs.join(\"\\n\"));process.exit(1)}console.log(\"✓ Design system checks passed\")'",
+    "lint:design": "node -e 'const fs=require(\"fs\"),path=require(\"path\");let errs=[];const walk=(d,fn)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);e.isDirectory()?walk(p,fn):fn(p)}};for(const dir of [\"app\",\"components\"])walk(dir,p=>{if(!/\\.(ts|tsx)$/.test(p))return;const c=fs.readFileSync(p,\"utf8\");if(/from\\s+[\"\\x27]cn[\"\\x27]/.test(c))errs.push(p+\": import cn from @/lib/utils instead of \\\"cn\\\"\")});walk(\"components/ui\",p=>{if(!p.endsWith(\".tsx\"))return;const c=fs.readFileSync(p,\"utf8\");if(/animate-in/.test(c)&&/motion-reduce:animate-none/.test(c))errs.push(p+\": keep opacity fade under motion-reduce instead of motion-reduce:animate-none\");if(/animate-in/.test(c)&&/animate-out/.test(c)&&!/data-\\[state=closed\\]:duration-/.test(c))errs.push(p+\": triggered overlays must specify asymmetric open/closed durations (e.g. data-[state=open]:duration-250 data-[state=closed]:duration-180)\")});walk(\"content/docs/components\",p=>{if(!p.endsWith(\".mdx\"))return;const c=fs.readFileSync(p,\"utf8\");if(!/<ComponentInstallation\\b/.test(c))errs.push(p+\": missing <ComponentInstallation />\");if(/@rakfound\\//.test(c))errs.push(p+\": contains stale @rakfound/ reference\")});if(errs.length){console.error(errs.join(\"\\n\"));process.exit(1)}console.log(\"✓ Design system checks passed\")'",
+    "registry:build": "shadcn build",
+    "registry:generate": "node scripts/generate-registry.mjs",
+    "registry:validate": "node scripts/generate-registry.mjs --check && shadcn registry validate ./registry.json && node scripts/generate-registry.mjs --verify-output",
     "start": "next start",
     "types:check": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@fast-link/next": "^0.0.2",
+    "@ui-sdk/core": "0.1.0-beta.14",
+    "@ui-sdk/react": "0.1.0-beta.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

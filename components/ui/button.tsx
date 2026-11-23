@@ -173,11 +173,11 @@ type ResolvedMode = ButtonMode | 'pos-action' | 'link';
 type NormalizedSize = 'micro' | 'small' | 'regular' | 'large';
 
 const BASE_BUTTON_CLASSES =
-  'group/button relative inline-flex shrink-0 items-center justify-center whitespace-nowrap select-none outline-none transition-[background-color,color,border-color,transform] duration-150 ease-out motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none aria-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0';
+  'group/button relative inline-flex shrink-0 items-center justify-center whitespace-nowrap select-none outline-none transition-[background-color,color,border-color,opacity,transform] duration-150 ease-out motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none aria-disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0';
 
 const MODE_CLASSES: Record<ResolvedMode, string> = {
   primary:
-    'bg-control-primary text-text-inverse shadow-low hover:bg-control-primary-hover active:bg-control-primary-hover',
+    'bg-primary bg-button-primary text-primary-foreground shadow-button-primary hover:opacity-90 active:opacity-85',
   secondary:
     'bg-control-bg text-text-primary shadow-low hover:bg-control-hover hover:shadow-low-hover active:bg-control-selected',
   tertiary: 'bg-bg-tertiary text-text-primary active:bg-bg-quaternary',
@@ -440,6 +440,7 @@ function Button({
   const classes = cn(
     BASE_BUTTON_CLASSES,
     isIconOnly ? ICON_ONLY_SIZE_CLASSES[normalizedSize] : SIZE_CLASSES[normalizedSize],
+    asChild && !isIconOnly && CONTENT_GAP_CLASSES[normalizedSize],
     modeClasses,
     scaleClasses,
     error && 'ring-1 ring-red-base',

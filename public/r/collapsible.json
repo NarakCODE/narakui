@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "Show and hide a section of content with a height animation.",
+  "dependencies": [
+    "radix-ui"
+  ],
+  "registryDependencies": [
+    "@narakui/theme",
+    "@narakui/utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/collapsible.tsx",
+      "content": "import type { ComponentProps } from 'react';\nimport { Collapsible as CollapsiblePrimitive } from 'radix-ui';\nimport { cn } from '@/lib/utils';\n\nexport type CollapsibleRootProps = ComponentProps<typeof CollapsiblePrimitive.Root>;\n\n/** Root state container for an expandable/collapsible content region. */\nfunction CollapsibleRoot({ className, ...props }: CollapsibleRootProps) {\n  return (\n    <CollapsiblePrimitive.Root\n      data-slot=\"collapsible\"\n      className={cn(className)}\n      {...props}\n    />\n  );\n}\n\nexport interface CollapsibleTriggerProps\n  extends ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger> {\n  /** Shows the hover background on the default trigger. Ignored with `asChild`. */\n  showHoverBackground?: boolean;\n  /** Additional classes for the inner span of the default trigger. Ignored with `asChild`. */\n  spanClassName?: string;\n}\n\n/** Disclosure trigger rendering either a ghost button by default or merging into a child via `asChild`. */\nfunction CollapsibleTrigger({\n  asChild = false,\n  showHoverBackground = true,\n  spanClassName,\n  className,\n  children,\n  ...props\n}: CollapsibleTriggerProps) {\n  if (asChild) {\n    return (\n      <CollapsiblePrimitive.CollapsibleTrigger\n        data-slot=\"collapsible-trigger\"\n        asChild\n        className={className}\n        {...props}\n      >\n        {children}\n      </CollapsiblePrimitive.CollapsibleTrigger>\n    );\n  }\n\n  return (\n    <CollapsiblePrimitive.CollapsibleTrigger\n      data-slot=\"collapsible-trigger\"\n      className={cn(\n        'group inline-flex cursor-pointer items-center rounded-md text-left text-body-small-medium text-text-primary outline-none transition-colors duration-150 ease-out motion-reduce:transition-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',\n        showHoverBackground && 'px-2 py-1.5 hover:bg-control-hover active:bg-control-selected',\n        className,\n      )}\n      {...props}\n    >\n      <span className={cn('inline-flex items-center gap-1.5', spanClassName)}>{children}</span>\n    </CollapsiblePrimitive.CollapsibleTrigger>\n  );\n}\n\nexport type CollapsibleContentProps = ComponentProps<\n  typeof CollapsiblePrimitive.CollapsibleContent\n>;\n\n/** Animated expandable content panel using an interruptible CSS grid row and opacity transition. */\nfunction CollapsibleContent({\n  forceMount = true,\n  className,\n  children,\n  ...props\n}: CollapsibleContentProps) {\n  return (\n    <CollapsiblePrimitive.CollapsibleContent\n      data-slot=\"collapsible-content\"\n      forceMount={forceMount}\n      className={cn(\n        'grid transition-[grid-template-rows,opacity,visibility] ease-out data-[state=open]:grid-rows-[1fr] data-[state=open]:opacity-100 data-[state=open]:visible data-[state=open]:duration-200! data-[state=closed]:grid-rows-[0fr] data-[state=closed]:opacity-0 data-[state=closed]:invisible data-[state=closed]:duration-150! data-[state=closed]:pointer-events-none motion-reduce:transition-[opacity,visibility] motion-reduce:duration-150! motion-reduce:ease-[ease]',\n        className,\n      )}\n      {...props}\n    >\n      <div className=\"min-h-0 overflow-hidden\">{children}</div>\n    </CollapsiblePrimitive.CollapsibleContent>\n  );\n}\n\nconst Collapsible = {\n  Root: CollapsibleRoot,\n  Trigger: CollapsibleTrigger,\n  Content: CollapsibleContent,\n};\n\nexport { Collapsible, CollapsibleContent, CollapsibleRoot, CollapsibleTrigger };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

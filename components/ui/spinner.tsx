@@ -82,7 +82,7 @@ function GraySpinner({
 
   return (
     <>
-      <style href="rakfound-gray-spinner" precedence="default">
+      <style href="narakui-gray-spinner" precedence="default">
         {GRAY_SPINNER_STYLES}
       </style>
       <svg

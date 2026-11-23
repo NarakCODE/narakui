@@ -1,4 +1,6 @@
 import { source } from '@/lib/source';
+import { summarizeFooterItem } from '@/lib/footer-summaries';
+import { findNeighbour } from 'fumadocs-core/page-tree';
 import {
   DocsBody,
   DocsDescription,
@@ -20,9 +22,19 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
   const MDX = page.data.body;
   const markdownUrl = `${page.url}.md`;
+  const neighbours = findNeighbour(source.getPageTree(), page.url);
 
   return (
-    <DocsPage toc={page.data.toc} full={page.data.full}>
+    <DocsPage
+      toc={page.data.toc}
+      full={page.data.full}
+      footer={{
+        items: {
+          previous: summarizeFooterItem(neighbours.previous),
+          next: summarizeFooterItem(neighbours.next),
+        },
+      }}
+    >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b pb-6">
