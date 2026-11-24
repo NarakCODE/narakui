@@ -86,12 +86,12 @@ export function buildInstallPrompt({
     [
       'Check the project setup:',
       "   - components.json must exist at the project root. If it doesn't, stop and ask me before running `shadcn init`.",
-      `   - Check that components.json includes \`"${namespace}": "${registryUrlTemplate}"\` under \`"registries"\` (or install directly from ${directItemUrl}).`,
       '   - The project must use Tailwind CSS v4. If it uses v3, stop and tell me.',
     ],
     [
       "Run this with the project's package manager (npx, pnpm dlx, yarn dlx or bunx):",
-      `   shadcn@latest add ${namespace}/${name}`,
+      `   shadcn@latest add ${directItemUrl}`,
+      `   (Or use \`${namespace}/${name}\` if \`"${namespace}": "${registryUrlTemplate}"\` is already configured under \`"registries"\` in components.json.)`,
       '   If the CLI asks to overwrite a file, answer no and tell me which file.',
     ],
     confirmLines,

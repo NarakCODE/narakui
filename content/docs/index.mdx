@@ -4,24 +4,42 @@ description: "NarakUI is our Design System: the components, tokens, icons, and g
 ---
 
 import { FoundationOverviewGrid } from '@/components/foundation/foundation-overview-grid';
+import {
+  QuickStartExamplePrompt,
+  QuickStartSetupPrompt,
+} from '@/components/docs/quick-start-prompts';
 
-### What is NarakUI?
+## What is NarakUI?
 
-NarakUI is the set of React components, design tokens, and icons that every NarakUI product is built from. Components are written in TypeScript, styled with Tailwind CSS on top of the color and type tokens, and built on Radix primitives where a component needs focus management or keyboard support.
+NarakUI is the set of React components, design tokens, and icons that every NarakUI product is built from. Components are written in TypeScript, styled with Tailwind CSS v4 on top of the color and type tokens, and built on accessible primitives (Radix UI and `ui-sdk`) where a component needs focus management or keyboard support.
 
 Each component page shows live examples, the code behind them, and the props the component accepts.
 
 <FoundationOverviewGrid />
 
-### Why this site is public
+## Quick Start
 
-NarakUI is the design system behind our products. It lives inside our codebase and is shared through the `@narakui` registry so teams and builders can inspect and reuse it directly.
+Pick your framework, then copy this prompt into your agent.
 
-We keep this site public anyway. It's the reference and documentation our team works from every day, and a look at how we approach design: the decisions, the details, and the craft that go into what we build.
+<QuickStartSetupPrompt />
 
-### Getting Started
+Then ask your agent to build a component:
 
-NarakUI components are published through the public `@narakui` shadcn registry at `https://ui.narakcode.dev/r/{name}.json`. Add the registry to your `components.json` to install components with the shadcn CLI, copy the AI prompt on any component page, or copy the source files directly.
+<QuickStartExamplePrompt />
+
+## CLI Installation
+
+NarakUI requires **React 19**, **Tailwind CSS v4**, and an initialized shadcn project (`components.json`). Components are published through the public shadcn registry at `https://ui.narakcode.dev/r/{name}.json`.
+
+Install any component directly with the shadcn CLI—no extra `components.json` configuration required:
+
+```bash
+npx shadcn@latest add https://ui.narakcode.dev/r/button.json
+```
+
+### Optional: Registry Alias
+
+Add `@narakui` under `"registries"` in your `components.json` to install components with the shorter `@narakui/<name>` syntax:
 
 ```json title="components.json"
 {
@@ -31,8 +49,34 @@ NarakUI components are published through the public `@narakui` shadcn registry a
 }
 ```
 
-Once configured, install any component using the shadcn CLI:
+Once configured, install components using the shorthand:
 
 ```bash
 npx shadcn@latest add @narakui/button
 ```
+
+## Design Tokens
+
+Every component in the registry depends on `theme.json` and `utils.json`, so installing any component automatically injects all NarakUI light (`:root`) and warm dark (`.dark`) color tokens, elevation shadows, animations, and `@utility` typography classes into your Tailwind CSS v4 stylesheet.
+
+To install the design tokens upfront on their own, run:
+
+```bash
+npx shadcn@latest add https://ui.narakcode.dev/r/theme.json
+```
+
+Browse and copy individual tokens on the [Colors](/docs/foundation/colors), [Typography](/docs/foundation/typography), and [Icons](/docs/foundation/icons) foundation pages.
+
+### Fonts
+
+The theme maps `--font-sans`, `--font-heading`, and `--font-brand` to `var(--font-geist-rounded)` (falling back to `ui-rounded, system-ui, sans-serif`) and `--font-mono` to `var(--font-geist-mono)`. Load both font variables on `<html>` (for example with `next/font/local` for `GeistRounded.woff2` and `Geist_Mono` from `next/font/google`) or override `--font-sans` / `--font-mono` in your stylesheet.
+
+### Utility Helper (cn)
+
+Components import `cn` from `@/lib/utils` (installed via `utils.json`) rather than `"cn"` directly. That wrapper registers NarakUI's custom `text-title-*`, `text-body-*`, `text-paragraph-*`, `bg-button-*`, and `shadow-*` utility groups so `tailwind-merge` preserves typography and surface tokens when combined with color classes.
+
+## Why this site is public
+
+NarakUI is the design system behind our products. It lives inside our codebase and is published through the public shadcn registry so teams and builders can inspect, install, and reuse components directly.
+
+It serves as both the live reference our team builds from every day and a transparent look at the craft, tokens, and interaction details behind our interfaces.

@@ -65,17 +65,21 @@ export function ComponentInstallation({
       <DocsTabsContent value="cli">
         <figure data-docs-code-figure="" className="not-prose my-0">
           <CodeBlockCommand
-            command={`npx shadcn@latest add ${namespace}/${name}`}
+            command={`npx shadcn@latest add ${directItemUrl}`}
           />
         </figure>
         <p className="mt-3 text-body-small-regular text-text-secondary">
-          Add{' '}
+          Optional: add{' '}
           <code className={INLINE_CODE_CLASS}>
             &quot;{namespace}&quot;: &quot;{registryUrlTemplate}&quot;
           </code>{' '}
-          to <code className={INLINE_CODE_CLASS}>components.json</code>, or
-          install directly from{' '}
-          <code className={INLINE_CODE_CLASS}>{directItemUrl}</code>.
+          under <code className={INLINE_CODE_CLASS}>&quot;registries&quot;</code>{' '}
+          in <code className={INLINE_CODE_CLASS}>components.json</code> to use
+          the shorter{' '}
+          <code className={INLINE_CODE_CLASS}>
+            {namespace}/{name}
+          </code>{' '}
+          alias.
         </p>
       </DocsTabsContent>
 
@@ -163,11 +167,26 @@ export function ComponentInstallation({
 
           <Step>Update the import paths to match your project setup</Step>
           {expected.hasCss ? (
-            <p className="mt-2 text-body-small-regular text-text-secondary">
-              Ensure your global stylesheet includes the NarakUI theme tokens
-              from{' '}
-              <code className={INLINE_CODE_CLASS}>app/design-system.css</code>.
-            </p>
+            <>
+              <Step>Add the NarakUI theme tokens</Step>
+              <p className="my-3 text-body-small-regular text-text-secondary">
+                Install the NarakUI design tokens (light/dark colors, typography
+                scale, shadows, and animations) into your Tailwind CSS v4
+                stylesheet, or review them in{' '}
+                <FastLink
+                  href="/docs#design-tokens"
+                  className="font-medium text-text-primary underline decoration-border underline-offset-4 transition-colors hover:decoration-text-primary"
+                >
+                  Design Tokens
+                </FastLink>
+                .
+              </p>
+              <figure data-docs-code-figure="" className="not-prose">
+                <CodeBlockCommand
+                  command={`npx shadcn@latest add ${siteUrl}/r/theme.json`}
+                />
+              </figure>
+            </>
           ) : null}
         </Steps>
       </DocsTabsContent>
