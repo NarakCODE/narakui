@@ -14,6 +14,7 @@ import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getPageImageUrl, gitConfig } from '@/lib/shared';
+import { TOCMinimap } from '@/components/toc-minimap';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -28,6 +29,22 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
+      tableOfContent={{
+        component:
+          page.data.toc.length > 0 ? (
+            <div
+              id="nd-toc"
+              className="sticky top-(--fd-docs-row-1) flex h-[calc(var(--fd-docs-height)-var(--fd-docs-row-1))] w-(--fd-toc-width) flex-col pt-12 pe-4 pb-2 [grid-area:toc] max-xl:hidden xl:layout:[--fd-toc-width:268px]"
+            >
+              <TOCMinimap items={page.data.toc} />
+            </div>
+          ) : (
+            <div
+              id="nd-toc-placeholder"
+              className="hidden xl:layout:[--fd-toc-width:268px]"
+            />
+          ),
+      }}
       footer={{
         items: {
           previous: summarizeFooterItem(neighbours.previous),
