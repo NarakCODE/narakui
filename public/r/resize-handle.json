@@ -4,8 +4,8 @@
   "title": "Resize Handle",
   "description": "A drag handle on a panel edge. Pass size, minSize, maxSize, and onSizeChange together to make it a focusable separator that resizes by keyboard.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

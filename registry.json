@@ -1179,7 +1179,7 @@
       "title": "useHighlightedCode",
       "description": "Streaming-safe incremental syntax highlighting React hook powered by Shiki.",
       "registryDependencies": [
-        "@narakui/highlighter"
+        "https://ui.narakcode.dev/r/highlighter.json"
       ],
       "files": [
         {
@@ -1194,8 +1194,8 @@
       "title": "Active Bar",
       "description": "The sliding highlight behind the active item in a vertical navigation list.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1213,8 +1213,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1232,8 +1232,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1251,9 +1251,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/skeleton"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/skeleton.json"
       ],
       "files": [
         {
@@ -1272,9 +1272,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1292,8 +1292,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1311,9 +1311,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1333,9 +1333,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/spinner"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/spinner.json"
       ],
       "files": [
         {
@@ -1353,9 +1353,9 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/liquid-glass"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/liquid-glass.json"
       ],
       "files": [
         {
@@ -1374,8 +1374,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1393,13 +1393,13 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/highlighter",
-        "@narakui/popover",
-        "@narakui/tooltip",
-        "@narakui/use-highlighted-code"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/highlighter.json",
+        "https://ui.narakcode.dev/r/popover.json",
+        "https://ui.narakcode.dev/r/tooltip.json",
+        "https://ui.narakcode.dev/r/use-highlighted-code.json"
       ],
       "files": [
         {
@@ -1417,8 +1417,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1438,12 +1438,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/checkbox",
-        "@narakui/spinner",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/checkbox.json",
+        "https://ui.narakcode.dev/r/spinner.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1462,8 +1462,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1481,11 +1481,11 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/spinner",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/spinner.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1503,9 +1503,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1524,9 +1524,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1544,9 +1544,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1566,9 +1566,9 @@
         "vaul"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1587,12 +1587,12 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/checkbox",
-        "@narakui/kbd",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/checkbox.json",
+        "https://ui.narakcode.dev/r/kbd.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1610,9 +1610,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1630,9 +1630,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/combobox"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/combobox.json"
       ],
       "files": [
         {
@@ -1650,10 +1650,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/skeleton",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/skeleton.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1671,8 +1671,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1690,11 +1690,11 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/input",
-        "@narakui/textarea"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/input.json",
+        "https://ui.narakcode.dev/r/textarea.json"
       ],
       "files": [
         {
@@ -1712,8 +1712,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1728,8 +1728,8 @@
       "title": "Kbd",
       "description": "A keycap that shows a keyboard shortcut, with the right modifier keys for the person's platform.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1747,10 +1747,10 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/card",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/card.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1768,11 +1768,11 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/combobox",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/combobox.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -1787,9 +1787,9 @@
       "title": "Multi-step Form",
       "description": "A fixed-height form that derives its own pages by measuring its fields.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1804,8 +1804,8 @@
       "title": "Notification Badge",
       "description": "A dot or count pinned to the corner of another element, such as an icon button, to show there is something new.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1823,9 +1823,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1840,8 +1840,8 @@
       "title": "Pill & Tag",
       "description": "Small label components for displaying status, tags, or labels.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1859,9 +1859,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json"
       ],
       "files": [
         {
@@ -1876,8 +1876,8 @@
       "title": "Progress Bar",
       "description": "Progress indicators for showing completion status of tasks or processes.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1895,10 +1895,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/textarea"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/textarea.json"
       ],
       "files": [
         {
@@ -1916,8 +1916,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1932,8 +1932,8 @@
       "title": "Resize Handle",
       "description": "A drag handle on a panel edge. Pass size, minSize, maxSize, and onSizeChange together to make it a focusable separator that resizes by keyboard.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1951,8 +1951,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1972,8 +1972,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -1991,10 +1991,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/skeleton",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/skeleton.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -2012,8 +2012,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2031,8 +2031,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2050,10 +2050,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/combobox"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/combobox.json"
       ],
       "files": [
         {
@@ -2068,8 +2068,8 @@
       "title": "Skeleton",
       "description": "A loading placeholder component that mimics the structure of content while it loads.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2087,8 +2087,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2103,10 +2103,10 @@
       "title": "Split Button",
       "description": "A button that runs the most common action, joined to a menu of related alternatives.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/dropdown-menu"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/dropdown-menu.json"
       ],
       "files": [
         {
@@ -2124,8 +2124,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2143,9 +2143,9 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/badge"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/badge.json"
       ],
       "files": [
         {
@@ -2163,9 +2163,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/spinner"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/spinner.json"
       ],
       "files": [
         {
@@ -2184,8 +2184,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2200,9 +2200,9 @@
       "title": "Table",
       "description": "A type-safe data table with custom cells, sortable headers, and expandable rows.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/skeleton"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/skeleton.json"
       ],
       "files": [
         {
@@ -2221,8 +2221,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2237,8 +2237,8 @@
       "title": "Text Shimmer",
       "description": "A highlight that sweeps across a label while the work it describes is in progress.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2253,8 +2253,8 @@
       "title": "Textarea",
       "description": "A multi-line text input component for longer text content and messages.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2272,10 +2272,10 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/button",
-        "@narakui/spinner"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/spinner.json"
       ],
       "files": [
         {
@@ -2294,8 +2294,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2314,8 +2314,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2333,9 +2333,9 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/input"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/input.json"
       ],
       "files": [
         {
@@ -2353,8 +2353,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2373,8 +2373,8 @@
         "radix-ui"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2389,9 +2389,9 @@
       "title": "Truncated Text",
       "description": "Text that ends with an ellipsis when it doesn't fit, and shows the full text in a tooltip only while it is cut off.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/tooltip"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/tooltip.json"
       ],
       "files": [
         {
@@ -2409,8 +2409,8 @@
         "lucide-react"
       ],
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json"
       ],
       "files": [
         {
@@ -2425,74 +2425,74 @@
       "title": "All NarakUI UI Components",
       "description": "Installs the NarakUI theme, utilities, shared helpers, and all 63 UI components.",
       "registryDependencies": [
-        "@narakui/theme",
-        "@narakui/utils",
-        "@narakui/liquid-glass",
-        "@narakui/highlighter",
-        "@narakui/use-highlighted-code",
-        "@narakui/active-bar",
-        "@narakui/alert",
-        "@narakui/audio-player",
-        "@narakui/avatar",
-        "@narakui/badge",
-        "@narakui/banner",
-        "@narakui/breadcrumb",
-        "@narakui/button",
-        "@narakui/card",
-        "@narakui/checkbox",
-        "@narakui/code-block",
-        "@narakui/collapsible",
-        "@narakui/combobox",
-        "@narakui/command-bar",
-        "@narakui/composer",
-        "@narakui/confirm-dialog",
-        "@narakui/context-menu",
-        "@narakui/dialog",
-        "@narakui/drawer",
-        "@narakui/dropdown-menu",
-        "@narakui/empty-state",
-        "@narakui/filter-builder",
-        "@narakui/highlights",
-        "@narakui/hover-card",
-        "@narakui/input-group",
-        "@narakui/input",
-        "@narakui/kbd",
-        "@narakui/list",
-        "@narakui/multi-select-filter",
-        "@narakui/multi-step-form",
-        "@narakui/notification-badge",
-        "@narakui/pagination",
-        "@narakui/pill-tag",
-        "@narakui/popover",
-        "@narakui/progress-bar",
-        "@narakui/question-tool",
-        "@narakui/radio-group",
-        "@narakui/resize-handle",
-        "@narakui/scroll-area",
-        "@narakui/search-field",
-        "@narakui/section-header",
-        "@narakui/segmented-tabs",
-        "@narakui/separator",
-        "@narakui/single-select-filter",
-        "@narakui/skeleton",
-        "@narakui/spinner",
-        "@narakui/split-button",
-        "@narakui/statistic",
-        "@narakui/status-badge",
-        "@narakui/switch",
-        "@narakui/tab-strip",
-        "@narakui/table",
-        "@narakui/tabs",
-        "@narakui/text-shimmer",
-        "@narakui/textarea",
-        "@narakui/toast",
-        "@narakui/toggle-group",
-        "@narakui/toggle",
-        "@narakui/toolbar",
-        "@narakui/tooltip",
-        "@narakui/tree",
-        "@narakui/truncated-text",
-        "@narakui/video-player"
+        "https://ui.narakcode.dev/r/theme.json",
+        "https://ui.narakcode.dev/r/utils.json",
+        "https://ui.narakcode.dev/r/liquid-glass.json",
+        "https://ui.narakcode.dev/r/highlighter.json",
+        "https://ui.narakcode.dev/r/use-highlighted-code.json",
+        "https://ui.narakcode.dev/r/active-bar.json",
+        "https://ui.narakcode.dev/r/alert.json",
+        "https://ui.narakcode.dev/r/audio-player.json",
+        "https://ui.narakcode.dev/r/avatar.json",
+        "https://ui.narakcode.dev/r/badge.json",
+        "https://ui.narakcode.dev/r/banner.json",
+        "https://ui.narakcode.dev/r/breadcrumb.json",
+        "https://ui.narakcode.dev/r/button.json",
+        "https://ui.narakcode.dev/r/card.json",
+        "https://ui.narakcode.dev/r/checkbox.json",
+        "https://ui.narakcode.dev/r/code-block.json",
+        "https://ui.narakcode.dev/r/collapsible.json",
+        "https://ui.narakcode.dev/r/combobox.json",
+        "https://ui.narakcode.dev/r/command-bar.json",
+        "https://ui.narakcode.dev/r/composer.json",
+        "https://ui.narakcode.dev/r/confirm-dialog.json",
+        "https://ui.narakcode.dev/r/context-menu.json",
+        "https://ui.narakcode.dev/r/dialog.json",
+        "https://ui.narakcode.dev/r/drawer.json",
+        "https://ui.narakcode.dev/r/dropdown-menu.json",
+        "https://ui.narakcode.dev/r/empty-state.json",
+        "https://ui.narakcode.dev/r/filter-builder.json",
+        "https://ui.narakcode.dev/r/highlights.json",
+        "https://ui.narakcode.dev/r/hover-card.json",
+        "https://ui.narakcode.dev/r/input-group.json",
+        "https://ui.narakcode.dev/r/input.json",
+        "https://ui.narakcode.dev/r/kbd.json",
+        "https://ui.narakcode.dev/r/list.json",
+        "https://ui.narakcode.dev/r/multi-select-filter.json",
+        "https://ui.narakcode.dev/r/multi-step-form.json",
+        "https://ui.narakcode.dev/r/notification-badge.json",
+        "https://ui.narakcode.dev/r/pagination.json",
+        "https://ui.narakcode.dev/r/pill-tag.json",
+        "https://ui.narakcode.dev/r/popover.json",
+        "https://ui.narakcode.dev/r/progress-bar.json",
+        "https://ui.narakcode.dev/r/question-tool.json",
+        "https://ui.narakcode.dev/r/radio-group.json",
+        "https://ui.narakcode.dev/r/resize-handle.json",
+        "https://ui.narakcode.dev/r/scroll-area.json",
+        "https://ui.narakcode.dev/r/search-field.json",
+        "https://ui.narakcode.dev/r/section-header.json",
+        "https://ui.narakcode.dev/r/segmented-tabs.json",
+        "https://ui.narakcode.dev/r/separator.json",
+        "https://ui.narakcode.dev/r/single-select-filter.json",
+        "https://ui.narakcode.dev/r/skeleton.json",
+        "https://ui.narakcode.dev/r/spinner.json",
+        "https://ui.narakcode.dev/r/split-button.json",
+        "https://ui.narakcode.dev/r/statistic.json",
+        "https://ui.narakcode.dev/r/status-badge.json",
+        "https://ui.narakcode.dev/r/switch.json",
+        "https://ui.narakcode.dev/r/tab-strip.json",
+        "https://ui.narakcode.dev/r/table.json",
+        "https://ui.narakcode.dev/r/tabs.json",
+        "https://ui.narakcode.dev/r/text-shimmer.json",
+        "https://ui.narakcode.dev/r/textarea.json",
+        "https://ui.narakcode.dev/r/toast.json",
+        "https://ui.narakcode.dev/r/toggle-group.json",
+        "https://ui.narakcode.dev/r/toggle.json",
+        "https://ui.narakcode.dev/r/toolbar.json",
+        "https://ui.narakcode.dev/r/tooltip.json",
+        "https://ui.narakcode.dev/r/tree.json",
+        "https://ui.narakcode.dev/r/truncated-text.json",
+        "https://ui.narakcode.dev/r/video-player.json"
       ]
     }
   ]

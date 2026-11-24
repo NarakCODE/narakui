@@ -9,9 +9,9 @@
     "vaul"
   ],
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/button"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/button.json"
   ],
   "files": [
     {

@@ -4,9 +4,9 @@
   "title": "Table",
   "description": "A type-safe data table with custom cells, sortable headers, and expandable rows.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/skeleton"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/skeleton.json"
   ],
   "files": [
     {

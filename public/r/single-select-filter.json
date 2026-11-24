@@ -7,10 +7,10 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/button",
-    "@narakui/combobox"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/button.json",
+    "https://ui.narakcode.dev/r/combobox.json"
   ],
   "files": [
     {

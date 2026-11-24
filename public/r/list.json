@@ -7,10 +7,10 @@
     "radix-ui"
   ],
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/card",
-    "@narakui/tooltip"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/card.json",
+    "https://ui.narakcode.dev/r/tooltip.json"
   ],
   "files": [
     {

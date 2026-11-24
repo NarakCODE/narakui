@@ -8,9 +8,9 @@
     "lucide-react"
   ],
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/tooltip"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/tooltip.json"
   ],
   "files": [
     {

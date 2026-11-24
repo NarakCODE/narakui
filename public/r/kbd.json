@@ -4,8 +4,8 @@
   "title": "Kbd",
   "description": "A keycap that shows a keyboard shortcut, with the right modifier keys for the person's platform.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

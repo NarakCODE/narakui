@@ -7,9 +7,9 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils",
-    "@narakui/liquid-glass"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json",
+    "https://ui.narakcode.dev/r/liquid-glass.json"
   ],
   "files": [
     {

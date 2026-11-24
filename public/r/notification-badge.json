@@ -4,8 +4,8 @@
   "title": "Notification Badge",
   "description": "A dot or count pinned to the corner of another element, such as an icon button, to show there is something new.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

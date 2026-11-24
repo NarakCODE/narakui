@@ -4,7 +4,7 @@
   "title": "useHighlightedCode",
   "description": "Streaming-safe incremental syntax highlighting React hook powered by Shiki.",
   "registryDependencies": [
-    "@narakui/highlighter"
+    "https://ui.narakcode.dev/r/highlighter.json"
   ],
   "files": [
     {

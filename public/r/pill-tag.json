@@ -4,8 +4,8 @@
   "title": "Pill & Tag",
   "description": "Small label components for displaying status, tags, or labels.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

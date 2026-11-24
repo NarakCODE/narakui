@@ -4,8 +4,8 @@
   "title": "Active Bar",
   "description": "The sliding highlight behind the active item in a vertical navigation list.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

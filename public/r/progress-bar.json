@@ -4,8 +4,8 @@
   "title": "Progress Bar",
   "description": "Progress indicators for showing completion status of tasks or processes.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

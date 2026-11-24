@@ -36,7 +36,7 @@ const FALLBACK_METADATA = {
 function parseArgs(argv) {
   const args = {
     namespace: '@narakui',
-    baseUrl: process.env.REGISTRY_BASE_URL || '',
+    baseUrl: process.env.REGISTRY_BASE_URL,
     homepage: process.env.NEXT_PUBLIC_SITE_URL || 'https://ui.narakcode.dev',
     check: false,
     verifyOutput: false,
@@ -44,11 +44,11 @@ function parseArgs(argv) {
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
-    if (arg === '--namespace' && argv[i + 1]) {
+    if (arg === '--namespace' && i + 1 < argv.length) {
       args.namespace = argv[++i];
-    } else if (arg === '--base-url' && argv[i + 1]) {
+    } else if (arg === '--base-url' && i + 1 < argv.length) {
       args.baseUrl = argv[++i];
-    } else if (arg === '--homepage' && argv[i + 1]) {
+    } else if (arg === '--homepage' && i + 1 < argv.length) {
       args.homepage = argv[++i];
     } else if (arg === '--check') {
       args.check = true;
@@ -60,8 +60,8 @@ function parseArgs(argv) {
           'Usage: node scripts/generate-registry.mjs [options]',
           '',
           'Options:',
-          '  --namespace <ns>     Registry namespace for registryDependencies (default: @narakui)',
-          '  --base-url <url>     Use full URLs (<url>/<name>.json) instead of namespace refs',
+          '  --namespace <ns>     Registry namespace for registryDependencies when --base-url is empty (default: @narakui)',
+          '  --base-url <url>     Base URL for registryDependencies (<url>/<name>.json); defaults to <homepage>/r',
           '  --homepage <url>     Registry homepage URL (default: https://ui.narakcode.dev)',
           '  --check              Fail if registry.json differs from generated output',
           '  --verify-output      Validate built public/r/*.json and public/r/registry.json files',
@@ -71,6 +71,11 @@ function parseArgs(argv) {
     } else {
       throw new Error(`Unknown CLI argument: ${arg}`);
     }
+  }
+
+  args.homepage = args.homepage.replace(/\/+$/, '');
+  if (args.baseUrl === undefined) {
+    args.baseUrl = `${args.homepage}/r`;
   }
 
   return args;

@@ -4,8 +4,8 @@
   "title": "Skeleton",
   "description": "A loading placeholder component that mimics the structure of content while it loads.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

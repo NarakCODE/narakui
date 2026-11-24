@@ -4,8 +4,8 @@
   "title": "Text Shimmer",
   "description": "A highlight that sweeps across a label while the work it describes is in progress.",
   "registryDependencies": [
-    "@narakui/theme",
-    "@narakui/utils"
+    "https://ui.narakcode.dev/r/theme.json",
+    "https://ui.narakcode.dev/r/utils.json"
   ],
   "files": [
     {

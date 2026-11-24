@@ -81,6 +81,27 @@ export function formatFiles(files: string[]): string[] {
   return [`${getCommonDirectory(files)}/ (${files.length} files)`];
 }
 
+function resolveLocalRegistryDepName(
+  dep: string,
+  namespace: string,
+): string | undefined {
+  if (dep.startsWith(`${namespace}/`)) {
+    return dep.slice(namespace.length + 1);
+  }
+  if (/^https?:\/\//.test(dep)) {
+    try {
+      const { pathname } = new URL(dep);
+      const match = pathname.match(/\/r\/([^/]+)\.json$/);
+      if (match?.[1]) {
+        return match[1];
+      }
+    } catch {
+      return undefined;
+    }
+  }
+  return undefined;
+}
+
 /** Traverses a registry item and its transitive dependencies to derive install requirements. */
 export function collectInstallExpectations(
   name: string,
@@ -124,9 +145,7 @@ export function collectInstallExpectations(
     }
 
     for (const dep of item.registryDependencies ?? []) {
-      const localName = dep.startsWith(`${namespace}/`)
-        ? dep.slice(namespace.length + 1)
-        : undefined;
+      const localName = resolveLocalRegistryDepName(dep, namespace);
       const localItem = localName ? itemsByName.get(localName) : itemsByName.get(dep);
 
       if (localItem) {
