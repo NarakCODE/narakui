@@ -6,6 +6,7 @@ description: "NarakUI is our Design System: the components, tokens, icons, and g
 import { FoundationOverviewGrid } from '@/components/foundation/foundation-overview-grid';
 import {
   QuickStartExamplePrompt,
+  QuickStartFontPrompt,
   QuickStartSetupPrompt,
 } from '@/components/docs/quick-start-prompts';
 
@@ -70,6 +71,8 @@ Browse and copy individual tokens on the [Colors](/docs/foundation/colors), [Typ
 ### Fonts
 
 The theme maps `--font-sans`, `--font-heading`, and `--font-brand` to `var(--font-geist-rounded)` (falling back to `ui-rounded, system-ui, sans-serif`) and `--font-mono` to `var(--font-geist-mono)`. Load both font variables on `<html>` (for example with `next/font/local` for `GeistRounded.woff2` and `Geist_Mono` from `next/font/google`) or override `--font-sans` / `--font-mono` in your stylesheet.
+
+<QuickStartFontPrompt />
 
 ### Utility Helper (cn)
 

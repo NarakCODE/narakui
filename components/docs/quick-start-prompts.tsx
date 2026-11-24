@@ -23,17 +23,41 @@ interface FrameworkOption {
   prompt: string;
 }
 
+const GEIST_ROUNDED_WOFF2_URL =
+  'https://mishanaer.com/ui/geist-rounded/fonts/GeistRounded.woff2';
+
+const DEFAULT_FONT_STEP = [
+  '4. Use Geist Rounded as the main interface font in this project. Download and self-host the variable WOFF2 file:',
+  `   ${GEIST_ROUNDED_WOFF2_URL}`,
+  '   Load it with @font-face: font-family "Geist Rounded", font-weight 100 900, font-style normal and font-display swap, then set --font-geist-rounded: "Geist Rounded" in your global CSS.',
+].join('\n');
+
+const NEXTJS_FONT_STEP = [
+  '4. Use Geist Rounded as the main interface font in this project. Download and self-host the variable WOFF2 file:',
+  `   ${GEIST_ROUNDED_WOFF2_URL}`,
+  '   Load it with next/font/local (weight "100 900", style "normal", display "swap", variable "--font-geist-rounded") alongside Geist_Mono from next/font/google (variable "--font-geist-mono"), and apply both variables on <html>.',
+].join('\n');
+
 const DEFAULT_AGENTS_NOTE =
-  `4. Add a note to AGENTS.md, creating it if needed: always import \`cn\` from \`@/lib/utils\` (never \`"cn"\` directly), use NarakUI design tokens from the theme, and read ${siteUrl}/llms.txt before adding or customizing components.`;
+  `5. Add a note to AGENTS.md, creating it if needed: always import \`cn\` from \`@/lib/utils\` (never \`"cn"\` directly), use NarakUI design tokens from the theme, and read ${siteUrl}/llms.txt before adding or customizing components.`;
+
+const FONT_SETUP_PROMPT = [
+  'Use Geist Rounded as the main interface font in this project. Download and self-host the variable WOFF2 file:',
+  GEIST_ROUNDED_WOFF2_URL,
+  '',
+  'Load it with @font-face: font-family "Geist Rounded", font-weight 100 900, font-style normal and font-display swap. For Next.js, use next/font/local instead.',
+].join('\n');
 
 function buildSetupPrompt({
   intro,
   step1,
-  step4 = DEFAULT_AGENTS_NOTE,
+  step4 = DEFAULT_FONT_STEP,
+  step5 = DEFAULT_AGENTS_NOTE,
 }: {
   intro: string;
   step1: string;
   step4?: string;
+  step5?: string;
 }): string {
   return [
     intro,
@@ -43,6 +67,7 @@ function buildSetupPrompt({
     `3. Install the base theme and utilities with the project's package manager:`,
     `   shadcn@latest add ${registryNamespace}/theme ${registryNamespace}/utils`,
     step4,
+    step5,
   ].join('\n');
 }
 
@@ -55,6 +80,7 @@ const FRAMEWORKS: readonly FrameworkOption[] = [
         'Set up NarakUI in this Next.js project. It requires React 19 and Tailwind CSS v4.',
       step1:
         'Confirm components.json exists at the project root with "rsc": true and Tailwind CSS v4 configured. If it doesn\'t, stop and ask me before running `shadcn init`.',
+      step4: NEXTJS_FONT_STEP,
     }),
   },
   {
@@ -85,7 +111,7 @@ const FRAMEWORKS: readonly FrameworkOption[] = [
         'Set up NarakUI in this Astro project. It requires @astrojs/react (React 19) and Tailwind CSS v4.',
       step1:
         'Confirm @astrojs/react, Tailwind CSS v4, and components.json are configured at the project root. If components.json is missing, stop and ask me before running `shadcn init`.',
-      step4: `4. Add a note to AGENTS.md, creating it if needed: always import \`cn\` from \`@/lib/utils\` (never \`"cn"\` directly), hydrate interactive NarakUI islands with client:load, and read ${siteUrl}/llms.txt before adding components.`,
+      step5: `5. Add a note to AGENTS.md, creating it if needed: always import \`cn\` from \`@/lib/utils\` (never \`"cn"\` directly), hydrate interactive NarakUI islands with client:load, and read ${siteUrl}/llms.txt before adding components.`,
     }),
   },
 ];
@@ -233,6 +259,20 @@ export function QuickStartExamplePrompt() {
         </span>
       }
       prompt={EXAMPLE_PROMPT}
+    />
+  );
+}
+
+/** Standalone prompt card for self-hosting and wiring Geist Rounded. */
+export function QuickStartFontPrompt() {
+  return (
+    <QuickStartPromptCard
+      header={
+        <span className="px-1 text-body-small-regular text-text-secondary">
+          Font Prompt
+        </span>
+      }
+      prompt={FONT_SETUP_PROMPT}
     />
   );
 }
